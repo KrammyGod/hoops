@@ -1,4 +1,5 @@
 const { Pool } = require('pg');
+require('dotenv').config();
 
 const pool = new Pool();
 
@@ -17,6 +18,12 @@ async function query(text, params) {
     }
     return res;
 };
+
+// Dummy user table with only id primary key
+query('SELECT * FROM users').then(rows => {
+    console.log(rows.rows);
+    pool.end();
+});
 
 // Use to end pool whenever server shuts down, is asynchronous.
 // pool.end();

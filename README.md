@@ -22,3 +22,29 @@ PGUSER=user_name
 PGPASSWORD=password
 ```
 Replacing `user_name` with your username, `password` with your password, and `test_db` with whatever database you wish to use. REMEMBER TO NOT COMMIT THIS FILE!!!! (should be already included in .gitignore)
+
+# Importing CSV Datasets
+Create a temporary table with ALL the columns in the CSV, so that we can use the `\copy` command:
+```
+CREATE TEMPORARY TABLE tmp (column_names data_type);
+```
+Remember that you can also modify this table for values that should be NULL, but aren't:
+```
+UPDATE tmp SET column = NULL WHERE column = 'NA'
+```
+Then, create the actual table with the dataset we want:
+```
+CREATE TABLE table_name (column_names data_type);
+```
+Copy all values from CSV to temporary table:
+```
+\copy tmp FROM '/path/to/file' WITH (HEADER MATCH, FORMAT csv);
+```
+Copy all required columns from tmp to actual table:
+```
+INSERT INTO table_name SELECT column_names FROM tmp;
+```
+Delete tmp to reuse:
+```
+DROP TABLE tmp;
+```

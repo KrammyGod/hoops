@@ -23,6 +23,10 @@ PGPASSWORD=password
 ```
 Replacing `user_name` with your username, `password` with your password, and `test_db` with whatever database you wish to use. REMEMBER TO NOT COMMIT THIS FILE!!!! (should be already included in .gitignore)
 
+# Directories
+
+~/sql <- folder containing all .sql files (schema/queries)
+
 # Importing CSV Datasets
 Create a temporary table with ALL the columns in the CSV, so that we can use the `\copy` command:
 ```

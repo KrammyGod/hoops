@@ -1,45 +1,46 @@
 CREATE TABLE hUser (
-	uid int not null PRIMARY KEY,
-	hash varchar(256),
-	email varchar(256),
-	uName varchar(256),
+	uid SERIAL PRIMARY KEY,
+	hash text,
+	email text,
+	uName text,
 	uRole varchar(20)
 );
 
 CREATE TABLE player (
-	pid int not null PRIMARY KEY,
-	firstName varchar(256),
-	lastName varchar(256)
+	pid SERIAL PRIMARY KEY,
+	firstName text,
+	lastName text
 );
 
 /* many to many relationship (should prob do one to many) */
 CREATE TABLE bookmarks (
-	uid int references hoopsUser,
-	pid int references player,
+	uid int REFERENCES huser,
+	pid int REFERENCES player,
 	PRIMARY KEY (uid, pid)
 );
 
 
 CREATE TABLE team (
-	abbrev varchar(5) not null PRIMARY KEY,
-	tName varchar(256)
+	abbrev varchar(5) NOT NULL PRIMARY KEY,
+	tName text
 );
 
 CREATE TABLE teamStats (
-	abbrev varchar(5),
+	abbrev varchar(5) NOT NULL,
 	wins int,
 	losses int,
-	FOREIGN KEY (abbrev) references team(abbrev)
+	season int NOT NULL,
+	FOREIGN KEY (abbrev) REFERENCES team(abbrev)
 );
 
 CREATE TABLE playerStats (
-	pid int,
+	pid int NOT NULL,
 	assists int, 
 	rebounds int,
 	points int,
 	games int,
-	season int,
-	abbrev varchar(5),
-	FOREIGN KEY (pid) references player(pid),
-	FOREIGN KEY (abbrev) references team(abbrev)
+	season int NOT NULL,
+	abbrev varchar(5) NOT NULL,
+	FOREIGN KEY (pid) REFERENCES player(pid),
+	FOREIGN KEY (abbrev) REFERENCES team(abbrev)
 );

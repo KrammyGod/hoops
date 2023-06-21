@@ -44,3 +44,12 @@ CREATE TABLE playerStats (
 	FOREIGN KEY (pid) REFERENCES player(pid),
 	FOREIGN KEY (abbrev) REFERENCES team(abbrev)
 );
+
+CREATE TABLE teamMember (
+	pid SERIAL NOT NULL,
+	abbrev varchar(5) NOT NULL,
+	season int NOT NULL,
+	FOREIGN KEY (pid) REFERENCES Player(pid),
+	FOREIGN KEY (abbrev) REFERENCES Team(abbrev),
+	PRIMARY KEY (pid, abbrev, season)
+);

@@ -1,4 +1,4 @@
-CREATE TABLE hUser (
+CREATE TABLE HUser (
 	uid SERIAL PRIMARY KEY,
 	hash text,
 	email text,
@@ -6,50 +6,39 @@ CREATE TABLE hUser (
 	uRole varchar(20)
 );
 
-CREATE TABLE player (
+CREATE TABLE Player (
 	pid SERIAL PRIMARY KEY,
 	firstName text,
 	lastName text
 );
 
-/* many to many relationship (should prob do one to many) */
-CREATE TABLE bookmarks (
-	uid int REFERENCES huser,
-	pid int REFERENCES player,
+CREATE TABLE Bookmarks (
+	uid int REFERENCES HUser,
+	pid int REFERENCES Player,
 	PRIMARY KEY (uid, pid)
 );
 
 
-CREATE TABLE team (
+CREATE TABLE Team (
 	abbrev varchar(5) NOT NULL PRIMARY KEY,
 	tName text
 );
 
-CREATE TABLE teamStats (
-	abbrev varchar(5) NOT NULL,
+CREATE TABLE TeamStats (
+	abbrev varchar(5) NOT NULL REFERENCES Team,
 	wins int,
 	losses int,
 	season int NOT NULL,
-	FOREIGN KEY (abbrev) REFERENCES team(abbrev)
+	PRIMARY KEY (abbrev, season)
 );
 
-CREATE TABLE playerStats (
-	pid int NOT NULL,
+CREATE TABLE PlayerStats (
+	pid int NOT NULL REFERENCES Player,
 	assists int, 
 	rebounds int,
 	points int,
 	games int,
 	season int NOT NULL,
-	abbrev varchar(5) NOT NULL,
-	FOREIGN KEY (pid) REFERENCES player(pid),
-	FOREIGN KEY (abbrev) REFERENCES team(abbrev)
-);
-
-CREATE TABLE teamMember (
-	pid SERIAL NOT NULL,
-	abbrev varchar(5) NOT NULL,
-	season int NOT NULL,
-	FOREIGN KEY (pid) REFERENCES Player(pid),
-	FOREIGN KEY (abbrev) REFERENCES Team(abbrev),
-	PRIMARY KEY (pid, abbrev, season)
+	abbrev varchar(5) NOT NULL REFERENCES Team,
+	PRIMARY KEY (pid, season, abbrev)
 );

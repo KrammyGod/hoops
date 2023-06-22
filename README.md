@@ -52,3 +52,30 @@ Delete tmp to reuse:
 ```
 DROP TABLE tmp;
 ```
+
+# How to save .out from .sql
+You have two options:
+## Option 1
+In your .sql file, include this line at the top of the file:
+```
+\o sample.out
+```
+and run it with
+```
+cat sample.sql | psql -h db.qqbfgpnkateniubtbotc.supabase.co -p 5432 -d test_db -U user_name
+```
+or on Windows:
+```
+type sample.sql | psql -h db.qqbfgpnkateniubtbotc.supabase.co -p 5432 -d test_db -U user_name
+```
+
+## Option 2
+Simply use output redirection:
+```
+cat sample.sql | psql -h db.qqbfgpnkateniubtbotc.supabase.co -p 5432 -d test_db -U user_name > sample.out
+```
+or on Windows:
+```
+type sample.sql | psql -h db.qqbfgpnkateniubtbotc.supabase.co -p 5432 -d test_db -U user_name > sample.out
+```
+An example of option 1 is included in /examples/sample.sql

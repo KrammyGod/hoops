@@ -18,7 +18,6 @@ CREATE TABLE Bookmarks (
 	PRIMARY KEY (uid, pid)
 );
 
-
 CREATE TABLE Team (
 	abbrev varchar(5) NOT NULL PRIMARY KEY,
 	tName text

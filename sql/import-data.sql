@@ -44,15 +44,15 @@ CREATE TEMPORARY TABLE tmp (
 -- Player table
 INSERT INTO Player (firstName, lastName)
 SELECT DISTINCT ON (player_id)
-    split_part(player, ' ', 1) AS first_name,
-    split_part(player, ' ', 2) AS last_name
+    substring(player, '^\w+') AS firstName,
+    substring(player, '^\w+\s+(.*)') AS lastName
 FROM tmp ORDER BY player_id ASC;
 
 -- PlayerStats table
 INSERT INTO PlayerStats (pid, season, abbrev)
 SELECT player_id, season, tm
 FROM tmp
--- TOT is missing from Team abbrevs
+-- TOT means multiple teams
 WHERE tm <> 'TOT';
 
 DROP TABLE tmp;
@@ -109,8 +109,67 @@ DROP TABLE tmp;
 -----------------------------------------------------------------
 -- Player Totals.csv
 CREATE TABLE tmp (
-
+    seas_id text,
+    -- Our season
+    season int,
+    -- Our pid
+    player_id int,
+    player text,
+    birth_year text,
+    pos text,
+    age text,
+    experience text,
+    lg text,
+    -- Our abbrev
+    tm varchar(5),
+    -- Games
+    g int,
+    gs text,
+    mp text,
+    fg text,
+    fga text,
+    fg_percent text,
+    x3p text,
+    x3pa text,
+    x3p_percent text,
+    x2p text,
+    x2pa text,
+    x2p_percent text,
+    e_fg_percent text,
+    ft text,
+    fta text,
+    ft_percent text,
+    orb text,
+    drb text,
+    -- Total rebounds
+    trb text,
+    -- Assists
+    ast int,
+    stl text,
+    blk text,
+    tov text,
+    pf text,
+    -- Points
+    pts int
 );
+-- Mass insert tmp
+\copy tmp FROM './archive/Player Totals.csv' WITH (HEADER MATCH, FORMAT csv);
+
+-- Set to NULL instead of NA as text to allow converting into int
+UPDATE tmp SET trb = NULL WHERE trb = 'NA';
+
+-- We do upsert trick, if the PK already exists,
+-- we update the values.
+INSERT INTO PlayerStats (pid, season, abbrev, games, assists, rebounds, points)
+SELECT player_id, season, tm, g, ast, trb::int, pts
+FROM tmp WHERE tm <> 'TOT' -- TOT means multiple teams
+ON CONFLICT (pid, season, abbrev) DO UPDATE
+-- This updates all the columns with the ones from tmp
+-- that failed to update due to conflict.
+SET games = EXCLUDED.games,
+    assists = EXCLUDED.assists,
+    rebounds = EXCLUDED.rebounds,
+    points = EXCLUDED.points;
 
 DROP TABLE tmp;
 -----------------------------------------------------------------

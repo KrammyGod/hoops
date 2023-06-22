@@ -14,7 +14,7 @@ CREATE TABLE player (
 
 /* many to many relationship (should prob do one to many) */
 CREATE TABLE bookmarks (
-	uid int REFERENCES hoopsUser,
+	uid int REFERENCES hoopsUser ON DELETE CASCADE,
 	pid int REFERENCES player,
 	PRIMARY KEY (uid, pid)
 );

@@ -10,6 +10,10 @@ Sahij
 - Helped create queries
 
 Brandon
+- Created template for Milestone 1
+- Translated ER diagram to write table definition queries in psql
+- Worked on feature 4 (R9)
+- Organized and attended weekly meetings
 
 Saboor
 

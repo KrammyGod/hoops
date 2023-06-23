@@ -1,9 +1,12 @@
+-- Enum for types of user roles
+CREATE TYPE roleType AS ENUM ('admin', 'user');
+
 CREATE TABLE HUser (
 	uid SERIAL PRIMARY KEY,
 	hash text,
 	email text,
 	uName text,
-	uRole varchar(20)
+	uRole roleType
 );
 
 CREATE TABLE Player (

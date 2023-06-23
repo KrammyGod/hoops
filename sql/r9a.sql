@@ -1,11 +1,11 @@
 /* INSERT PLAYERS INTO WATCHLIST */
-INSERT INTO bookmarks (pid, uid) VALUES (..., ...);
+INSERT INTO Bookmarks (pid, uid) VALUES (1, 2);
 
 /* GET BOOKMARK ENTRY FOR USER */
-SELECT * FROM bookmarks WHERE bookmarks.pid = ... and bookmarks.uid = ...;
+SELECT * FROM Bookmarks WHERE pid = 1 AND uid = 2;
 
 /* GET ALL PLAYERS FROM WATCHLIST */
-SELECT * FROM bookmarks NATURAL JOIN player WHERE bookmarks.uid = ...;
+SELECT * FROM Bookmarks NATURAL JOIN Player WHERE uid = 2;
 
 /* DELETE PLAYERS FROM WATCHLIST */
-DELETE FROM bookmarks WHERE bookmarks.pid = ... and bookmarks.uid = ...;
+DELETE FROM Bookmarks WHERE pid = 1 AND uid = 2;

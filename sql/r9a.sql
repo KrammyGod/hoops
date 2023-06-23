@@ -1,8 +1,8 @@
 /* INSERT PLAYERS INTO WATCHLIST */
-INSERT INTO bookmarks VALUES (..., ...);
+INSERT INTO bookmarks (pid, uid) VALUES (..., ...);
 
-/* GET SINGLE PLAYERS FROM WATCHLIST */
-SELECT * FROM bookmarks, player WHERE player.pid = ... and bookmarks.pid = player.pid;
+/* GET BOOKMARK ENTRY FOR USER */
+SELECT * FROM bookmarks WHERE bookmarks.pid = ... and bookmarks.uid = ...;
 
 /* GET ALL PLAYERS FROM WATCHLIST */
 SELECT * FROM bookmarks NATURAL JOIN player WHERE bookmarks.uid = ...;

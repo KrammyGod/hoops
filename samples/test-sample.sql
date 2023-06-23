@@ -57,3 +57,31 @@ WHERE email = 'brad@gmail.com' and hash = 'f555f';
 /* DELETE USER */
 /* BOOKMARKS DELETED USING ON DELETE CASCADE */
 DELETE FROM HUser WHERE uid = 1;
+
+---------- R6: Sahij ----------
+SELECT 'R6: Sahij' AS FEATURE;
+/* SEARCH FOR PLAYERS */
+SELECT * FROM Player
+WHERE (firstName || ' ' || lastName) ILIKE ('%' || 'john W' || '%');
+
+/* SEARCH FOR TEAMS */
+SELECT * FROM Team WHERE tName ILIKE ('%' || 'ana' || '%');
+
+---------- R9: Brandon ----------
+SELECT 'R9: Brandon' AS FEATURE;
+
+-- Add user to demonstrate bookmarking
+INSERT INTO HUser (hash, email, uName, uRole)
+VALUES ('22f22', 'beta@example.com', 'Beta', 'admin');
+
+/* INSERT PLAYERS INTO WATCHLIST */
+INSERT INTO Bookmarks (pid, uid) VALUES (1, 2);
+
+/* GET BOOKMARK ENTRY FOR USER */
+SELECT * FROM Bookmarks WHERE pid = 1 AND uid = 2;
+
+/* GET ALL PLAYERS FROM WATCHLIST */
+SELECT * FROM Bookmarks NATURAL JOIN Player WHERE uid = 2;
+
+/* DELETE PLAYERS FROM WATCHLIST */
+DELETE FROM Bookmarks WHERE pid = 1 AND uid = 2;

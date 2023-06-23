@@ -13,7 +13,7 @@ CREATE TABLE Player (
 );
 
 CREATE TABLE Bookmarks (
-	uid int REFERENCES HUser,
+	uid int REFERENCES HUser ON DELETE CASCADE,
 	pid int REFERENCES Player,
 	PRIMARY KEY (uid, pid)
 );

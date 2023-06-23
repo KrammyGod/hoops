@@ -24,7 +24,8 @@ SELECT abbrev, tname,
        ROUND(AVG(losses)) AS losses,
        COUNT(season) AS seasons
 FROM Team NATURAL JOIN TeamStats
-GROUP BY abbrev, tname;
+GROUP BY abbrev, tname
+LIMIT 20;
 
 /* GETTING AGGREGATE STATS FOR PLAYER */
 SELECT pid, firstName || ' ' || lastName AS name,
@@ -34,7 +35,8 @@ SELECT pid, firstName || ' ' || lastName AS name,
        ROUND(SUM(games)) AS games,
        ROUND(COUNT(season)) AS seasons
 FROM Player NATURAL JOIN PlayerStats
-GROUP BY pid, firstName, lastName;
+GROUP BY pid, firstName, lastName
+LIMIT 20;
 
 ---------- R8: Saboor ----------
 SELECT 'R8: Saboor' AS FEATURE;

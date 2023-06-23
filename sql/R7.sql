@@ -2,8 +2,7 @@
 SELECT * FROM Player WHERE pid = 120;
 
 /* GET ALL OTHER PLAYER STATS */
-SELECT firstName || ' ' || lastName AS name,
-       assists, points, games, season, abbrev, tname 
+SELECT assists, points, games, season, abbrev, tname 
 FROM Player NATURAL JOIN PlayerStats NATURAL JOIN Team
 WHERE pid = 120
 ORDER BY season DESC;

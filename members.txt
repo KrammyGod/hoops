@@ -16,11 +16,13 @@ Brandon
 - Organized and attended weekly meetings
 
 Saboor
+- Helped test database permissions
+- Helped with the Database Design
+- Implemented feature 8 and completed R8a and R8b
+- Attended weekly meetings
 
 Sahl
-- Updated R1 and helped create project template
-- Had major role in creation of ER diagram for R5b
-- Wrote assumptions for R5a
-- Translated ER diagram for R5c
-- Implemented feature 7 and completed R7a and R7b
-- Attended weekly meetings
+- Participated in writeup for Milestone 1
+- Created and translated ER diagram for R5abc
+- Implemented feature 7 and completed R7ab
+- Organized and attended weekly meetings

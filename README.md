@@ -27,6 +27,8 @@ Replacing `user_name` with your username, `password` with your password, and `te
 
 ~/sql <- folder containing all .sql files (schema/queries)
 
+~/samples <- folder containing test input/output for features
+
 # Importing CSV Datasets
 Create a temporary table with ALL the columns in the CSV, so that we can use the `\copy` command:
 ```
@@ -78,4 +80,4 @@ or on Windows:
 ```
 type sample.sql | psql -h db.qqbfgpnkateniubtbotc.supabase.co -p 5432 -d test_db -U user_name > sample.out
 ```
-An example of option 1 is included in /examples/sample.sql
+An example of option 1 is included in ~/examples/sample.sql

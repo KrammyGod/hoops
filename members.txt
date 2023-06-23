@@ -7,3 +7,9 @@ Brandon
 Saboor
 
 Sahl
+- Updated R1 and helped create project template
+- Had major role in creation of ER diagram for R5b
+- Wrote assumptions for R5a
+- Translated ER diagram for R5c
+- Implemented feature 7 and completed R7a and R7b
+- Attended weekly meetings

@@ -1,6 +1,13 @@
 Mark
+- Maintained and organized merge of github and database
+- Imported sample data into sample database
+- Reviewed SQL queries of features
 
 Sahij
+- Had major role in creation of ER diagram
+- Helped organize and attend weekly meetings
+- Helped design the database
+- Helped create queries
 
 Brandon
 

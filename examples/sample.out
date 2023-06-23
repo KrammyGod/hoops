@@ -1,0 +1,114 @@
+ abbrev |               tname               
+--------+-----------------------------------
+ ANA    | Anaheim Amigos
+ AND    | Anderson Packers
+ ATL    | Atlanta Hawks
+ BAL    | Baltimore Bullets
+ BLB    | Baltimore Bullets
+ BOS    | Boston Celtics
+ BRK    | Brooklyn Nets
+ BUF    | Buffalo Braves
+ CAP    | Capital Bullets
+ CAR    | Carolina Cougars
+ CHA    | Charlotte Bobcats
+ CHH    | Charlotte Hornets
+ CHI    | Chicago Bulls
+ CHO    | Charlotte Hornets
+ CHP    | Chicago Packers
+ CHS    | Chicago Stags
+ CHZ    | Chicago Zephyrs
+ CIN    | Cincinnati Royals
+ CLE    | Cleveland Cavaliers
+ CLR    | Cleveland Rebels
+ DAL    | Dallas Mavericks
+ DEN    | Denver Nuggets
+ DET    | Detroit Pistons
+ DLC    | Dallas Chaparrals
+ DNA    | Denver Nuggets
+ DNN    | Denver Nuggets
+ DNR    | Denver Rockets
+ DTF    | Detroit Falcons
+ FLO    | The Floridians
+ FTW    | Fort Wayne Pistons
+ GSW    | Golden State Warriors
+ HOU    | Houston Rockets
+ HSM    | Houston Mavericks
+ INA    | Indiana Pacers
+ IND    | Indiana Pacers
+ INJ    | Indianapolis Jets
+ INO    | Indianapolis Olympians
+ KCK    | Kansas City Kings
+ KCO    | Kansas City-Omaha Kings
+ KEN    | Kentucky Colonels
+ LAC    | Los Angeles Clippers
+ LAL    | Los Angeles Lakers
+ LAS    | Los Angeles Stars
+ MEM    | Memphis Grizzlies
+ MIA    | Miami Heat
+ MIL    | Milwaukee Bucks
+ MIN    | Minnesota Timberwolves
+ MLH    | Milwaukee Hawks
+ MMF    | Miami Floridians
+ MMP    | Memphis Pros
+ MMS    | Memphis Sounds
+ MMT    | Memphis Tams
+ MNL    | Minneapolis Lakers
+ MNM    | Minnesota Muskies
+ MNP    | Minnesota Pipers
+ NA     | League Average
+ NJA    | New Jersey Americans
+ NJN    | New Jersey Nets
+ NOB    | New Orleans Buccaneers
+ NOH    | New Orleans Hornets
+ NOJ    | New Orleans Jazz
+ NOK    | New Orleans/Oklahoma City Hornets
+ NOP    | New Orleans Pelicans
+ NYA    | New York Nets
+ NYK    | New York Knicks
+ NYN    | New York Nets
+ OAK    | Oakland Oaks
+ OKC    | Oklahoma City Thunder
+ ORL    | Orlando Magic
+ PHI    | Philadelphia 76ers
+ PHO    | Phoenix Suns
+ PHW    | Philadelphia Warriors
+ PIT    | Pittsburgh Ironmen
+ POR    | Portland Trail Blazers
+ PRO    | Providence Steamrollers
+ PTC    | Pittsburgh Condors
+ PTP    | Pittsburgh Pipers
+ ROC    | Rochester Royals
+ SAA    | San Antonio Spurs
+ SAC    | Sacramento Kings
+ SAS    | San Antonio Spurs
+ SDA    | San Diego Conquistadors
+ SDC    | San Diego Clippers
+ SDR    | San Diego Rockets
+ SDS    | San Diego Sails
+ SEA    | Seattle SuperSonics
+ SFW    | San Francisco Warriors
+ SHE    | Sheboygan Red Skins
+ SSL    | Spirits of St. Louis
+ STB    | St. Louis Bombers
+ STL    | St. Louis Hawks
+ SYR    | Syracuse Nationals
+ TEX    | Texas Chaparrals
+ TOR    | Toronto Raptors
+ TRH    | Toronto Huskies
+ TRI    | Tri-Cities Blackhawks
+ UTA    | Utah Jazz
+ UTS    | Utah Stars
+ VAN    | Vancouver Grizzlies
+ VIR    | Virginia Squires
+ WAS    | Washington Wizards
+ WAT    | Waterloo Hawks
+ WSA    | Washington Capitols
+ WSB    | Washington Bullets
+ WSC    | Washington Capitols
+(105 rows)
+
+UPDATE 0
+ uid | hash | email | uname | urole 
+-----+------+-------+-------+-------
+(0 rows)
+

@@ -92,3 +92,7 @@ async function deleteUser(uid) {
     // No return value required
     return query('DELETE FROM HUser WHERE uid = $1', [uid]);
 }
+
+module.exports = {
+    login
+};

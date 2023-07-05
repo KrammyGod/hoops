@@ -1,6 +1,5 @@
-const { Pool } = require('pg');
-require('dotenv').config();
-
+import pg from "pg";
+const { Pool } = pg;
 const pool = new Pool();
 
 async function query(text, params) {
@@ -21,7 +20,7 @@ async function query(text, params) {
 
 // Feature: Smart searching for players and teams
 /* Returns all players matching name */
-async function searchPlayerByName(name) {
+export async function searchPlayerByName(name) {
     const res = await query(`
         SELECT * FROM Player
         WHERE (firstName || ' ' || lastName) ILIKE
@@ -31,7 +30,7 @@ async function searchPlayerByName(name) {
 }
 
 /* Returns all teams matching name */
-async function searchTeamByName(name) {
+export async function searchTeamByName(name) {
     const res = await query(`
         SELECT * FROM Team
         WHERE tName ILIKE ('%' || $1 || '%')
@@ -51,22 +50,22 @@ async function insertUser(email, password, name, role) {
     return res.rows[0];
 }
 
-function addUser(email, password, name) {
+export function addUser(email, password, name) {
     return insertUser(email, password, name, 'user');
 }
 
-function addAdmin(email, password, name) {
+export function addAdmin(email, password, name) {
     return insertUser(email, password, name, 'admin');
 }
 
-async function getUser(uid) {
+export async function getUser(uid) {
     return query(`
         SELECT * FROM HUser
         WHERE uid = $1
     `, [uid]).then(res => res.rows[0]);
 }
 
-async function updateUser(uid, email, password, name) {
+export async function updateUser(uid, email, password, name) {
     // Returns the user that was updated to ensure successful update
     // TODO: Call hash password function?
     const res = await query(`
@@ -79,7 +78,7 @@ async function updateUser(uid, email, password, name) {
 }
 
 /* Returns true if login is successful */
-async function login(email, password) {
+export async function login(email, password) {
     // TODO: Hash?
     const res = await query(`
         SELECT * FROM HUser
@@ -88,11 +87,7 @@ async function login(email, password) {
     return res.rows.length !== 0;
 }
 
-async function deleteUser(uid) {
+export async function deleteUser(uid) {
     // No return value required
     return query('DELETE FROM HUser WHERE uid = $1', [uid]);
 }
-
-module.exports = {
-    login
-};

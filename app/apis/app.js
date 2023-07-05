@@ -1,17 +1,18 @@
-import express from "express"
-import dotenv from "dotenv"
-import { login } from "../modules/database.js"
+import dotenv from "dotenv";
+import express from "express";
+import * as DB from "../modules/database.js";
 dotenv.config();
 
 const app = express();
-const port = 5000;
+const PORT = 5000;
 
-app.use(express.json())
+app.use(express.json());
 
 app.use('/', async (req, res) => {
-    res.send(await login(process.env.PGUSER, process.env.PGPASSWORD));
-})
+    const loggedIn = await DB.login('placeholder email', 'placeholder pass');
+    res.send(loggedIn);
+});
 
-app.listen(port, () => {
-    console.log(`App is listening on port ${port}`)
-  })
+app.listen(PORT, () => {
+    console.log(`App is listening on port ${PORT}`)
+});

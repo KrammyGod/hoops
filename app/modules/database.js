@@ -1,6 +1,5 @@
-const { Pool } = require('pg');
-require('dotenv').config();
-
+import pg from "pg"
+const { Pool } = pg;
 const pool = new Pool();
 
 async function query(text, params) {
@@ -79,7 +78,7 @@ async function updateUser(uid, email, password, name) {
 }
 
 /* Returns true if login is successful */
-async function login(email, password) {
+export async function login(email, password) {
     // TODO: Hash?
     const res = await query(`
         SELECT * FROM HUser
@@ -92,7 +91,3 @@ async function deleteUser(uid) {
     // No return value required
     return query('DELETE FROM HUser WHERE uid = $1', [uid]);
 }
-
-module.exports = {
-    login
-};

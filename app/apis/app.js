@@ -1,6 +1,7 @@
-const express = require('express')
-const DB = require('../modules/database')
-require('dotenv').config();
+import express from "express"
+import dotenv from "dotenv"
+import { login } from "../modules/database.js"
+dotenv.config();
 
 const app = express();
 const port = 5000;
@@ -8,7 +9,7 @@ const port = 5000;
 app.use(express.json())
 
 app.use('/', async (req, res) => {
-    res.send(await DB.login('admin', 'admin'));
+    res.send(await login(process.env.PGUSER, process.env.PGPASSWORD));
 })
 
 app.listen(port, () => {

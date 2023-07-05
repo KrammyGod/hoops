@@ -14,7 +14,7 @@ Finally, if you are tired of typing your password all the time, you can do
 
 You can simply replace `test_db` with whatever the database name is, once we confirm a name.
 
-To login locally in the repo, you must put the following in your repo's .env file (you have to create one, a sample has been provided)
+To login locally in the repo, you must put the following in app/.env file (you have to create one, a sample has been provided)
 ```
 PGHOST=db.qqbfgpnkateniubtbotc.supabase.co
 PGDATABASE=test_db

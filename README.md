@@ -81,3 +81,18 @@ or on Windows:
 type sample.sql | psql -h db.qqbfgpnkateniubtbotc.supabase.co -p 5432 -d test_db -U user_name > sample.out
 ```
 An example of option 1 is included in ~/examples/sample.sql
+
+
+## Using Next.js
+
+First, run the development server:
+
+```bash
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

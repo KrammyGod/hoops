@@ -1,22 +1,25 @@
 import { useState } from "react"
-import { Dropdown } from "react-bootstrap"
+import { Button, Table, Offcanvas } from "react-bootstrap"
 
 export default () => {
     const [isOpen, open] = useState(false);
-    return (
-        <Dropdown show={isOpen}>
-            <Dropdown.Toggle 
-                onMouseOver={() => open(true)} 
-                onMouseLeave={() => open(false)}
-            >
-                Bookmarks
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-                <Dropdown.Item>See all players</Dropdown.Item>
-                <Dropdown.Item></Dropdown.Item>
-                
-            </Dropdown.Menu>
+    const handleClose = () => open(false);
+    const toggleShow = () => open((s) => !s);
 
-        </Dropdown>
+    return (
+        <>
+            <Button variant="secondary" onClick={toggleShow}>
+                Bookmarks
+            </Button>
+            <Offcanvas show={isOpen} onHide={handleClose} scroll={true} backdrop={false}>
+            <Offcanvas.Header closeButton>
+                <Offcanvas.Title>Offcanvas</Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+                Some text as placeholder. In real life you can have the elements you
+                have chosen. Like, text, images, lists, etc.
+            </Offcanvas.Body>
+            </Offcanvas>
+        </>
     );
 }

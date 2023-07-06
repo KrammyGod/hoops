@@ -1,45 +1,6 @@
-import pg from "pg";
-const { Pool } = pg;
-const pool = new Pool();
+import { query } from "../modules/pool";
 
-async function query(text, params) {
-    const client = await pool.connect();
-    let res = undefined;
-    try {
-        await client.query('BEGIN');
-        res = await client.query(text, params);
-        await client.query('COMMIT');
-    } catch (err) {
-        await client.query('ROLLBACK');
-        throw err;
-    } finally {
-        client.release();
-    }
-    return res;
-};
-
-// Feature: Smart searching for players and teams
-/* Returns all players matching name */
-export async function searchPlayerByName(name) {
-    const res = await query(`
-        SELECT * FROM Player
-        WHERE (firstName || ' ' || lastName) ILIKE
-        ('%' || $1 || '%')
-    `, [name]);
-    return res.rows;
-}
-
-/* Returns all teams matching name */
-export async function searchTeamByName(name) {
-    const res = await query(`
-        SELECT * FROM Team
-        WHERE tName ILIKE ('%' || $1 || '%')
-    `, [name]);
-    return res.rows;
-}
-
-// Feature: Modifying users
-async function insertUser(email, password, name, role) {
+export async function insertUser(email, password, name, role) {
     // Returns the user that was inserted to ensure successful insertion
     // TODO: Hash password
     const res = await query(`

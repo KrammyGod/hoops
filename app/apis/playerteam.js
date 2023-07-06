@@ -19,6 +19,11 @@ async function searchTeamByName(name) {
     return res.rows;
 }
 /* USED FOR PUBLIC FACING THINGS ("/player/:id")
+postman body = raw json
+{
+    "name": "Al Brightman"
+}
+
 export const searchPlayerByName = async (req, res) => {
     //console.log(req.params.id);
     try {

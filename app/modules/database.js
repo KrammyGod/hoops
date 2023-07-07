@@ -148,3 +148,4 @@ export async function getAllTeamStats() {
         GROUP BY abbrev, tname`);
     return res.rows
 }
+

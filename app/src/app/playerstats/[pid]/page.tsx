@@ -1,9 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { getPlayerStats } from "../../../../modules/database";
 
-export default function PlayerStats({ params }: { 
+export default function PlayerStats({ params }: {
     params: { pid: string } 
 }) {    
     const [firstName, setFirstName] = useState([])
@@ -12,7 +11,7 @@ export default function PlayerStats({ params }: {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        fetch(`http://localhost:5002/playerstats/${params.pid}`)
+        fetch(`http://localhost:5000/playerstats/${params.pid}`)
           .then(response => response.json())
           .then(data => {
             setPlayerStats(data.stats)
@@ -22,7 +21,7 @@ export default function PlayerStats({ params }: {
           .catch(error => {
             setError(error)
           })
-    }, [])
+    }, [params.pid])
 
     return (
         <div>

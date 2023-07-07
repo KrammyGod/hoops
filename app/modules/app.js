@@ -1,6 +1,7 @@
 import dotenv from "dotenv";
 import express from "express";
 import { searchPlayerByName } from "../apis/playerteam.js";
+import { getLeaderboards } from "../apis/leaderboards.js";
 import cors from "cors";
 dotenv.config();
 
@@ -10,6 +11,7 @@ app.use(cors());
 
 const PORT = 5000;
 
+app.get("/leaderboards/:type", getLeaderboards);
 /* USED FOR PUBLIC FACING THINGS (like player id but NOT user id)
 app.get("/player/:id", searchPlayerByName)
 */

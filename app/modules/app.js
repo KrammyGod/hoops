@@ -1,9 +1,12 @@
 import dotenv from "dotenv";
 import express from "express";
+import { searchPlayerByName } from "../apis/playerteam.js";
+import cors from "cors";
+dotenv.config();
+
 const app = express();
 app.use(express.json());
-import { searchPlayerByName } from "../apis/playerteam.js"
-dotenv.config();
+app.use(cors());
 
 const PORT = 5000;
 

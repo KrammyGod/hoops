@@ -3,7 +3,7 @@ import dotenv from 'dotenv';
 
 const { Pool } = pg;
 dotenv.config();
-export const pool = new Pool();
+const pool = new Pool();
 
 export const query = async (text, params) => {
     const client = await pool.connect();

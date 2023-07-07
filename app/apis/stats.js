@@ -40,7 +40,8 @@ export async function getAllPlayerStats() {
         ROUND(SUM(games)) AS games,
         ROUND(COUNT(season)) AS seasons
         FROM Player NATURAL JOIN PlayerStats
-        GROUP BY pid, firstName, lastName`);
+        GROUP BY pid, firstName, lastName
+        ORDER BY name`);
     return res.rows;
 };
 
@@ -52,6 +53,7 @@ export async function getAllTeamStats() {
         ROUND(AVG(losses)) AS losses,
         COUNT(season) AS seasons
         FROM Team NATURAL JOIN TeamStats
-        GROUP BY abbrev, tname`);
+        GROUP BY abbrev, tname
+        ORDER BY abbrev`);
     return res.rows;
 };

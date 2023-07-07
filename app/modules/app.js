@@ -1,7 +1,5 @@
 import dotenv from "dotenv";
 import express from "express";
-
-import { searchPlayerByName } from "../apis/playerteam.js"
 import { createBookmark, getBookmarks, deleteBookmark } from "../apis/bookmarks.js";
 import { searchPlayerByName } from "../apis/playerteam.js";
 import cors from "cors";

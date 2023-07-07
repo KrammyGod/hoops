@@ -45,7 +45,7 @@ export const deleteBookmark = async (req, res) => {
             'DELETE FROM Bookmarks WHERE pid = $1 AND uid = $2 RETURNING *',
             [req.body.pid, req.body.uid]
         )
-        res.status(200).json({ data: "DELETED player=" + pid + " bookmarked by " + uid })
+        res.status(200).json({ data: {pid: req.body.pid, uid: req.body.uid} })
     } catch (err) {
         res.status(501).json({ messages: err.stack });
     }

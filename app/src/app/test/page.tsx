@@ -5,7 +5,7 @@ export default function TestPage() {
     return (
         <>
             <BookmarkList></BookmarkList>
-            <BookmarkBtn pid={3} uid={1}></BookmarkBtn>
+            <BookmarkBtn pid={5} uid={1}></BookmarkBtn>
         </>
     );
 }

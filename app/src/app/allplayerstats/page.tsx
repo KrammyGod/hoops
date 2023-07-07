@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { API } from "../config";
 
 export default function AllPlayerStats() {    
     
@@ -8,7 +9,7 @@ export default function AllPlayerStats() {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        fetch(`http://localhost:5000/allplayerstats`)
+        fetch(`${API}/allplayerstats`)
           .then(response => response.json())
           .then(data => {
             setStats(data)

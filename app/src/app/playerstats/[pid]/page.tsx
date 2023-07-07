@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { API } from "../../config";
 
 export default function PlayerStats({ params }: {
     params: { pid: string } 
@@ -11,7 +12,7 @@ export default function PlayerStats({ params }: {
     const [error, setError] = useState(null)
 
     useEffect(() => {
-        fetch(`http://localhost:5000/playerstats/${params.pid}`)
+        fetch(`${API}/playerstats/${params.pid}`)
           .then(response => response.json())
           .then(data => {
             setPlayerStats(data.stats)

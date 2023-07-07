@@ -3,6 +3,7 @@ import express from "express";
 const app = express();
 app.use(express.json());
 import { searchPlayerByName } from "../apis/playerteam.js"
+import { createBookmark } from "../apis/bookmarks.js";
 dotenv.config();
 
 const PORT = 5000;
@@ -10,6 +11,7 @@ const PORT = 5000;
 /* USED FOR PUBLIC FACING THINGS (like player id but NOT user id)
 app.get("/player/:id", searchPlayerByName)
 */
+app.post("/bookmarks", createBookmark),
 app.get("/player", searchPlayerByName)
 app.use("/", async (req, res) => 
     res.send("success")

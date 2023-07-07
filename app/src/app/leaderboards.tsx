@@ -91,6 +91,7 @@ export default function Leaderboards() {
         <ToggleButtonGroup name="types" type="radio" value={radioValue} onChange={radioChange}>
             {radios.map((radio, idx) => (
                 <ToggleButton
+                    key={idx}
                     id={`radio-${idx}`}
                     value={radio.value}
                     variant="secondary"

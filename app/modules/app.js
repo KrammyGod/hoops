@@ -3,18 +3,22 @@ import express from "express";
 const app = express();
 app.use(express.json());
 import { searchPlayerByName } from "../apis/playerteam.js"
-import { createBookmark } from "../apis/bookmarks.js";
+import { createBookmark, getBookmarks, isBookmarked, deleteBookmark } from "../apis/bookmarks.js";
 dotenv.config();
 
 const PORT = 5000;
 
+// bookmarks api route
+app.post("/bookmarks", createBookmark)
+app.get("/bookmarks", getBookmarks) 
+app.delete("/bookmarks", deleteBookmark)
+
 /* USED FOR PUBLIC FACING THINGS (like player id but NOT user id)
 app.get("/player/:id", searchPlayerByName)
 */
-app.post("/bookmarks", createBookmark),
 app.get("/player", searchPlayerByName)
 app.use("/", async (req, res) => 
-    res.send("success")
+    res.json({ messages: "ERROR. ROUTE NOT FOUND." })
 )
 
 app.listen(PORT, () => {

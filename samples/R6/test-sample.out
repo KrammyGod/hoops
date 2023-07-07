@@ -1,0 +1,19 @@
+ pid  | firstname |  lastname  
+------+-----------+------------
+  803 | John      | Windsor
+  992 | John      | Wetzel
+ 1200 | John      | Warren
+ 1514 | John      | Williamson
+ 2313 | John      | Williams
+ 2997 | John      | Wallace
+ 3951 | John      | Wall
+(7 rows)
+
+ abbrev |         tname          
+--------+------------------------
+ ANA    | Anaheim Amigos
+ INA    | Indiana Pacers
+ IND    | Indiana Pacers
+ INJ    | Indianapolis Jets
+ INO    | Indianapolis Olympians
+(5 rows)

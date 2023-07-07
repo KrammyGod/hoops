@@ -3,7 +3,7 @@ import express from "express";
 const app = express();
 app.use(express.json());
 import { searchPlayerByName } from "../apis/playerteam.js"
-import { createBookmark, getBookmarks, isBookmarked, deleteBookmark } from "../apis/bookmarks.js";
+import { createBookmark, getBookmarks, deleteBookmark } from "../apis/bookmarks.js";
 dotenv.config();
 
 const PORT = 5000;

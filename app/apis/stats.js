@@ -1,7 +1,6 @@
 import { query } from "../modules/pool.js";
 
-/*
-/*  Gets Player Stats 
+/*  Gets Player Stats */
 export async function getPlayerStats(pid) {
     const res1 = await query('SELECT * FROM Player WHERE pid = $1', [pid]);
     const res2 = await query(`
@@ -17,7 +16,7 @@ export async function getPlayerStats(pid) {
     };
 };
 
-/*  Gets Team Stats
+/*  Gets Team Stats */
 export async function getTeamStats(abbrev) {
     const res1 = await query('SELECT * FROM Team WHERE abbrev LIKE $1', [abbrev]);
     const res2 = await query(`
@@ -31,7 +30,7 @@ export async function getTeamStats(abbrev) {
     };
 };
 
-/*  Gets All Players Stats
+/*  Gets All Players Stats */
 export async function getAllPlayerStats() {
     const res = await query(`
         SELECT pid, firstName || ' ' || lastName AS name,
@@ -45,11 +44,10 @@ export async function getAllPlayerStats() {
         ORDER BY name`);
     return res.rows;
 };
-*/
 
 /*  Gets All Teams Stats */
-export async function getAllTeamStats(req, res) {
-    const data = await query(`
+export async function getAllTeamStats() {
+    const res = await query(`
         SELECT abbrev, tname,
         ROUND(AVG(wins)) AS wins,
         ROUND(AVG(losses)) AS losses,
@@ -57,5 +55,5 @@ export async function getAllTeamStats(req, res) {
         FROM Team NATURAL JOIN TeamStats
         GROUP BY abbrev, tname
         ORDER BY abbrev`);
-    res.json({data});
+    return res.rows;
 };

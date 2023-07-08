@@ -12,7 +12,7 @@ export default ({
     
     if (!fromBookmarksList) {
         useEffect(() => {
-            fetch(API + "/bookmarks/show", {
+            fetch(API + "/bookmarks/get", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -30,7 +30,7 @@ export default ({
         mark((s) => !s)
 
         if (!isMarked) {
-            fetch(API + "/bookmarks", {
+            fetch(API + "/bookmarks/create", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -42,7 +42,7 @@ export default ({
                 () => { mark(false) }
             )
         } else {
-            fetch(API + "/bookmarks", {
+            fetch(API + "/bookmarks/delete", {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json"

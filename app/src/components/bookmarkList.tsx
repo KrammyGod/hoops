@@ -12,7 +12,7 @@ export default ({uid}: {uid: number}) => {
     const [bookmarks, setBookmarks] = useState([]);
 
     useEffect(() => {
-        fetch(API + "/bookmarks/show", {
+        fetch(API + "/bookmarks/get", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"

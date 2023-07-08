@@ -1,0 +1,13 @@
+INSERT 0 1
+INSERT 0 1
+ uid | pid 
+-----+-----
+   2 |   1
+(1 row)
+
+ pid | uid | firstname | lastname  
+-----+-----+-----------+-----------
+   1 |   2 | Al        | Brightman
+(1 row)
+
+DELETE 1

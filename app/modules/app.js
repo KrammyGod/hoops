@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import express from "express";
 import { searchPlayerByName } from "../apis/playerteam.js";
 import { getPlayerStats, getTeamStats, getAllPlayerStats, getAllTeamStats } from "../apis/stats.js";
+import { getLeaderboards } from "../apis/leaderboards.js";
 import cors from "cors";
 dotenv.config();
 
@@ -30,6 +31,8 @@ app.get('/allteamstats', async (req, res) => {
     const stats = await getAllTeamStats()
     res.send(stats);
 });
+
+app.get("/leaderboards/:type", getLeaderboards);
 /* USED FOR PUBLIC FACING THINGS (like player id but NOT user id)
 app.get("/player/:id", searchPlayerByName)
 */

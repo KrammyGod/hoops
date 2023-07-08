@@ -64,7 +64,7 @@ async function mbp() {
 export async function getLeaderboards(req, res) {
     try {
         let data = null;
-        switch (req.params.type) {
+        switch (req.query.type) {
             case "twpt":
                 data = await twpt();
                 break;

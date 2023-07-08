@@ -1,6 +1,6 @@
 "use client"
-import BookmarkList from "@/components/BookmarkList";
-import BookmarkBtn from "@/components/BookmarkBtn";
+import BookmarkBtn from "../bookmarks/BookmarkBtn";
+import BookmarkList from "../bookmarks/BookmarkList";
 export default function TestPage() {
     return (
         <>

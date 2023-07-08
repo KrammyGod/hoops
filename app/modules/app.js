@@ -32,11 +32,13 @@ app.get('/allteamstats', async (req, res) => {
     res.send(stats);
 });
 
-app.get("/leaderboards/:type", getLeaderboards);
+app.get("/leaderboards/:type", getLeaderboards)
 /* USED FOR PUBLIC FACING THINGS (like player id but NOT user id)
 app.get("/player/:id", searchPlayerByName)
 */
+
 app.get("/player", searchPlayerByName)
+
 app.use("/", async (req, res) => 
     res.send("success")
 )

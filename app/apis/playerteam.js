@@ -11,7 +11,7 @@ async function searchPlayerName(name) {
 }
 
 /* Returns all teams matching name */
-async function searchTeamByName(name) {
+async function searchTeamName(name) {
     const res = await query(`
         SELECT * FROM Team
         WHERE tName ILIKE ('%' || $1 || '%')
@@ -23,17 +23,18 @@ postman body = raw json
 {
     "name": "Al Brightman"
 }
+*/
 
-export const searchPlayerByName = async (req, res) => {
+export const searchTeamByName = async (req, res) => {
     //console.log(req.params.id);
     try {
-        const data = await searchPlayerName(req.params.id);
+        const data = await searchTeamName(req.params.id);
         res.status(200).json({ data });
     } catch (err) {
         res.status(501).json({ messages: err.stack });
     }
 }
-*/
+
 export const searchPlayerByName = async (req, res) => {
     try {
         const data = await searchPlayerName(req.body.name);

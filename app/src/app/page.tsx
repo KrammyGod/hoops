@@ -4,8 +4,8 @@ import Leaderboards from './leaderboards'
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div class="card">
-        <div class="card-body">
+      <div className="card">
+        <div className="card-body">
           By Hoops Team
         </div>
       </div>

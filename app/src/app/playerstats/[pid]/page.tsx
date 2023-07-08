@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { API } from "../../config";
+import { API } from "../../config"
+import React from "react"
 
 export default function PlayerStats({ params }: {
     params: { pid: string } 
@@ -19,9 +20,7 @@ export default function PlayerStats({ params }: {
             setFirstName(data.player.firstname)
             setLastName(data.player.lastname)
           })
-          .catch(error => {
-            setError(error)
-          })
+          .catch(error => setError(error))
     }, [params.pid])
 
     return (

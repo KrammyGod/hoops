@@ -1,6 +1,10 @@
 import { getTeamStats } from "../../../apis/stats"
 
 export default async function teamstats(req, res) {
-    const stats = await getTeamStats(req.query.abbrev);
-    res.send(stats);
-};
+    try {
+        const data = await getTeamStats(req.query.abbrev)
+        res.status(200).send(data)
+    } catch (err) {
+        res.status(500).json(err)
+    }
+}

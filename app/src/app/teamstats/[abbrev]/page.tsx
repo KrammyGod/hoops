@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useEffect } from "react"
-import { API } from "../../config";
+import { API } from "../../config"
+import React from "react"
 
 export default function PlayerStats({ params }: {
     params: { abbrev: string }
@@ -17,9 +18,7 @@ export default function PlayerStats({ params }: {
             setTeamStats(data.stats)
             setName(data.team.tname)
           })
-          .catch(error => {
-            setError(error)
-          })
+          .catch(error => setError(error))
     }, [])
 
     return (

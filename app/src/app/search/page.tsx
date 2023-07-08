@@ -9,7 +9,7 @@ import Table from 'react-bootstrap/Table';
 
 export default function Search() {
     const [radioValue, setRadioValue] = useState(1);
-    const [results, setResults] = useState({data: []});
+    const [results, setResults] = useState<{ pid : string, firstName : string, lastName : string}[]>([]);
     const [val, setVal] = useState("");
 
     const radios = [
@@ -22,11 +22,10 @@ export default function Search() {
     };
 
     const generateCols = () => {
-        if (results.data.length == 0) {
+        if (results.length == 0) {
             return (<tr><td colSpan={3} align='center'>Nothing found.</td></tr>);
         } else {
-            const data = results.data;
-            return data.map((item) => (
+            return results.map((item) => (
                 <tr key={item.pid}>
                 <td align='center'>{item.pid}</td>
                 <td>{item.firstName}</td>
@@ -40,12 +39,14 @@ export default function Search() {
     const handleSubmit = (event : any) => {
         if (radioValue == 1) {
             fetch(`${API}/playersearch?id=${val}`)
-                .then((res) => setResults(res.json()))
-                .catch(() => setResults({data: []}));
+                .then((res) => res.json())
+                .then((data) => setResults(data.data ?? []))
+                .catch(() => setResults([]));
         } else {
             fetch(`${API}/teamsearch?id=${val}`)
-                .then((res) => setResults(res.json()))
-                .catch(() => setResults({data: []}));
+                .then((res) => res.json())
+                .then((data) => setResults(data.data ?? []))
+                .catch(() => setResults([]));
         }
     }
     return (

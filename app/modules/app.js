@@ -42,7 +42,3 @@ app.get("/player", searchPlayerByName)
 app.use("/", async (req, res) => 
     res.send("success")
 )
-
-app.listen(PORT, () => {
-    console.log(`App is listening on port ${PORT}`)
-});

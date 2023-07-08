@@ -9,7 +9,8 @@ import Table from 'react-bootstrap/Table';
 
 export default function Search() {
     const [radioValue, setRadioValue] = useState(1);
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState({data: []});
+    const [val, setVal] = useState("");
 
     const radios = [
         { name: 'Search for Player', value: 1 },
@@ -21,22 +22,31 @@ export default function Search() {
     };
 
     const generateCols = () => {
-        //console.log(results);
-        return (<tr><td colSpan={3} align='center'>No data found.</td></tr>);
+        if (results.data.length == 0) {
+            return (<tr><td colSpan={3} align='center'>Nothing found.</td></tr>);
+        } else {
+            const data = results.data;
+            return data.map((item) => (
+                <tr key={item.pid}>
+                <td align='center'>{item.pid}</td>
+                <td>{item.firstName}</td>
+                <td>{item.lastName}</td>
+                </tr>
+            ));
+        }
+
     }
 
     const handleSubmit = (event : any) => {
-        // if (radioValue == 1) {
-        //     fetch(`${API}/playersearch?id=${event.target.value}`)
-        //         .then((res) => res.json())
-        //         .then((data) => setResults(data.data ?? []))
-        //         .catch(() => setResults([]));
-        // } else {
-        //     fetch(`${API}/teamsearch?id=${event.target.value}`)
-        //         .then((res) => res.json())
-        //         .then((data) => setResults(data.data ?? []))
-        //         .catch(() => setResults([]));
-        // }
+        if (radioValue == 1) {
+            fetch(`${API}/playersearch?id=${val}`)
+                .then((res) => setResults(res.json()))
+                .catch(() => setResults({data: []}));
+        } else {
+            fetch(`${API}/teamsearch?id=${val}`)
+                .then((res) => setResults(res.json()))
+                .catch(() => setResults({data: []}));
+        }
     }
     return (
         <main className={styles.main}>
@@ -63,6 +73,7 @@ export default function Search() {
                             placeholder="Search"
                             className="me-2 rounded-pill"
                             aria-label="Search"
+                            onChange={e => setVal(e.target.value)}
                             />
                         </Form>
                         </Col>
@@ -72,7 +83,7 @@ export default function Search() {
                     <thead>
                     </thead>
                     <tbody>
-                        
+                        {generateCols()}
                     </tbody>
                 </Table>
             </div>

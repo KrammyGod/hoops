@@ -26,9 +26,8 @@ postman body = raw json
 */
 
 export const searchTeamByName = async (req, res) => {
-    //console.log(req.params.id);
     try {
-        const data = await searchTeamName(req.params.id);
+        const data = await searchTeamName(req.query.id);
         res.status(200).json({ data });
     } catch (err) {
         res.status(501).json({ messages: err.stack });
@@ -36,8 +35,9 @@ export const searchTeamByName = async (req, res) => {
 }
 
 export const searchPlayerByName = async (req, res) => {
+    console.log(req.query.id);
     try {
-        const data = await searchPlayerName(req.body.name);
+        const data = await searchPlayerName(req.query.id);
         res.status(200).json({ data });
     } catch (err) {
         res.status(501).json({ messages: err.stack });

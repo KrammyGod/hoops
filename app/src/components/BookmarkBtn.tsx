@@ -1,10 +1,29 @@
-import { useState } from "react"
-import { Button } from "react-bootstrap"
+import { useState, useEffect } from "react"
 import { BsBookmarkFill, BsBookmark } from 'react-icons/bs'
 import { API } from "@/app/config";
 
-export default ({pid, uid}: {pid: number; uid: number}) => {
-    const [isMarked, mark] = useState(false);
+export default ({
+    pid, 
+    uid, 
+    fromBookmarksList=false,
+    removeBookmarksList
+}: {pid: number; uid: number; fromBookmarksList?: boolean; removeBookmarksList?: () => void}) => {
+    const [isMarked, mark] = useState(fromBookmarksList ? true : false);
+    
+    if (!fromBookmarksList) {
+        useEffect(() => {
+            fetch(API + "/bookmarks/show", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({pid, uid})
+            })
+            .then((res) => res.json())
+            .then((data) => data.data.length === 0 ? mark(false) : mark(true))
+            .catch((err) => console.log(err))
+        }, [pid])
+    }
 
     const toggleMark = () => {
         // do this first for the client
@@ -31,11 +50,14 @@ export default ({pid, uid}: {pid: number; uid: number}) => {
                 body: JSON.stringify({pid, uid})
             }).catch((err) => console.log(err))
             .then(
-                () => { mark(false) },
+                () => { 
+                    mark(false) 
+                    if (fromBookmarksList && removeBookmarksList) removeBookmarksList()
+                },
                 () => { mark(true) }
             )
        }
     };
 
-    return <h3>{isMarked ? <BsBookmarkFill onClick={toggleMark}/> : <BsBookmark onClick={toggleMark}/>}</h3>
+    return <h3 style={{margin: 0}}>{isMarked ? <BsBookmarkFill onClick={toggleMark}/> : <BsBookmark onClick={toggleMark}/>}</h3>
 }

@@ -1,7 +1,9 @@
 "use client"
+
+import BookmarkList from "@/components/BookmarkList";
+
 export default function TestPage() {
     return (
-        <div>
-        </div>
+       <BookmarkList uid={1} />
     );
 }

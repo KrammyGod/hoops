@@ -12,7 +12,7 @@ app.use(cors());
 
 // bookmarks api route
 app.post("/bookmarks", createBookmark)
-app.get("/bookmarks", getBookmarks) 
+app.post("/bookmarks/show", getBookmarks) 
 app.delete("/bookmarks", deleteBookmark)
 
 /* USED FOR PUBLIC FACING THINGS (like player id but NOT user id)

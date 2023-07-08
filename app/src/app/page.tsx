@@ -6,7 +6,7 @@ export default function Home() {
     <main className={styles.main}>
       <div class="card">
         <div class="card-body">
-          By Hopps Team
+          By Hoops Team
         </div>
       </div>
       <Leaderboards></Leaderboards>

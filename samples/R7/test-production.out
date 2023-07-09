@@ -1,0 +1,65 @@
+ pid | firstname | lastname  
+-----+-----------+-----------
+ 120 | Max       | Zaslofsky
+(1 row)
+
+ assists | points | games | season | abbrev |       tname        
+---------+--------+-------+--------+--------+--------------------
+      16 |     88 |     9 |   1956 | FTW    | Fort Wayne Pistons
+     203 |    785 |    70 |   1955 | FTW    | Fort Wayne Pistons
+      33 |    180 |    11 |   1954 | BLB    | Baltimore Bullets
+      98 |    495 |    45 |   1954 | FTW    | Fort Wayne Pistons
+      23 |    136 |     9 |   1954 | MLH    | Milwaukee Hawks
+      55 |    344 |    29 |   1953 | NYK    | New York Knicks
+     156 |    931 |    66 |   1952 | NYK    | New York Knicks
+     136 |    835 |    66 |   1951 | NYK    | New York Knicks
+     155 |   1115 |    68 |   1950 | CHS    | Chicago Stags
+     149 |   1197 |    58 |   1949 | CHS    | Chicago Stags
+      29 |   1007 |    48 |   1948 | CHS    | Chicago Stags
+      40 |    877 |    61 |   1947 | CHS    | Chicago Stags
+(12 rows)
+
+ abbrev |     tname     
+--------+---------------
+ NYA    | New York Nets
+(1 row)
+
+ wins | losses | season 
+------+--------+--------
+   55 |     29 |   1976
+   58 |     26 |   1975
+   55 |     29 |   1974
+   30 |     54 |   1973
+   44 |     40 |   1972
+   40 |     44 |   1971
+   39 |     45 |   1970
+   17 |     61 |   1969
+(8 rows)
+
+ pid |      name       | asts | trbs | pts  | games | seasons 
+-----+-----------------+------+------+------+-------+---------
+  41 | Deb Smith       |    6 |      |   73 |    48 |       1
+  42 | Dick Fitzgerald |   40 |      |  277 |    61 |       2
+  43 | Dick Murphy     |    8 |      |   34 |    31 |       2
+  44 | Dick Schulz     |  203 |      | 1141 |   205 |       7
+  45 | Dino Martin     |   73 |      |  834 |    92 |       2
+  46 | Don Carlson     |  324 |   15 | 1447 |   180 |       4
+  47 | Don Eliason     |    0 |      |    0 |     1 |       1
+  48 | Don Martin      |   36 |      |  410 |   137 |       4
+  49 | Don Putman      |  285 |      | 1030 |   216 |       4
+  50 | Doyle Parrack   |   20 |      |  272 |    58 |       1
+(10 rows)
+
+ abbrev |         tname          | wins | losses | seasons 
+--------+------------------------+------+--------+---------
+ LAC    | Los Angeles Clippers   |   35 |     46 |      39
+ LAL    | Los Angeles Lakers     |   48 |     32 |      63
+ LAS    | Los Angeles Stars      |   38 |     43 |       2
+ MEM    | Memphis Grizzlies      |   40 |     41 |      22
+ MIA    | Miami Heat             |   42 |     38 |      35
+ MIL    | Milwaukee Bucks        |   43 |     38 |      55
+ MIN    | Minnesota Timberwolves |   32 |     48 |      34
+ MLH    | Milwaukee Hawks        |   23 |     48 |       4
+ MMF    | Miami Floridians       |   33 |     48 |       2
+ MMP    | Memphis Pros           |   34 |     51 |       2
+(10 rows)

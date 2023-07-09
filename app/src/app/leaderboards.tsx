@@ -102,7 +102,7 @@ export default function Leaderboards() {
         </ToggleButtonGroup>
         <Table striped bordered hover variant="dark">
             <thead>
-            <tr>
+            <tr className='text-center'>
                 {leaderboardType}
             </tr>
             </thead>

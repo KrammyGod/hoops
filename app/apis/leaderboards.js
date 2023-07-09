@@ -19,7 +19,10 @@ async function twpt() {
 /* Average points per player */
 async function appp() {
     const res = await query(
-        `SELECT pid AS id, (firstName || ' ' || lastName) AS name, ROUND(ppg, 1) AS value
+        `SELECT
+            pid AS id,
+            (firstName || ' ' || lastName) AS name,
+            ROUND(ppg, 1) AS value
         FROM Player NATURAL JOIN (
             SELECT pid, SUM(points)::numeric / SUM(games) AS ppg
             FROM PlayerStats
@@ -84,6 +87,6 @@ export async function getLeaderboards(req, res) {
         if (data === null) throw new Error("No data found");
         res.status(200).json({ data });
     } catch (err) {
-        res.status(500).json({ messages: err.stack });
+        res.status(500).json({ messages: err.message });
     }
 };

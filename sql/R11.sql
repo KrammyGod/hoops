@@ -1,4 +1,3 @@
----------- R11: Mark ----------
 -- Sort by average points per game per player
 SELECT * FROM Player NATURAL JOIN (
     SELECT pid, SUM(points) / SUM(games) AS ppg
@@ -6,7 +5,8 @@ SELECT * FROM Player NATURAL JOIN (
     GROUP BY pid
 ) A
 ORDER BY ppg DESC
-LIMIT 10;
+LIMIT 10
+OFFSET 0 * 10;
 
 -- Sort by total wins per team
 SELECT * FROM Team NATURAL JOIN (
@@ -14,7 +14,8 @@ SELECT * FROM Team NATURAL JOIN (
     FROM TeamStats GROUP BY abbrev
 ) A
 ORDER BY totWins DESC
-LIMIT 10;
+LIMIT 10
+OFFSET 0 * 10;
 
 -- Sort by percentage of games won per team
 SELECT * FROM Team NATURAL JOIN (
@@ -23,7 +24,8 @@ SELECT * FROM Team NATURAL JOIN (
     FROM TeamStats GROUP BY abbrev
 ) A
 ORDER BY winPC DESC
-LIMIT 10;
+LIMIT 10
+OFFSET 0 * 10;
 
 -- Sort by most bookmarked players
 SELECT Player.*, COALESCE(numBK, 0) AS numBK
@@ -32,4 +34,5 @@ FROM Player NATURAL LEFT JOIN (
     FROM Bookmarks GROUP BY pid
 ) A
 ORDER BY numBK DESC, pid ASC
-LIMIT 10;
+LIMIT 10
+OFFSET 0 * 10;

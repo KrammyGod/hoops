@@ -1,10 +1,13 @@
-.main {
+.main .stack {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding: 6rem;
+  padding: 2rem 6rem;
   min-height: 100vh;
+}
+
+.stack > * {
+  margin: 30px 0;
 }
 
 .description {

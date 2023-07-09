@@ -51,9 +51,14 @@ async function login(email, password) {
     return res.rows[0];
 }
 
-async function deleteUser(uid) {
+async function deleteUser(uid, hash) {
     // No return value required
-    await query('DELETE FROM HUser WHERE uid = $1', [uid]);
+    const res = await query(`
+        DELETE FROM HUser 
+        WHERE uid = $1 AND hash = $2
+        RETURNING *
+    `, [uid, hash]);
+    return res.rows.length != 0
 }
 
 export const usesHandler = async (req, res) => {
@@ -85,6 +90,20 @@ export const usesHandler = async (req, res) => {
                 const data = await getUser(req.body.email, req.body.username);
                 // don't expose the hash
                 res.status(200).json({ data: {uid: data["uid"], email: data["email"], username: data["uName"], role: data["urole"]} })
+            } catch (err) {
+                res.status(418).json({ messages: err.stack })
+            }
+            break;
+        case "delete":
+            try {
+                const data = await deleteUser(req.body.uid, req.body.password);
+
+                if (data) {
+                    res.status(200).json({})
+                } else {
+                    res.status(400).json({ messages: "invalid password or user" })
+                }
+                
             } catch (err) {
                 res.status(418).json({ messages: err.stack })
             }

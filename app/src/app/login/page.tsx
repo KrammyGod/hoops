@@ -66,9 +66,7 @@ export default ({ children }: { children: React.ReactNode }) => {
                                 name="email"
                                 aria-label="Email"
                                 required
-                                onChange={(e) => {
-                                    setAttempted(false)
-                                }}
+                                onChange={(e) => setAttempted(false)}
                                 isInvalid={!validated && attempted}
                             />
                         </InputGroup>
@@ -83,9 +81,7 @@ export default ({ children }: { children: React.ReactNode }) => {
                                 id="password" 
                                 aria-label="Password" 
                                 required
-                                onChange={(e) => {
-                                    setAttempted(false)
-                                }}
+                                onChange={(e) => setAttempted(false)}
                                 isInvalid={!validated && attempted}
                             />
                             <Form.Control.Feedback type="invalid">

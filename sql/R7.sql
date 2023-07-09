@@ -22,7 +22,8 @@ SELECT abbrev, tname,
        ROUND(AVG(losses)) AS losses,
        COUNT(season) AS seasons
 FROM Team NATURAL JOIN TeamStats
-GROUP BY abbrev, tname;
+GROUP BY abbrev, tname
+ORDER BY abbrev;
 
 /* GETTING AGGREGATE STATS FOR PLAYER */
 SELECT pid, firstName || ' ' || lastName AS name,
@@ -32,4 +33,5 @@ SELECT pid, firstName || ' ' || lastName AS name,
        ROUND(SUM(games)) AS games,
        ROUND(COUNT(season)) AS seasons
 FROM Player NATURAL JOIN PlayerStats
-GROUP BY pid, firstName, lastName;
+GROUP BY pid, firstName, lastName
+ORDER BY name;

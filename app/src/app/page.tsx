@@ -7,12 +7,20 @@ import { useEffect, useState } from 'react'
 
 export default function Home() {
   const { username, auth } = useAuth()
-  const [name, setName] = useState("")
-  useEffect(() => setName(username), [])
+
+  const [welcomeMsg, setWelcomeMsg] = useState("")
+  useEffect(() => {
+    if (auth) {
+      setWelcomeMsg(`Hi ${username}! Welcome to your dashboard.`)
+    } else {
+      setWelcomeMsg("")
+    }
+  }, [username, auth])
+
   return (
     <main className={styles.main}>
       <div className={styles.stack}>
-        {auth ? <h3>{`Hi ${name}! Welcome to your dashboard.`}</h3> : ""}
+        <h3>{welcomeMsg}</h3>
         <Leaderboards></Leaderboards>
       </div>
 

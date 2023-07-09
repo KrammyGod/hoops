@@ -1,10 +1,11 @@
 'use client'
 
-import { use, useState } from "react"
+import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { InputGroup, Form, Button } from "react-bootstrap"
 import { authenticate, useAuth } from "../auth"
 import { API } from "../config"
+import Loading from "../loading"
 import "./styles.css"
 
 export default ({ children }: { children: React.ReactNode }) => {
@@ -12,8 +13,10 @@ export default ({ children }: { children: React.ReactNode }) => {
     const { handleAuth } = useAuth()
     const [validated, setValidated] = useState(false);
     const [attempted, setAttempted] = useState(false);
+    const [loading, setLoading] = useState(false)
 
     const handleSubmit = (event: any) => {
+        setLoading(true)
         const form = event.target;
 
         event.preventDefault();
@@ -36,11 +39,13 @@ export default ({ children }: { children: React.ReactNode }) => {
                 setValidated(true)
                 authenticate(data['data'])
                 handleAuth(true)
+                setLoading(false)
                 router.push("/")
             } else {
+                setValidated(false)
                 setAttempted(true)
                 handleAuth(false)
-                setValidated(false)
+                setLoading(false)
             }
         })
         .catch((err) => {
@@ -89,7 +94,10 @@ export default ({ children }: { children: React.ReactNode }) => {
                         </InputGroup>
                     </Form.Group>
                     <div className="rowContainer">
-                        <Button type="submit">Login</Button>
+                        {loading ? 
+                            <Button disabled type="submit"><Loading styled={false}/></Button> :
+                            <Button type="submit">Login</Button>
+                        }
                         <p className="space">or</p>
                         <Button href="/signup" variant="secondary">Sign Up</Button>
                     </div>

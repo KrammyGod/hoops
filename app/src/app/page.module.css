@@ -14,6 +14,14 @@
   margin: 0 10px;
 }
 
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100vw;
+}
+
 .description {
   display: inherit;
   justify-content: inherit;

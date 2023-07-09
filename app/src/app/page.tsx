@@ -4,12 +4,8 @@ import Leaderboards from './leaderboards'
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>src/app/page.tsx</code>
-        </p>
-        <div>
+      <div className="card">
+        <div className="card-body">
           By Hoops Team
         </div>
       </div>

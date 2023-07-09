@@ -64,7 +64,6 @@ export const AuthProvider = ({ children } : { children: any }) => {
   const [uid, setUid] = useState<any>(Number(Cookies.get("uid")));
 
   useEffect(() => {
-    console.log("refres")
     const isAuth = () => {
       try {
         setUser(Cookies.get("username"));

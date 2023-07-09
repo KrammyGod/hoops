@@ -2,7 +2,7 @@
 
 import styles from './page.module.css'
 import { useState, useEffect } from 'react'
-import { Navbar, Container, Nav } from 'react-bootstrap'
+import { Navbar, Container, Nav, Button } from 'react-bootstrap'
 import { useAuth } from './auth'
 
 export default () => {
@@ -10,8 +10,8 @@ export default () => {
   const [usersBtn, setUsersBtn] = useState<any>();
   const { handleAuth, auth, username } = useAuth()
 
-  const loginBtn = <Nav.Link href="/login">Login</Nav.Link>
-  const logoutBtn = <Nav.Link href="/login" onClick={() => handleAuth(false)}>Logout</Nav.Link>
+  const loginBtn = <Button href="/login" variant="outline-primary">Login</Button>
+  const logoutBtn = <Button href="/login" variant="outline-danger" onClick={() => handleAuth(false)}>Logout</Button>
 
   useEffect(() => {
     if (auth) {

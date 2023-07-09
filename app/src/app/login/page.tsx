@@ -1,14 +1,17 @@
 'use client'
 
-import { useState } from "react"
+import { use, useState } from "react"
+import { useRouter } from "next/navigation"
 import { InputGroup, Form, Button } from "react-bootstrap"
+import { authenticate, useAuth } from "../auth"
 import { API } from "../config"
 import "./styles.css"
 
-export default () => {
-    const [validated, setValidated] = useState(true);
-    const [email, setEmail] = useState("")
-    const [pass, setPass] = useState("")
+export default ({ children }: { children: React.ReactNode }) => {
+    const router = useRouter();
+    const { handleAuth } = useAuth()
+    const [validated, setValidated] = useState(false);
+    const [attempted, setAttempted] = useState(false);
 
     const handleSubmit = (event: any) => {
         const form = event.target;
@@ -16,6 +19,7 @@ export default () => {
         event.preventDefault();
         event.stopPropagation();
         
+        // start loading wheel
         fetch(API + "/users/login", {
             method: "POST",
             headers: {
@@ -27,26 +31,27 @@ export default () => {
             })
         })
         .then((res) => res.json())
-        .then(({ data }) => {
-            // put these in cookies
-            if (data["success"]) {
-                window.location.replace("/")
+        .then((data) => {
+            if (!data.hasOwnProperty("messages")) {
                 setValidated(true)
+                authenticate(data['data'])
+                handleAuth(true)
+                router.push("/")
             } else {
-                console.log(data["success"])
+                setAttempted(true)
+                handleAuth(false)
                 setValidated(false)
             }
         })
         .catch((err) => {
             console.log(err)
         })
-
-        
     }
 
     return (
         <div className="outerContainer">
             <Form noValidate className="subContainer" validated={validated} onSubmit={handleSubmit}>
+                {children}
                 <Form.Group>
                     <Form.Label>Email</Form.Label>
                     <InputGroup className="mb-3" hasValidation>
@@ -55,12 +60,11 @@ export default () => {
                             name="email"
                             aria-label="Email"
                             required
-                            onChange={(e) => setEmail(e.target.value)}
-                            isInvalid={!validated}
+                            onChange={(e) => {
+                                setAttempted(false)
+                            }}
+                            isInvalid={!validated && attempted}
                         />
-                        <Form.Control.Feedback type="invalid">
-                            Invalid email/password.
-                        </Form.Control.Feedback>
                     </InputGroup>
                 </Form.Group>
         
@@ -73,9 +77,10 @@ export default () => {
                             id="password" 
                             aria-label="Password" 
                             required
-                            onChange={(e) => setPass(e.target.value)}
-                            isInvalid={validated}
-                            isValid={validated || pass.length == 0}
+                            onChange={(e) => {
+                                setAttempted(false)
+                            }}
+                            isInvalid={!validated && attempted}
                         />
                         <Form.Control.Feedback type="invalid">
                             Invalid email/password.

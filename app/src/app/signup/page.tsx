@@ -1,11 +1,13 @@
 'use client'
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { InputGroup, Form, Button } from "react-bootstrap"
 import { API } from "../config"
 import "./styles.css"
 
 export default () => {
+    const router = useRouter();
 
     const handleSubmit = (event: any) => {
         const form = event.target;
@@ -25,14 +27,11 @@ export default () => {
             })
         })
         .then((res) => res.json())
-        .then((data) => {
-            // put these in cookies
-        })
         .catch((err) => {
             console.log(err)
         })
 
-        window.location.replace("/")
+        router.push("/login/aftersignup")
     }
 
     return (

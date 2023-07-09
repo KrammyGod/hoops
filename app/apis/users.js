@@ -48,7 +48,7 @@ async function login(email, password) {
         SELECT * FROM HUser
         WHERE email = $1 and hash = $2;
     `, [email, password]);
-    return res.rows.length !== 0;
+    return res.rows[0];
 }
 
 async function deleteUser(uid) {
@@ -63,15 +63,21 @@ export const usesHandler = async (req, res) => {
                 const data = await addAdmin(req.body.email, req.body.password, req.body.username);
                 res.status(200).json({ data: {email: data["email"], username: data["uname"]} })
             } catch (err) {
-                res.status(501).json({ messages: err.stack })
+                res.status(418).json({ messages: err.stack })
             }
             break;
         case "login":
             try {
                 const data = await login(req.body.email, req.body.password);
-                res.status(200).json({ data: {success: data} })
+
+                if (data.length != 0) {
+                    res.status(200).json({ data: {uid: data["uid"], email: data["email"], username: data["uname"]} })
+                } else {
+                    res.status(400).json({ messages: "invalid login" })
+                }
+                
             } catch (err) {
-                res.status(501).json({ messages: err.stack })
+                res.status(418).json({ messages: err.stack })
             }
             break;
         case "get":
@@ -80,7 +86,7 @@ export const usesHandler = async (req, res) => {
                 // don't expose the hash
                 res.status(200).json({ data: {uid: data["uid"], email: data["email"], username: data["uName"], role: data["urole"]} })
             } catch (err) {
-                res.status(501).json({ messages: err.stack })
+                res.status(418).json({ messages: err.stack })
             }
             break;
         case "update":
@@ -90,7 +96,7 @@ export const usesHandler = async (req, res) => {
                 delete returnData["hash"]
                 res.status(200).json({ data: returnData })
             } catch (err) {
-                res.status(501).json({ messages: err.stack })
+                res.status(418).json({ messages: err.stack })
             }
             break;
         default:

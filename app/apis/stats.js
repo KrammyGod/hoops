@@ -5,8 +5,7 @@ export async function getPlayerStats(pid) {
     const res1 = await query('SELECT * FROM Player WHERE pid = $1', [pid]);
     const res2 = await query(`
         SELECT assists, points, games, season, abbrev, tname 
-        FROM Player 
-        NATURAL JOIN PlayerStats 
+        FROM PlayerStats
         NATURAL JOIN Team
         WHERE pid = $1
         ORDER BY season DESC`, [pid]);

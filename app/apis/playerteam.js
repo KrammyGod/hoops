@@ -5,7 +5,8 @@ async function searchPlayerName(name) {
     const res = await query(`
         SELECT * FROM Player
         WHERE (firstName || ' ' || lastName) ILIKE
-        ('%' || $1 || '%')
+        ('%' || $1 || '%') LIMIT 10
+        OFFSET 0 * 10;
     `, [name]);
     return res.rows;
 }
@@ -14,7 +15,8 @@ async function searchPlayerName(name) {
 async function searchTeamName(name) {
     const res = await query(`
         SELECT * FROM Team
-        WHERE tName ILIKE ('%' || $1 || '%')
+        WHERE tName ILIKE ('%' || $1 || '%') LIMIT 10
+        OFFSET 0 * 10;
     `, [name]);
     return res.rows;
 }
@@ -35,7 +37,6 @@ export const searchTeamByName = async (req, res) => {
 }
 
 export const searchPlayerByName = async (req, res) => {
-    console.log(req.query.id);
     try {
         const data = await searchPlayerName(req.query.id);
         res.status(200).json({ data });

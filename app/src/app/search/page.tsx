@@ -4,13 +4,14 @@ import { useState } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import styles from '../page.module.css'
-import { Button, Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, Row } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 
 export default function Search() {
     const [radioValue, setRadioValue] = useState(1);
-    const [results, setResults] = useState<{ pid : string, firstName : string, lastName : string}[]>([]);
+    const [results, setResults] = useState<{ pid : string, firstname : string, lastname : string, tname : string, abbrev : string}[]>([]);
     const [val, setVal] = useState("");
+    const [searchVal, setSearchVal] = useState(1);
 
     const radios = [
         { name: 'Search for Player', value: 1 },
@@ -21,22 +22,46 @@ export default function Search() {
         setRadioValue(val);
     };
 
-    const generateCols = () => {
-        if (results.length == 0) {
-            return (<tr><td colSpan={3} align='center'>Nothing found.</td></tr>);
+    const generateHeader = () => {
+        if (searchVal == 1) {
+            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th></>)
         } else {
-            return results.map((item) => (
-                <tr key={item.pid}>
-                <td align='center'>{item.pid}</td>
-                <td>{item.firstName}</td>
-                <td>{item.lastName}</td>
-                </tr>
-            ));
+            return (<><th>Team Abbreviation</th><th>Team Name</th></>)
         }
+    }
+
+    const generateCols = () => {
+        if (searchVal == 1) {
+            if (results.length == 0) {
+                return (<tr><td colSpan={3} align='center'>No players found.</td></tr>);
+            } else {
+                return results.map((item) => (
+                    <tr style={{cursor:'pointer'}} onClick={event =>  window.location.href=`/playerstats/${item.pid}`} key={item.pid}>
+                    <td align='center'>{item.pid}</td>
+                    <td>{item.firstname}</td>
+                    <td>{item.lastname}</td>
+                    </tr>
+                ));
+            }
+        } else {
+            if (results.length == 0) {
+                return (<tr><td colSpan={3} align='center'>No teams found.</td></tr>);
+            } else {
+                return results.map((item) => (
+                    <tr style={{cursor:'pointer'}} onClick={event =>  window.location.href=`/teamstats/${item.abbrev}`} key={item.abbrev}>
+                    <td align='center'>{item.abbrev}</td>
+                    <td>{item.tname}</td>
+                    </tr>
+                ));
+            }
+        }
+        
 
     }
 
     const handleSubmit = (event : any) => {
+        event.preventDefault();
+        setSearchVal(radioValue);
         if (radioValue == 1) {
             fetch(`${API}/playersearch?id=${val}`)
                 .then((res) => res.json())
@@ -80,12 +105,15 @@ export default function Search() {
                         </Col>
                     </Row>
                 </Container>
-                <Table striped bordered hover variant="dark">
+                <Table className='text-center mt-5' striped bordered hover variant="dark">
                     <thead>
+                    <tr>
+                        {generateHeader()}
+                    </tr>
                     </thead>
-                    <tbody>
-                        {generateCols()}
-                    </tbody>
+                        <tbody>
+                            {generateCols()}
+                        </tbody>
                 </Table>
             </div>
         </main>

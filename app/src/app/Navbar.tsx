@@ -12,6 +12,7 @@ export default () => {
 
   const loginBtn = <Button href="/login" variant="outline-primary">Login</Button>
   const logoutBtn = <Button href="/login" variant="outline-danger" onClick={() => handleAuth(false)}>Logout</Button>
+  const bookmarksBtn = <Button href="/bookmarks" variant="info">Bookmarks</Button>
 
   useEffect(() => {
     if (auth) {
@@ -26,7 +27,8 @@ export default () => {
         <Container>
             <Navbar.Brand href="/">Hoops</Navbar.Brand>
             <Navbar.Collapse className="justify-content-end">
-                <Nav>
+                <Nav className={styles.sideStack}>
+                  {bookmarksBtn}
                   {usersBtn}
                 </Nav>
             </Navbar.Collapse>

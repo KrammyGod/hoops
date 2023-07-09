@@ -6,13 +6,13 @@ import { useAuth } from './auth'
 import { useEffect, useState } from 'react'
 
 export default function Home() {
-  const { username } = useAuth()
+  const { username, auth } = useAuth()
   const [name, setName] = useState("")
   useEffect(() => setName(username), [])
   return (
     <main className={styles.main}>
       <div className={styles.stack}>
-        <h3>{`Hi ${name}! Welcome to your dashboard.`}</h3>
+        {auth ? <h3>{`Hi ${name}! Welcome to your dashboard.`}</h3> : ""}
         <Leaderboards></Leaderboards>
       </div>
 

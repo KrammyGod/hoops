@@ -3,7 +3,7 @@ import { query } from "../modules/pool.js";
 // All values are renamed to make switching tables seamless.
 
 /* Total wins per team */
-async function twpt() {
+async function twpt(page) {
     const res = await query(
         `SELECT abbrev AS id, tname AS name, totWins AS value
         FROM Team NATURAL JOIN (
@@ -11,13 +11,15 @@ async function twpt() {
             FROM TeamStats GROUP BY abbrev
         ) A
         ORDER BY totWins DESC
-        LIMIT 10`
+        LIMIT 10
+        OFFSET $1 * 10`,
+        [page]
     );
     return res.rows;
 }
 
 /* Average points per player */
-async function appp() {
+async function appp(page) {
     const res = await query(
         `SELECT
             pid AS id,
@@ -29,13 +31,15 @@ async function appp() {
             GROUP BY pid
         ) A
         ORDER BY ppg DESC
-        LIMIT 10`
+        LIMIT 10
+        OFFSET $1 * 10`,
+        [page]
     );
     return res.rows;
 }
 
 /* Percentage of games won per team */
-async function pgpt() {
+async function pgpt(page) {
     const res = await query(
         `SELECT abbrev AS id, tname AS name, ROUND(winPC, 2) AS value
         FROM Team NATURAL JOIN (
@@ -44,13 +48,15 @@ async function pgpt() {
             FROM TeamStats GROUP BY abbrev
         ) A
         ORDER BY winPC DESC
-        LIMIT 10`
+        LIMIT 10
+        OFFSET $1 * 10`,
+        [page]
     );
     return res.rows;
 }
 
 /* Most bookmarked players */
-async function mbp() {
+async function mbp(page) {
     const res = await query(
         `SELECT pid AS id, (firstName || ' ' || lastName) AS name,
             COALESCE(numBK, 0) AS value
@@ -59,26 +65,29 @@ async function mbp() {
             FROM Bookmarks GROUP BY pid
         ) A
         ORDER BY value DESC, pid ASC
-        LIMIT 10`
+        LIMIT 10
+        OFFSET $1 * 10`,
+        [page]
     );
     return res.rows;
 }
 
 export async function getLeaderboards(req, res) {
+    const page = (req.query.page ?? 1) - 1;
     try {
         let data = null;
         switch (req.query.type) {
             case "twpt":
-                data = await twpt();
+                data = await twpt(page);
                 break;
             case "appp":
-                data = await appp();
+                data = await appp(page);
                 break;
             case "pgpt":
-                data = await pgpt();
+                data = await pgpt(page);
                 break;
             case "mbp":
-                data = await mbp();
+                data = await mbp(page);
                 break;
             default:
                 throw new Error("Invalid leaderboard type");

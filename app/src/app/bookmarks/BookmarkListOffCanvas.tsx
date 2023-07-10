@@ -24,7 +24,6 @@ const BookmarkListOffCanvas = ({uid}: {uid: number}) => {
         })
         .then((res) => res.json())
         .then(data => {
-            console.log(data.data)
             setBookmarks(data.data)
         })
         .catch((err) => {

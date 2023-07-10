@@ -16,8 +16,6 @@ export default function PlayerStats({ params }: {
     const [error, setError] = useState(null)
     const { uid } = useAuth()
 
-    console.log(uid)
-
     useEffect(() => {
         fetch(`${API}/playerstats/${params.pid}`)
           .then(response => response.json())

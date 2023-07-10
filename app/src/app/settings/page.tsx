@@ -1,16 +1,16 @@
 "use client"
 
-import styles from "../page.module.css"
-import ModifyUser from "../signup/SignUpForm"
-import DeleteUser from "./DeleteUser"
-import { useRouter } from "next/navigation"
-import { Card, Button } from "react-bootstrap"
-import { API } from "../config"
-import { useAuth } from "../auth"
+import styles from "../page.module.css";
+import ModifyUser from "../signup/SignUpForm";
+import DeleteUser from "./DeleteUser";
+import { useRouter } from "next/navigation";
+import { Card, Button } from "react-bootstrap";
+import { API } from "../config";
+import { useAuth } from "../auth";
 
-export default () => {
-    const router = useRouter()
-    const { handleAuth, uid, username, email } = useAuth()
+export default function Settings() {
+    const router = useRouter();
+    const { handleAuth, uid, username, email } = useAuth();
 
     const handleSubmit = (event: any) => {
         const form = event.target;
@@ -32,11 +32,11 @@ export default () => {
         })
         .then((res) => res.json())
         .catch((err) => {
-            console.log(err)
-        })
+            console.log(err);
+        });
 
-        handleAuth(false)
-        router.push("/login")
+        handleAuth(false);
+        router.push("/login");
     }
 
     return (
@@ -70,5 +70,5 @@ export default () => {
                 </Card>
             </div>
         </div>
-    )
+    );
 }

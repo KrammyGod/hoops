@@ -1,6 +1,6 @@
-import './globals.css'
+import './globals.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Inter } from 'next/font/google'
+import { Inter } from 'next/font/google';
 import Navbar from './Navbar';
 import { AuthProvider } from './auth';
 
@@ -25,5 +25,5 @@ export default function RootLayout({
         </AuthProvider>
       </body>
     </html>
-  )
+  );
 }

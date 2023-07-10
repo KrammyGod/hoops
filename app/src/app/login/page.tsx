@@ -2,6 +2,8 @@
 
 import LoginForm from "./LoginForm"
 
-export default () => (
-    <LoginForm></LoginForm>
-)
+export default function Login() {
+    return (
+        <LoginForm></LoginForm>
+    );
+}

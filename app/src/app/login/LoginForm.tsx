@@ -6,15 +6,15 @@ import { API } from "../config"
 import Loading from "../loading"
 import "./styles.css"
 
-export default ({ children }: { children?: React.ReactNode }): React.ReactNode => {
+export default function LoginForm({ children }: { children?: React.ReactNode }): React.ReactNode {
     const router = useRouter();
-    const { handleAuth } = useAuth()
+    const { handleAuth } = useAuth();
     const [validated, setValidated] = useState(false);
     const [attempted, setAttempted] = useState(false);
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(false);
 
     const handleSubmit = (event: any) => {
-        setLoading(true)
+        setLoading(true);
         const form = event.target;
 
         event.preventDefault();
@@ -34,21 +34,21 @@ export default ({ children }: { children?: React.ReactNode }): React.ReactNode =
         .then((res) => res.json())
         .then((data) => {
             if (!data.hasOwnProperty("messages")) {
-                setValidated(true)
-                authenticate(data['data'])
-                handleAuth(true)
-                setLoading(false)
-                router.push("/")
+                setValidated(true);
+                authenticate(data['data']);
+                handleAuth(true);
+                setLoading(false);
+                router.push("/");
             } else {
-                setValidated(false)
-                setAttempted(true)
-                handleAuth(false)
-                setLoading(false)
+                setValidated(false);
+                setAttempted(true);
+                handleAuth(false);
+                setLoading(false);
             }
         })
         .catch((err) => {
-            console.log(err)
-        })
+            console.log(err);
+        });
     }
 
     return (
@@ -98,5 +98,5 @@ export default ({ children }: { children?: React.ReactNode }): React.ReactNode =
                 </Form>
             </div>
         </div>
-    )
+    );
 }

@@ -14,7 +14,7 @@ export async function getPlayerStats(pid) {
         player: res1.rows[0],
         stats: res2.rows,
     };
-};
+}
 
 /*  Gets Team Stats */
 export async function getTeamStats(abbrev) {
@@ -28,7 +28,7 @@ export async function getTeamStats(abbrev) {
         team: res1.rows[0],
         stats: res2.rows,
     };
-};
+}
 
 /*  Gets All Players Stats */
 export async function getAllPlayerStats() {
@@ -43,7 +43,7 @@ export async function getAllPlayerStats() {
         GROUP BY pid, firstName, lastName
         ORDER BY name`);
     return res.rows;
-};
+}
 
 /*  Gets All Teams Stats */
 export async function getAllTeamStats() {
@@ -56,4 +56,4 @@ export async function getAllTeamStats() {
         GROUP BY abbrev, tname
         ORDER BY abbrev`);
     return res.rows;
-};
+}

@@ -2,24 +2,24 @@ import { useState } from 'react';
 import { Button, Modal, Form, CloseButton } from 'react-bootstrap';
 import { FaTrash } from "react-icons/fa"
 import { API } from '../config';
-import { useAuth } from "../auth"
-import { useRouter } from "next/navigation"
+import { useAuth } from "../auth";
+import { useRouter } from "next/navigation";
 import Loading from '../loading';
-import styles from "../page.module.css"
+import styles from "../page.module.css";
 
-export default () => {
-    const router = useRouter()
+export default function DeleteUser() {
+    const router = useRouter();
 
     const [validated, setValidated] = useState(false);
     const [attempted, setAttempted] = useState(false);
-    const [loading, setLoading] = useState(false)
-    const { handleAuth, uid } = useAuth()
+    const [loading, setLoading] = useState(false);
+    const { handleAuth, uid } = useAuth();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const handleSubmit = (event: any) => {
-        setLoading(true)
+        setLoading(true);
         const form = event.target;
 
         event.preventDefault();
@@ -37,20 +37,20 @@ export default () => {
         })
         .then((res) => {
             if (res.status == 400) {
-                setLoading(false)
-                setValidated(false)
-                setAttempted(true)
+                setLoading(false);
+                setValidated(false);
+                setAttempted(true);
             } else {
-                setLoading(false)
-                setValidated(true)
-                handleAuth(false)
-                handleClose()
-                router.push("/login")
+                setLoading(false);
+                setValidated(true);
+                handleAuth(false);
+                handleClose();
+                router.push("/login");
             }
         })
         .catch((err) => {
-            console.log(err)
-        })
+            console.log(err);
+        });
     }
 
     return (

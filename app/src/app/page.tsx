@@ -1,21 +1,21 @@
 'use client'
 
-import styles from './page.module.css'
-import Leaderboards from './leaderboards'
-import { useAuth } from './auth'
-import { useEffect, useState } from 'react'
+import styles from './page.module.css';
+import Leaderboards from './leaderboards';
+import { useAuth } from './auth';
+import { useEffect, useState } from 'react';
 
 export default function Home() {
-  const { username, auth } = useAuth()
+  const { username, auth } = useAuth();
 
-  const [welcomeMsg, setWelcomeMsg] = useState("")
+  const [welcomeMsg, setWelcomeMsg] = useState("");
   useEffect(() => {
     if (auth) {
       setWelcomeMsg(`Hi ${username}! Welcome to your dashboard.`)
     } else {
       setWelcomeMsg("")
     }
-  }, [username, auth])
+  }, [username, auth]);
 
   return (
     <main className={styles.main}>
@@ -27,5 +27,5 @@ export default function Home() {
         <p className={styles.p}>By the Hoops Team</p>
       </footer>
     </main>
-  )
+  );
 }

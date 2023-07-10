@@ -53,5 +53,5 @@ export default function PlayerStats({ params }: {
                 </tbody>
             </table>
         </div>
-    )
+    );
 }

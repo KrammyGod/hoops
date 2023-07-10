@@ -2,11 +2,11 @@
 
 import { InputGroup, Form  } from "react-bootstrap"
 
-export default ({
+export default function SignUp({
     btns = <div></div>,
     submit=(event: any)=>{},
     values={name: undefined, email: undefined}
-}) => {
+}) {
     return (
         <Form onSubmit={submit}>
             <Form.Group>
@@ -49,5 +49,5 @@ export default ({
             </Form.Group>
             {btns}
         </Form>
-    )
+    );
 }

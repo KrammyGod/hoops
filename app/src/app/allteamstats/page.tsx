@@ -1,20 +1,19 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { API } from "../config"
-import React from "react"
+import { useState, useEffect } from "react";
+import { API } from "../config";
+import React from "react";
 
 export default function AllTeamStats() {    
-    
-    const [stats, setStats] = useState<{abbrev: string, tname: string, wins: number, losses: number, seasons: number}[]>([])
-    const [error, setError] = useState(null)
+    const [stats, setStats] = useState<{abbrev: string, tname: string, wins: number, losses: number, seasons: number}[]>([]);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         fetch(`${API}/allteamstats`)
           .then(response => response.json())
           .then(data => setStats(data))
           .catch(err => setError(err))
-    }, [])
+    }, []);
 
     return (
         <div>
@@ -41,5 +40,5 @@ export default function AllTeamStats() {
                 </tbody>
             </table>
         </div>
-    )
+    );
 }

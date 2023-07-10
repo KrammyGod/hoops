@@ -1,9 +1,10 @@
 'use client'
+
 import { API } from "../config";
 import { useState } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import styles from '../page.module.css'
+import styles from '../page.module.css';
 import { Col, Container, Form, Row } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 
@@ -24,9 +25,9 @@ export default function Search() {
 
     const generateHeader = () => {
         if (searchVal == 1) {
-            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th></>)
+            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th></>);
         } else {
-            return (<><th>Team Abbreviation</th><th>Team Name</th></>)
+            return (<><th>Team Abbreviation</th><th>Team Name</th></>);
         }
     }
 
@@ -55,8 +56,6 @@ export default function Search() {
                 ));
             }
         }
-        
-
     }
 
     const handleSubmit = (event : any) => {
@@ -118,5 +117,5 @@ export default function Search() {
             </div>
         </main>
     
-    )
+    );
 }

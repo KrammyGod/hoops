@@ -1,7 +1,7 @@
 'use client'
 
-import { useRouter } from "next/navigation"
-import { Button } from "react-bootstrap"
+import { useRouter } from "next/navigation";
+import { Button } from "react-bootstrap";
 import SignUpForm from "./SignUpForm";
 import { API } from "../config";
 import styles from "../page.module.css";

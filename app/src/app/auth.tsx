@@ -3,19 +3,12 @@
 'use client'
 
 import Cookies from 'js-cookie'
-import { useRouter } from 'next/router'
 import { createContext, useContext, useEffect, useState } from 'react';
 
 export const logout = () => {
   Cookies.remove('uid')
   Cookies.remove('email')
   Cookies.remove('username')
-}
-
-const redirectToLogin = () => {
-  const router = useRouter();
-  router.push("/login")
-  // or history.push('/login') if your Login page is inside the same app
 }
 
 // the token is simply the uid, email, name
@@ -31,14 +24,9 @@ export const authenticate = async (tokens: any) => {
 
       return true
     } catch (error) {
-      redirectToLogin()
       return false
     }
   //}
-  /*
-  redirectToLogin()
-  return false
-  */
 }
 
 const AuthContext = createContext<{

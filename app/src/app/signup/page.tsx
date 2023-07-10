@@ -2,11 +2,11 @@
 
 import { useRouter } from "next/navigation"
 import { Button } from "react-bootstrap"
-import SignUpForm from "./SignUpForm"
-import { API } from "../config"
-import styles from "../page.module.css"
+import SignUpForm from "./SignUpForm";
+import { API } from "../config";
+import styles from "../page.module.css";
 
-export default () => {
+export default function SignUp() {
     const router = useRouter();
 
     const handleSubmit = (event: any) => {
@@ -29,9 +29,9 @@ export default () => {
         .then((res) => res.json())
         .catch((err) => {
             console.log(err)
-        })
+        });
 
-        router.push("/login/aftersignup")
+        router.push("/login/aftersignup");
     }
 
     return (
@@ -49,5 +49,5 @@ export default () => {
                 />
             </div>
         </div>
-    )
+    );
 }

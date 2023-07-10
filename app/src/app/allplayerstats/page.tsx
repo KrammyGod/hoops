@@ -1,8 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { API } from "../config"
-import React from "react"
+import { useState, useEffect } from "react";
+import { API } from "../config";
+import React from "react";
 
 export default function AllPlayerStats() {    
     

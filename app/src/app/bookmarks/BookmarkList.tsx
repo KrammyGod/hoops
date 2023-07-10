@@ -9,7 +9,7 @@ import "./list.css"
 // This component requires button to redirect to /bookmarks
 // NOTE: See BookmarkListOffCanvas for advanced development
 //
-export default ({uid}: {uid: number}) => {
+const BookmarkList = ({uid}: {uid: number}) => {
     const [bookmarks, setBookmarks] = useState([]);
 
     useEffect(() => {
@@ -26,13 +26,13 @@ export default ({uid}: {uid: number}) => {
         })
         .catch((err) => {
             console.log(err)
-        })
-    }, [])
+        });
+    }, [uid])
 
     const removeBookmark = (pid: number) => {
-        const newBookmarks = bookmarks.filter((i) => i["pid"] !== pid)
-        setBookmarks(newBookmarks)
-    }
+        const newBookmarks = bookmarks.filter((i) => i["pid"] !== pid);
+        setBookmarks(newBookmarks);
+    };
 
     return (
         <div className="listContainer">
@@ -69,4 +69,6 @@ export default ({uid}: {uid: number}) => {
             </div>
         </div>
     );
-}
+};
+
+export default BookmarkList;

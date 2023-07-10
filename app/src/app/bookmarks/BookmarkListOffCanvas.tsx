@@ -8,7 +8,7 @@ import { API } from "@/app/config";
 // REASON: When bookmarks are removed from the canvas, then any BookmarkBtn 
 //         on the underlying page are not updated.
 //
-export default ({uid}: {uid: number}) => {
+const BookmarkListOffCanvas = ({uid}: {uid: number}) => {
     const [isOpen, open] = useState(false);
     const [bookmarks, setBookmarks] = useState([]);
     const handleClose = () => open(false);
@@ -65,3 +65,5 @@ export default ({uid}: {uid: number}) => {
         </>
     );
 }
+
+export default BookmarkListOffCanvas;

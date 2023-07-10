@@ -4,10 +4,16 @@ import { API } from "@/app/config";
 
 const BookmarksBtn = ({
     pid, 
-    uid, 
+    uid,
     fromBookmarksList=false,
     removeBookmarksList
-}: {pid: number; uid: number; fromBookmarksList?: boolean; removeBookmarksList?: () => void}) => {
+}: {
+    pid: number; 
+    uid: number; 
+    initialValue?: boolean; 
+    fromBookmarksList?: boolean; 
+    removeBookmarksList?: () => void
+}) => {
     const [isMarked, mark] = useState(fromBookmarksList ? true : false);
 
     useEffect(() => {
@@ -24,6 +30,8 @@ const BookmarksBtn = ({
             .catch((err) => console.log(err))
         }
     }, [pid, uid, fromBookmarksList]);
+
+    
     
     const toggleMark = () => {
         // do this first for the client

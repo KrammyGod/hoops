@@ -75,21 +75,21 @@ export default function Search() {
         }
     }
     return (
-        <main className={styles.main}>
-            <div>
-                <h1 className='text-center'>Search</h1>
-                <ToggleButtonGroup name="types" type="radio" value={radioValue} onChange={radioChange}>
-                    {radios.map((radio, idx) => (
-                        <ToggleButton
-                            key={idx}
-                            id={`radio-${idx}`}
-                            value={radio.value}
-                            variant="secondary"
-                        >
-                            {radio.name}
-                        </ToggleButton>
-                    ))}
-                </ToggleButtonGroup>
+        <div className={styles.settingsOuterContainer}>
+            <h1 className='text-center'>Search</h1>
+            <ToggleButtonGroup name="types" type="radio" value={radioValue} onChange={radioChange}>
+                {radios.map((radio, idx) => (
+                    <ToggleButton
+                        key={idx}
+                        id={`radio-${idx}`}
+                        value={radio.value}
+                        variant="secondary"
+                    >
+                        {radio.name}
+                    </ToggleButton>
+                ))}
+            </ToggleButtonGroup>
+            <div className={styles.settingsContainer}>
                 <Container className="mt-5">
                     <Row>
                         <Col sm={12}>
@@ -111,12 +111,11 @@ export default function Search() {
                         {generateHeader()}
                     </tr>
                     </thead>
-                        <tbody>
-                            {generateCols()}
-                        </tbody>
+                    <tbody>
+                        {generateCols()}
+                    </tbody>
                 </Table>
             </div>
-        </main>
-    
+        </div>
     )
 }

@@ -13,9 +13,9 @@ export default function CustomNavbar() {
   const [settingsLink, setSettingsLink] = useState("/login");
   const [usersBtn, setUsersBtn] = useState<any>();
   const { handleAuth, auth } = useAuth();
-  
-  // Moving btns to top level makes sure that useEffect does not depend on it.
-  logoutBtn.props.onClick = () => handleAuth(false);
+
+  const loginBtn = <Button href="/login" variant="outline-primary">Login/Signup</Button>;
+  const logoutBtn = <Button href="/login" variant="outline-danger" onClick={() => handleAuth(false)}>Logout</Button>;
   const bookmarksBtn = <Button href={bookmarksLink} variant="info">Bookmarks</Button>;
   const settingsBtn = 
     <Button href={settingsLink} variant='secondary'>
@@ -32,6 +32,7 @@ export default function CustomNavbar() {
       setBookmarksLink("/login")
       setSettingsLink("/login")
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);
 
   return (

@@ -61,7 +61,7 @@ async function deleteUser(uid, hash) {
     return res.rows.length != 0
 }
 
-export const usesHandler = async (req, res) => {
+export const usersHandler = async (req, res) => {
     switch (req.query.type) {
         case "signup":
             try {

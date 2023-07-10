@@ -1,3 +1,3 @@
-import { usesHandler } from "../../../apis/users";
+import { usersHandler } from "../../../apis/users";
 
-export default usesHandler;
+export default usersHandler;

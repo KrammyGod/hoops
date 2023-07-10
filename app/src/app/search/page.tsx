@@ -5,13 +5,17 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import styles from '../page.module.css'
 import { Col, Container, Form, Row } from "react-bootstrap";
+import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
 import Table from 'react-bootstrap/Table';
+import { useAuth } from "../auth";
 
 export default function Search() {
     const [radioValue, setRadioValue] = useState(1);
     const [results, setResults] = useState<{ pid : string, firstname : string, lastname : string, tname : string, abbrev : string}[]>([]);
     const [val, setVal] = useState("");
     const [searchVal, setSearchVal] = useState(1);
+    const [bookmarks, setBookmarks] = useState<number[]>([]);
+    const { uid } = useAuth();
 
     const radios = [
         { name: 'Search for Player', value: 1 },
@@ -33,13 +37,13 @@ export default function Search() {
     const generateCols = () => {
         if (searchVal == 1) {
             if (results.length == 0) {
-                return (<tr><td colSpan={3} align='center'>No players found.</td></tr>);
+                return (<tr><td colSpan={4} align='center'>No players found.</td></tr>);
             } else {
                 return results.map((item) => (
                     <tr style={{cursor:'pointer'}} onClick={event =>  window.location.href=`/playerstats/${item.pid}`} key={item.pid}>
-                    <td align='center'>{item.pid}</td>
-                    <td>{item.firstname}</td>
-                    <td>{item.lastname}</td>
+                        <td align='center'>{item.pid}</td>
+                        <td>{item.firstname}</td>
+                        <td>{item.lastname}</td>
                     </tr>
                 ));
             }
@@ -67,6 +71,13 @@ export default function Search() {
                 .then((res) => res.json())
                 .then((data) => setResults(data.data ?? []))
                 .catch(() => setResults([]));
+            /*
+            getBookmarks(uid)
+                .then((data) => {
+                    let pids = data.data.map((marked: any) => marked["pid"])
+                    setBookmarks(pids)
+                })
+            */
         } else {
             fetch(`${API}/teamsearch?id=${val}`)
                 .then((res) => res.json())

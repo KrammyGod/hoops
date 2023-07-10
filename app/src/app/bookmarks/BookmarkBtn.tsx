@@ -2,9 +2,22 @@ import { useState, useEffect } from "react"
 import { BsBookmarkFill, BsBookmark } from 'react-icons/bs'
 import { API } from "@/app/config";
 
+export const getBookmarks = async (uid: number) => {
+    return fetch(API + "/bookmarks/get", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({uid})
+    })
+    .then((res) => res.json())
+    .catch((err) => console.log(err))
+}
+
 const BookmarksBtn = ({
     pid, 
     uid,
+    initialValue,
     fromBookmarksList=false,
     removeBookmarksList
 }: {
@@ -14,10 +27,10 @@ const BookmarksBtn = ({
     fromBookmarksList?: boolean; 
     removeBookmarksList?: () => void
 }) => {
-    const [isMarked, mark] = useState(fromBookmarksList ? true : false);
+    const [isMarked, mark] = useState(initialValue == undefined ? false : initialValue);
 
     useEffect(() => {
-        if (!fromBookmarksList) {
+        if (!fromBookmarksList && initialValue == undefined) {
             fetch(API + "/bookmarks/get", {
                 method: "POST",
                 headers: {
@@ -29,9 +42,11 @@ const BookmarksBtn = ({
             .then((data) => data.data.length === 0 ? mark(false) : mark(true))
             .catch((err) => console.log(err))
         }
-    }, [pid, uid, fromBookmarksList]);
 
-    
+        if (fromBookmarksList) {
+            mark(fromBookmarksList)
+        }
+    }, [pid, uid, fromBookmarksList]);
     
     const toggleMark = () => {
         // do this first for the client

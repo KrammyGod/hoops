@@ -4,21 +4,27 @@ import { useState, useEffect } from "react"
 import { API } from "../config"
 import { AiOutlineLink } from "react-icons/ai"
 import { useAuth } from "../auth"
-import BookmarksBtn from "../bookmarks/BookmarkBtn"
+import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn"
 import styles from "../page.module.css"
 import React from "react"
 
 export default function AllPlayerStats() {    
-    
+    const [bookmarks, setBookmarks] = useState<number[]>([]);
     const [stats, setStats] = useState<{pid: number, name: string, asts: number, trbs: number, pts: number, games: number, seasons: number}[]>([])
     const [error, setError] = useState(null)
-    const { uid } = useAuth();
+    const { auth, uid } = useAuth();
 
     useEffect(() => {
         fetch(`${API}/allplayerstats`)
           .then(response => response.json())
           .then(data => setStats(data))
           .catch(err => setError(err))
+
+        getBookmarks(uid)
+            .then((data) => {
+                let pids = data.data.map((marked: any) => marked["pid"])
+                setBookmarks(pids)
+            })
     }, [])
 
     return (
@@ -45,7 +51,7 @@ export default function AllPlayerStats() {
                                             <a href={`/playerstats/${stat.pid}`}>{stat.name}</a>
                                             <AiOutlineLink color="blue" />
                                         </div>
-                                        <BookmarksBtn pid={stat.pid} uid={uid} />
+                                        {auth ? <BookmarksBtn pid={stat.pid} uid={uid} initialValue={bookmarks.includes(stat.pid)} /> : ""}
                                     </div>
                                 </td>
                                 <td>{stat.asts}</td>

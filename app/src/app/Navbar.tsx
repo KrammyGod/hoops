@@ -2,7 +2,7 @@
 
 import styles from './page.module.css';
 import { useState, useEffect } from 'react';
-import { Navbar, Container, Nav, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav, Button, NavDropdown } from 'react-bootstrap';
 import { LuSettings } from "react-icons/lu";
 import { BiSearchAlt } from "react-icons/bi"
 import { useAuth } from './auth';
@@ -50,6 +50,11 @@ export default function CustomNavbar() {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse aria-controls="responsive-navbar-nav" className="justify-content-end">
                 <Nav className={styles.sideStack}>
+                  <NavDropdown title="All Players/Teams">
+                    <NavDropdown.Item href="/allplayerstats">All Players</NavDropdown.Item>
+                    <NavDropdown.Divider />
+                    <NavDropdown.Item href="/allteamstats">All Teams</NavDropdown.Item>
+                  </NavDropdown>
                   {searchBtn}
                   {bookmarksBtn}
                   {settingsBtn}

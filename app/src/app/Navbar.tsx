@@ -3,7 +3,7 @@
 import styles from './page.module.css'
 import { useState, useEffect } from 'react'
 import { Navbar, Container, Nav, Button } from 'react-bootstrap'
-import { LuSettings } from "react-icons/Lu"
+import { LuSettings } from "react-icons/lu"
 import { useAuth } from './auth'
 
 export default () => {

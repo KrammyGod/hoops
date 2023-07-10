@@ -1,5 +1,5 @@
 /* These classes are mobile first */
-.container {
+.listContainer {
     display: flex;
     justify-content: center;
     align-items: center;

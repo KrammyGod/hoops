@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { Table } from "react-bootstrap"
 import BookmarkBtn from "./BookmarkBtn";
+import { AiOutlineLink } from "react-icons/ai"
 import { API } from "@/app/config";
 import "./list.css"
 
@@ -34,7 +35,7 @@ export default ({uid}: {uid: number}) => {
     }
 
     return (
-        <div className="container">
+        <div className="listContainer">
             <h1 className="title">Bookmarks</h1>
             <div className="tableContainer">
                 <Table>
@@ -48,8 +49,9 @@ export default ({uid}: {uid: number}) => {
                         {bookmarks.map((bookmark) => (
                             <tr key={`${bookmark["firstname"]} ${bookmark["lastname"]}`}>
                                 <td valign="middle">
-                                    <a href={`/player/${bookmark["pid"]}`}>
+                                    <a href={`/playerstats/${bookmark["pid"]}`}>
                                         {`${bookmark["firstname"]} ${bookmark["lastname"]}`}
+                                        <AiOutlineLink color="blue" />
                                     </a>
                                 </td>
                                 <td align="right" valign="middle">

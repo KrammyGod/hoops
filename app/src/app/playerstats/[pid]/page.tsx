@@ -3,6 +3,9 @@
 import { useState, useEffect } from "react"
 import { API } from "../../config"
 import React from "react"
+import BookmarkBtn from "@/app/bookmarks/BookmarkBtn"
+import { useAuth } from "@/app/auth"
+import styles from "../../page.module.css"
 
 export default function PlayerStats({ params }: {
     params: { pid: string } 
@@ -11,6 +14,9 @@ export default function PlayerStats({ params }: {
     const [lastName, setLastName] = useState([])
     const [playerStats, setPlayerStats] = useState<{assists: number, points: number, games: number, season: number, abbrev: string, tname: string}[]>([])
     const [error, setError] = useState(null)
+    const { uid } = useAuth()
+
+    console.log(uid)
 
     useEffect(() => {
         fetch(`${API}/playerstats/${params.pid}`)
@@ -24,12 +30,13 @@ export default function PlayerStats({ params }: {
     }, [params.pid])
 
     return (
-        <div>
-            <table className="table table-bordered table-sm m-4">
+        <div className={styles.settingsOuterContainer}>
+            <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: "space-between" }}>
+                <h3>{params.pid} {firstName} {lastName}</h3>
+                <BookmarkBtn uid={uid} pid={Number(params.pid)}/>
+            </div>
+            <table className={`table table-bordered table-sm m-4 ${styles.settingsContainer}`}>
                 <thead>
-                    <tr>
-                        <th colSpan={6}>{params.pid} {firstName} {lastName}</th>
-                    </tr>
                     <tr>
                         <th>Assists</th>
                         <th>Points</th>

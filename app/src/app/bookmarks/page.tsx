@@ -1,8 +1,11 @@
 "use client"
 
 import BookmarkList from "./BookmarkList";
-export default function TestPage() {
+import { useAuth } from "../auth";
+
+export default function BookmarksPage() {
+    const { uid } = useAuth()
     return (
-       <BookmarkList uid={1} />
+       <BookmarkList uid={uid} />
     );
 }

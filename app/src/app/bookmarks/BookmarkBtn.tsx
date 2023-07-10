@@ -9,7 +9,7 @@ export default ({
     removeBookmarksList
 }: {pid: number; uid: number; fromBookmarksList?: boolean; removeBookmarksList?: () => void}) => {
     const [isMarked, mark] = useState(fromBookmarksList ? true : false);
-    
+
     if (!fromBookmarksList) {
         useEffect(() => {
             fetch(API + "/bookmarks/get", {

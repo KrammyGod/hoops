@@ -8,7 +8,7 @@ const createBookmark = async (req, res) => {
         )
         res.status(200).json({ data: data.rows })
     } catch (err) {
-        res.status(501).json({ messages: err.stack })
+        res.status(500).json({ messages: err.messages })
     }
 }
 
@@ -30,7 +30,7 @@ const getBookmarks = async (req, res) => {
         }
         res.status(200).json({ data: data.rows })
     } catch (err) {
-        res.status(501).json({ messages: err.stack });
+        res.status(500).json({ messages: err.messages });
     }
 }
 
@@ -42,7 +42,7 @@ const deleteBookmark = async (req, res) => {
         )
         res.status(200).json({ data: {pid: req.body.pid, uid: req.body.uid} })
     } catch (err) {
-        res.status(501).json({ messages: err.stack });
+        res.status(500).json({ messages: err.messages });
     }
 }
 

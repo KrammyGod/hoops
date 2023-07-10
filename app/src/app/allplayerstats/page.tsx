@@ -3,12 +3,16 @@
 import { useState, useEffect } from "react"
 import { API } from "../config"
 import { AiOutlineLink } from "react-icons/ai"
+import { useAuth } from "../auth"
+import BookmarksBtn from "../bookmarks/BookmarkBtn"
+import styles from "../page.module.css"
 import React from "react"
 
 export default function AllPlayerStats() {    
     
     const [stats, setStats] = useState<{pid: number, name: string, asts: number, trbs: number, pts: number, games: number, seasons: number}[]>([])
     const [error, setError] = useState(null)
+    const { uid } = useAuth();
 
     useEffect(() => {
         fetch(`${API}/allplayerstats`)
@@ -36,8 +40,13 @@ export default function AllPlayerStats() {
                             <tr key={index}>
                                 <td>{stat.pid}</td>
                                 <td>
-                                    <a href={`/playerstats/${stat.pid}`}>{stat.name}</a>
-                                    <AiOutlineLink color="blue" />
+                                    <div className={styles.rowContainer} style={{ justifyContent: "space-between" }}>
+                                        <div>
+                                            <a href={`/playerstats/${stat.pid}`}>{stat.name}</a>
+                                            <AiOutlineLink color="blue" />
+                                        </div>
+                                        <BookmarksBtn pid={stat.pid} uid={uid} />
+                                    </div>
                                 </td>
                                 <td>{stat.asts}</td>
                                 <td>{stat.trbs}</td>

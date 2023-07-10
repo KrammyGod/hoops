@@ -23,7 +23,9 @@ export default function Home() {
         <h3>{welcomeMsg}</h3>
         <Leaderboards></Leaderboards>
       </div>
-
+      <footer className={styles.footer}>
+        <p className={styles.p}>By the Hoops Team</p>
+      </footer>
     </main>
   )
 }

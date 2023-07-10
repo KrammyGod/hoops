@@ -12,7 +12,7 @@ export default () => {
   const [usersBtn, setUsersBtn] = useState<any>();
   const { handleAuth, auth } = useAuth()
 
-  const loginBtn = <Button href="/login" variant="outline-primary">Login</Button>
+  const loginBtn = <Button href="/login" variant="outline-primary">Login/Signup</Button>
   const logoutBtn = <Button href="/login" variant="outline-danger" onClick={() => handleAuth(false)}>Logout</Button>
   const bookmarksBtn = <Button href={bookmarksLink} variant="info">Bookmarks</Button>
   const settingsBtn = 

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import { Table } from "react-bootstrap"
-import BookmarkBtn from "./BookmarkBtn";
+import BookmarkBtn, { getBookmarks } from "./BookmarkBtn";
 import { AiOutlineLink } from "react-icons/ai"
 import { API } from "@/app/config";
 import "./list.css"
@@ -13,14 +13,7 @@ const BookmarkList = ({uid}: {uid: number}) => {
     const [bookmarks, setBookmarks] = useState([]);
 
     useEffect(() => {
-        fetch(API + "/bookmarks/get", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({uid})
-        })
-        .then((res) => res.json())
+        getBookmarks(uid)
         .then(data => {
             setBookmarks(data.data)
         })

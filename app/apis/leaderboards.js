@@ -74,6 +74,7 @@ async function mbp(page) {
 
 export async function getLeaderboards(req, res) {
     const page = (req.query.page ?? 1) - 1;
+    if (page < 0) return res.status(400).json({ messages: "Invalid page number" });
     try {
         let data = null;
         switch (req.query.type) {

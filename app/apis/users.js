@@ -68,7 +68,7 @@ export const usesHandler = async (req, res) => {
                 const data = await addAdmin(req.body.email, req.body.password, req.body.username);
                 res.status(200).json({ data: {email: data["email"], username: data["uname"]} })
             } catch (err) {
-                res.status(418).json({ messages: err.stack })
+                res.status(500).json({ messages: err.messages })
             }
             break;
         case "login":
@@ -82,7 +82,7 @@ export const usesHandler = async (req, res) => {
                 }
                 
             } catch (err) {
-                res.status(418).json({ messages: err.stack })
+                res.status(500).json({ messages: err.messages })
             }
             break;
         case "get":
@@ -91,7 +91,7 @@ export const usesHandler = async (req, res) => {
                 // don't expose the hash
                 res.status(200).json({ data: {uid: data["uid"], email: data["email"], username: data["uName"], role: data["urole"]} })
             } catch (err) {
-                res.status(418).json({ messages: err.stack })
+                res.status(500).json({ messages: err.messages })
             }
             break;
         case "delete":
@@ -105,7 +105,7 @@ export const usesHandler = async (req, res) => {
                 }
                 
             } catch (err) {
-                res.status(418).json({ messages: err.stack })
+                res.status(500).json({ messages: err.messages })
             }
             break;
         case "update":
@@ -115,7 +115,7 @@ export const usesHandler = async (req, res) => {
                 delete returnData["hash"]
                 res.status(200).json({ data: returnData })
             } catch (err) {
-                res.status(418).json({ messages: err.stack })
+                res.status(500).json({ messages: err.messages })
             }
             break;
         default:

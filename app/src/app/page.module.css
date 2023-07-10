@@ -1,10 +1,41 @@
-.main {
+.main .stack {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  padding: 6rem;
-  min-height: 100vh;
+  padding: 2rem 6rem;
+  min-height: 85vh;
+}
+
+.stack > * {
+  margin: 15px 0;
+}
+
+.sideStack > * {
+  margin: 0 10px;
+}
+
+.footer {
+  color: white;
+  display: flex;
+  background: rgb(0,0,0);
+  background: linear-gradient(360deg, rgba(0,0,0,1) 45%, rgba(255,255,255,0) 100%);
+  text-align: center;
+  justify-content: center;
+  min-height: 10vh;
+  padding: 8px;
+}
+
+.p {
+  align-self: flex-end;
+  margin: 1rem;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90vh;
+  width: 100vw;
 }
 
 .description {
@@ -50,7 +81,6 @@
   padding: 1rem 1.2rem;
   border-radius: var(--border-radius);
   background: rgba(var(--card-rgb), 0);
-  border: 1px solid rgba(var(--card-border-rgb), 0);
   transition: background 200ms, border 200ms;
 }
 
@@ -71,6 +101,74 @@
   line-height: 1.5;
   max-width: 30ch;
 }
+
+/* BEGIN */
+/* These classes are mobile first */
+.outerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 80vh;
+}
+
+.settingsOuterContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.settingsOuterContainer > * {
+  margin-top: 20px;
+}
+
+.title {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.rowContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.space {
+  margin: 0 10px;
+  align-self: center;
+}
+
+.subContainer{
+  width: 60%;
+}
+
+.settingsContainer {
+  width: 90%
+}
+
+.deleteModal {
+  width: 90%;
+  margin: 0 0 3vh 0;
+}
+
+/* For Desktop View */
+@media screen and (min-width: 768px) {
+  .subContainer {
+    width: 400px;
+  }
+  .settingsContainer {
+    width: 750px;
+  }
+  .deleteModal {
+    width: 400px;
+  }
+}
+
+/* For Tablet View 
+@media screen and (min-device-width: 768px)
+  and (max-device-width: 1024px) {
+}*/
+
+/* END */
 
 .center {
   display: flex;
@@ -106,23 +204,6 @@
 
 .logo {
   position: relative;
-}
-/* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    background: rgba(var(--card-rgb), 0.1);
-    border: 1px solid rgba(var(--card-border-rgb), 0.15);
-  }
-
-  .card:hover span {
-    transform: translateX(4px);
-  }
-}
-
-@media (prefers-reduced-motion) {
-  .card:hover span {
-    transform: none;
-  }
 }
 
 /* Mobile */

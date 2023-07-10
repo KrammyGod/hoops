@@ -1,12 +1,12 @@
 'use client'
 
-import LoginPage from "../page"
+import LoginForm from "../LoginForm"
 import { Alert } from "react-bootstrap"
 
 export default () => (
-    <LoginPage>
+    <LoginForm>
         <Alert dismissible variant="info" style={{ width: "100%", textAlign: "center" }}>
             Login to your new account!
         </Alert>
-    </LoginPage>
+    </LoginForm>
 )

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { API } from "../config"
+import { AiOutlineLink } from "react-icons/ai"
 import React from "react"
 
 export default function AllPlayerStats() {    
@@ -34,7 +35,10 @@ export default function AllPlayerStats() {
                     {stats.map((stat, index) => (
                             <tr key={index}>
                                 <td>{stat.pid}</td>
-                                <td>{stat.name}</td>
+                                <td>
+                                    <a href={`/playerstats/${stat.pid}`}>{stat.name}</a>
+                                    <AiOutlineLink color="blue" />
+                                </td>
                                 <td>{stat.asts}</td>
                                 <td>{stat.trbs}</td>
                                 <td>{stat.pts}</td>

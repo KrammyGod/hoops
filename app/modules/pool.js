@@ -1,9 +1,8 @@
-import pg from "pg"
+import pg from 'pg';
 import dotenv from 'dotenv';
-
-const { Pool } = pg;
 dotenv.config();
-const pool = new Pool();
+
+const pool = new pg.Pool();
 
 export const query = async (text, params) => {
     const client = await pool.connect();
@@ -19,4 +18,6 @@ export const query = async (text, params) => {
         client.release();
     }
     return res;
-};
+}
+
+process.on('beforeExit', async () => { await pool.end(); });

@@ -36,18 +36,18 @@
    17 |     61 |   1969
 (8 rows)
 
- pid |      name       | asts | trbs | pts  | games | seasons 
------+-----------------+------+------+------+-------+---------
-  41 | Deb Smith       |    6 |      |   73 |    48 |       1
-  42 | Dick Fitzgerald |   40 |      |  277 |    61 |       2
-  43 | Dick Murphy     |    8 |      |   34 |    31 |       2
-  44 | Dick Schulz     |  203 |      | 1141 |   205 |       7
-  45 | Dino Martin     |   73 |      |  834 |    92 |       2
-  46 | Don Carlson     |  324 |   15 | 1447 |   180 |       4
-  47 | Don Eliason     |    0 |      |    0 |     1 |       1
-  48 | Don Martin      |   36 |      |  410 |   137 |       4
-  49 | Don Putman      |  285 |      | 1030 |   216 |       4
-  50 | Doyle Parrack   |   20 |      |  272 |    58 |       1
+ pid  |      name       | asts | trbs |  pts  | games | seasons 
+------+-----------------+------+------+-------+-------+---------
+ 2479 | Adrian Caldwell |   33 |  496 |   390 |   197 |       7
+ 1692 | Adrian Dantley  | 2830 | 5455 | 23177 |   955 |      17
+ 3169 | Adrian Griffin  |  653 | 1512 |  1919 |   477 |      10
+  720 | Adrian Smith    | 1739 | 1626 |  8750 |   772 |      12
+ 4902 | Ahmad Caver     |    0 |    0 |     2 |     1 |       1
+  700 | Al Attles       | 2483 | 2463 |  6328 |   711 |      11
+  895 | Al Beard        |    0 |   46 |    30 |    12 |       1
+  609 | Al Bianchi      | 1497 | 1722 |  5550 |   687 |      10
+    1 | Al Brightman    |   60 |      |   567 |    58 |       1
+  721 | Al Butler       |  530 |  696 |  2282 |   234 |       5
 (10 rows)
 
  abbrev |         tname          | wins | losses | seasons 

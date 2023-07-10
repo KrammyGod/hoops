@@ -24,6 +24,7 @@ SELECT pid, firstName || ' ' || lastName AS name,
        ROUND(COUNT(season)) AS seasons
 FROM Player NATURAL JOIN PlayerStats
 GROUP BY pid, firstName, lastName
+ORDER BY name
 LIMIT 10
 OFFSET 4 * 10;
 
@@ -34,5 +35,6 @@ SELECT abbrev, tname,
        COUNT(season) AS seasons
 FROM Team NATURAL JOIN TeamStats
 GROUP BY abbrev, tname
+ORDER BY abbrev
 LIMIT 10
 OFFSET 4 * 10;

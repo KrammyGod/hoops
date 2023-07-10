@@ -1,31 +1,21 @@
-/* GET PID, FIRST NAME and LASTNAME */
+---------- R7: Sahl ----------
+/* GET PLAYER STATS */
 SELECT * FROM Player WHERE pid = 120;
 
-/* GET ALL OTHER PLAYER STATS */
 SELECT assists, points, games, season, abbrev, tname 
 FROM Player NATURAL JOIN PlayerStats NATURAL JOIN Team
 WHERE pid = 120
 ORDER BY season DESC;
 
-/* GET TEAM ABBREV and NAME */
+/* GET TEAM STATS */
 SELECT * FROM Team WHERE abbrev LIKE '%NYA%';
 
-/* GETTING ALL TEAM STATS */
 SELECT wins, losses, season
 FROM TeamStats
 WHERE abbrev LIKE '%NYA%'
 ORDER BY season DESC;
 
-/* GETTING AGGREGATE STATS FOR TEAM */
-SELECT abbrev, tname,
-       ROUND(AVG(wins)) AS wins,
-       ROUND(AVG(losses)) AS losses,
-       COUNT(season) AS seasons
-FROM Team NATURAL JOIN TeamStats
-GROUP BY abbrev, tname
-ORDER BY abbrev;
-
-/* GETTING AGGREGATE STATS FOR PLAYER */
+/* GET TOTAL STATS FOR ALL PLAYERS */
 SELECT pid, firstName || ' ' || lastName AS name,
        ROUND(SUM(assists)) AS asts,
        ROUND(SUM(rebounds)) AS trbs, 
@@ -35,3 +25,12 @@ SELECT pid, firstName || ' ' || lastName AS name,
 FROM Player NATURAL JOIN PlayerStats
 GROUP BY pid, firstName, lastName
 ORDER BY name;
+
+/* GET TOTAL STATS FOR ALL TEAMS */
+SELECT abbrev, tname,
+       ROUND(AVG(wins)) AS wins,
+       ROUND(AVG(losses)) AS losses,
+       COUNT(season) AS seasons
+FROM Team NATURAL JOIN TeamStats
+GROUP BY abbrev, tname
+ORDER BY abbrev;

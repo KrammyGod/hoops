@@ -2,8 +2,6 @@
 
 import LoginForm from "./LoginForm"
 
-const LoginPage = () => {
+export default () => (
     <LoginForm></LoginForm>
-}
-
-export default LoginPage;
+)

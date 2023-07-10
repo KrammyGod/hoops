@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button, Modal, Form, CloseButton } from 'react-bootstrap';
-import { FaTrash } from "react-icons/fa"
+import { FaTrash } from "react-icons/fa";
 import { API } from '../config';
 import { useAuth } from "../auth";
 import { useRouter } from "next/navigation";

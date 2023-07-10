@@ -1,31 +1,31 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react"
-import { API } from "../../config"
-import React from "react"
-import BookmarkBtn from "@/app/bookmarks/BookmarkBtn"
-import { useAuth } from "@/app/auth"
-import styles from "../../page.module.css"
+import { useState, useEffect } from "react";
+import { API } from "../../config";
+import React from "react";
+import BookmarkBtn from "@/app/bookmarks/BookmarkBtn";
+import { useAuth } from "@/app/auth";
+import styles from "../../page.module.css";
 
 export default function PlayerStats({ params }: {
     params: { pid: string } 
 }) {    
-    const [firstName, setFirstName] = useState([])
-    const [lastName, setLastName] = useState([])
-    const [playerStats, setPlayerStats] = useState<{assists: number, points: number, games: number, season: number, abbrev: string, tname: string}[]>([])
-    const [error, setError] = useState(null)
-    const { uid } = useAuth()
+    const [firstName, setFirstName] = useState([]);
+    const [lastName, setLastName] = useState([]);
+    const [playerStats, setPlayerStats] = useState<{assists: number, points: number, games: number, season: number, abbrev: string, tname: string}[]>([]);
+    const [error, setError] = useState(null);
+    const { uid } = useAuth();
 
     useEffect(() => {
         fetch(`${API}/playerstats/${params.pid}`)
           .then(response => response.json())
           .then(data => {
-            setPlayerStats(data.stats)
-            setFirstName(data.player.firstname)
-            setLastName(data.player.lastname)
+            setPlayerStats(data.stats);
+            setFirstName(data.player.firstname);
+            setLastName(data.player.lastname);
           })
-          .catch(error => setError(error))
-    }, [params.pid])
+          .catch(error => setError(error));
+    }, [params.pid]);
 
     return (
         <div className={styles.settingsOuterContainer}>

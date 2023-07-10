@@ -68,7 +68,7 @@ export const usersHandler = async (req, res) => {
                 const data = await addAdmin(req.body.email, req.body.password, req.body.username);
                 res.status(200).json({ data: {email: data["email"], username: data["uname"]} })
             } catch (err) {
-                res.status(500).json({ message: err.message })
+                res.status(500).json({ messages: err.message })
             }
             break;
         case "login":
@@ -82,7 +82,7 @@ export const usersHandler = async (req, res) => {
                 }
                 
             } catch (err) {
-                res.status(500).json({ message: err.message })
+                res.status(500).json({ messages: err.message })
             }
             break;
         case "get":

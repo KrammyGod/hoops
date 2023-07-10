@@ -1,3 +1,4 @@
+---------- R11: Mark ----------
 -- Sort by average points per game per player
 SELECT * FROM Player NATURAL JOIN (
     SELECT pid, SUM(points) / SUM(games) AS ppg

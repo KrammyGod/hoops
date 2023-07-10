@@ -44,8 +44,8 @@ CREATE TEMPORARY TABLE tmp (
 -- Player table
 INSERT INTO Player (firstName, lastName)
 SELECT DISTINCT ON (player_id)
-    substring(player, '^\w+') AS firstName,
-    substring(player, '^\w+\s+(.*)') AS lastName
+    regexp_replace(player, '\s\S+', '') AS firstName,
+    regexp_replace(player, '.+[\s]', '') AS lastName
 FROM tmp ORDER BY player_id ASC;
 
 -- PlayerStats table

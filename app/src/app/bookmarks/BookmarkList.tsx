@@ -13,12 +13,10 @@ const BookmarkList = ({uid}: {uid: number}) => {
     const [page, setPage] = useState(0);
 
     const next = () => {
-       
         getBookmarks(uid, page+1)
             .then((data) => setBookmarks(data.data))
         
         setPage(page + 1)
-        console.log(bookmarks)
     }
     const prev = () => {
         if (page > 0) {

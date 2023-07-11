@@ -22,7 +22,7 @@ export async function getTeamStats(abbrev) {
         SELECT wins, losses, season
         FROM TeamStats
         WHERE abbrev LIKE $1
-        ORDER BY season DESC`, [abbrev]);
+        ORDER BY season DESC, abbrev`, [abbrev]);
     return {
         team: res1.rows[0],
         stats: res2.rows,

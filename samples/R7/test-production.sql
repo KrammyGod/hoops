@@ -13,7 +13,7 @@ SELECT * FROM Team WHERE abbrev LIKE '%NYA%';
 SELECT wins, losses, season
 FROM TeamStats
 WHERE abbrev LIKE '%NYA%'
-ORDER BY season DESC;
+ORDER BY season DESC, abbrev;
 
 /* GET TOTAL STATS FOR ALL PLAYERS */
 SELECT pid, firstName || ' ' || lastName AS name,

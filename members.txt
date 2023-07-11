@@ -8,6 +8,7 @@ Sahij
 - Helped organize and attend weekly meetings
 - Helped design the database
 - Helped create queries
+- Implemented feature 6 and completed R6
 
 Brandon
 - Created template for Milestone 1

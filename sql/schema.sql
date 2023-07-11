@@ -6,7 +6,8 @@ CREATE TABLE HUser (
 	hash text,
 	email text,
 	uName text,
-	uRole roleType
+	uRole roleType,
+	UNIQUE INDEX idxEmail (email ASC)
 );
 
 CREATE TABLE Player (

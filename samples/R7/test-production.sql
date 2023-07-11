@@ -5,7 +5,7 @@ SELECT * FROM Player WHERE pid = 120;
 SELECT assists, points, games, season, abbrev, tname 
 FROM PlayerStats NATURAL JOIN Team
 WHERE pid = 120
-ORDER BY season DESC;
+ORDER BY season DESC, pid;
 
 /* GET TEAM STATS */
 SELECT * FROM Team WHERE abbrev LIKE '%NYA%';

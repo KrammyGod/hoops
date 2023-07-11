@@ -1,12 +1,5 @@
 INSERT 0 1
 
-                                                     QUERY PLAN                                                     
---------------------------------------------------------------------------------------------------------------------
-Index Scan using huser_email_key on huser  (cost=0.15..8.17 rows=1 width=104) (actual time=0.012..0.013 rows=1 loops=1)
-   Index Cond: (email = 'bruce@gmail.com'::text)
- Planning Time: 0.053 ms
- Execution Time: 0.024 ms
-(4 rows)
  uid | hash  |      email      | uname | urole 
 -----+-------+-----------------+-------+-------
    3 | f222f | bruce@gmail.com | Bruce | user

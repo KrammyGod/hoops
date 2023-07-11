@@ -3,8 +3,11 @@
 INSERT INTO HUser(hash, email, uName, uRole)
 VALUES ('f222f', 'bruce@gmail.com', 'Bruce', 'admin');
 
--- GET USER INFO --
-SELECT * FROM HUser WHERE email = 'bruce@gmail.com';
+-- GET USER INFO USING EMAIL (INDEX FOR EMAIL CREATED) --
+SELECT * FROM HUser WHERE uid = 1;
+
+-- GET USER INFO USING UID --
+SELECT * FROM HUser WHERE uid = 1;
 
 -- UPDATE USER INFO --
 UPDATE HUser

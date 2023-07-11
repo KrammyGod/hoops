@@ -12,7 +12,7 @@ WHERE
     (points >= 1000 OR 1000 IS NULL) AND
     (games >= 75 OR 75 IS NULL) AND
     (season = NULL OR NULL IS NULL)
-ORDER BY name
+ORDER BY name ASC, season DESC
 LIMIT 10
 OFFSET 0 * 10;
 
@@ -24,9 +24,9 @@ SELECT
 FROM Team 
 NATURAL JOIN TeamStats
 WHERE 
-    (wins >= 5 OR 5 IS NULL) AND
-    (losses >= NULL OR NULL IS NULL) AND
-    (season = 2000 OR 2000 IS NULL)
-ORDER BY name
+    (wins >= 10 OR 10 IS NULL) AND
+    (losses >= 50 OR 50 IS NULL) AND
+    (season = NULL OR NULL IS NULL)
+ORDER BY name ASC, season DESC
 LIMIT 10
 OFFSET 0 * 10;

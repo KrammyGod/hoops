@@ -2,26 +2,26 @@
 ------+----------------+-------+--------+---------+----------+--------
  2218 | A.C. Green     |    82 |   1204 |     137 |      753 |   1994
  2218 | A.C. Green     |    82 |   1051 |     116 |      711 |   1993
- 2218 | A.C. Green     |    82 |   1061 |      90 |      712 |   1990
  2218 | A.C. Green     |    82 |   1116 |     117 |      762 |   1992
+ 2218 | A.C. Green     |    82 |   1061 |      90 |      712 |   1990
  2218 | A.C. Green     |    82 |   1088 |     103 |      739 |   1989
  4219 | Aaron Gordon   |    78 |   1246 |     289 |      574 |   2019
- 1692 | Adrian Dantley |    77 |   1564 |     144 |      587 |   1977
  1692 | Adrian Dantley |    81 |   2457 |     324 |      514 |   1982
  1692 | Adrian Dantley |    80 |   2452 |     322 |      509 |   1981
- 3101 | Al Harrington  |    82 |   1002 |     125 |      511 |   2003
+ 1692 | Adrian Dantley |    77 |   1564 |     144 |      587 |   1977
+ 3101 | Al Harrington  |    76 |   1411 |     238 |      523 |   2006
 (10 rows)
 
- id  |         name          | wins | losses | season 
------+-----------------------+------+--------+--------
- ATL | Atlanta Hawks         |   28 |     54 |   2000
- BOS | Boston Celtics        |   35 |     47 |   2000
- CHH | Charlotte Hornets     |   49 |     33 |   2000
- CHI | Chicago Bulls         |   17 |     65 |   2000
- CLE | Cleveland Cavaliers   |   32 |     50 |   2000
- DAL | Dallas Mavericks      |   40 |     42 |   2000
- DEN | Denver Nuggets        |   35 |     47 |   2000
- DET | Detroit Pistons       |   42 |     40 |   2000
- GSW | Golden State Warriors |   19 |     63 |   2000
- HOU | Houston Rockets       |   34 |     48 |   2000
+ id  |      name      | wins | losses | season 
+-----+----------------+------+--------+--------
+ ANA | Anaheim Amigos |   25 |     53 |   1968
+ ATL | Atlanta Hawks  |   29 |     53 |   2019
+ ATL | Atlanta Hawks  |   24 |     58 |   2018
+ ATL | Atlanta Hawks  |   30 |     52 |   2007
+ ATL | Atlanta Hawks  |   26 |     56 |   2006
+ ATL | Atlanta Hawks  |   13 |     69 |   2005
+ ATL | Atlanta Hawks  |   28 |     54 |   2004
+ ATL | Atlanta Hawks  |   25 |     57 |   2001
+ ATL | Atlanta Hawks  |   28 |     54 |   2000
+ ATL | Atlanta Hawks  |   31 |     51 |   1981
 (10 rows)

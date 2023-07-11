@@ -24,7 +24,6 @@ const getBookmarks = async (req, res) => {
             )
         } else {
             const page = req.body.page == undefined ? 0 : req.body.page;
-            console.log(page)
             if (page < 0) return res.status(400).json({ messages: "Invalid page number" });
             data = await query(
                 'SELECT * FROM Bookmarks NATURAL JOIN Player WHERE uid = $1 LIMIT 10 OFFSET $2 * 10',

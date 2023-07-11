@@ -3,9 +3,9 @@
 SELECT * FROM Player WHERE pid = 120;
 
 SELECT assists, points, games, season, abbrev, tname 
-FROM Player NATURAL JOIN PlayerStats NATURAL JOIN Team
+FROM PlayerStats NATURAL JOIN Team
 WHERE pid = 120
-ORDER BY season DESC;
+ORDER BY season DESC, pid;
 
 /* GET TEAM STATS */
 SELECT * FROM Team WHERE abbrev LIKE '%NYA%';
@@ -24,7 +24,9 @@ SELECT pid, firstName || ' ' || lastName AS name,
        ROUND(COUNT(season)) AS seasons
 FROM Player NATURAL JOIN PlayerStats
 GROUP BY pid, firstName, lastName
-ORDER BY name;
+ORDER BY name
+LIMIT 10
+OFFSET 4 * 10;
 
 /* GET TOTAL STATS FOR ALL TEAMS */
 SELECT abbrev, tname,
@@ -33,4 +35,6 @@ SELECT abbrev, tname,
        COUNT(season) AS seasons
 FROM Team NATURAL JOIN TeamStats
 GROUP BY abbrev, tname
-ORDER BY abbrev;
+ORDER BY abbrev
+LIMIT 10
+OFFSET 4 * 10;

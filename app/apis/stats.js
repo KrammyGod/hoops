@@ -8,7 +8,7 @@ export async function getPlayerStats(pid) {
         FROM PlayerStats
         NATURAL JOIN Team
         WHERE pid = $1
-        ORDER BY season DESC`, [pid]);
+        ORDER BY season DESC, pid`, [pid]);
     return {
         player: res1.rows[0],
         stats: res2.rows,

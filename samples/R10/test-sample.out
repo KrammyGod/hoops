@@ -1,0 +1,27 @@
+ pid  | firstname |  lastname   | assists | rebounds | points | games | season | abbrev 
+------+-----------+-------------+---------+----------+--------+-------+--------+--------
+ 4904 | Alperen   | Şengün      |     291 |      678 |   1109 |    75 |   2023 | HOU
+ 4472 | Bam       | Adebayo     |     240 |      688 |   1529 |    75 |   2023 | MIA
+ 3801 | Brook     | Lopez       |      99 |      520 |   1239 |    78 |   2023 | MIL
+ 4400 | Domantas  | Sabonis     |     573 |      973 |   1510 |    79 |   2023 | SAC
+ 4931 | Evan      | Mobley      |     224 |      711 |   1277 |    79 |   2023 | CLE
+ 5048 | Jabari    | Smith Jr.   |     101 |      569 |   1010 |    79 |   2023 | HOU
+ 4100 | Jonas     | Valančiūnas |     140 |      804 |   1115 |    79 |   2023 | NOP
+ 4970 | Josh      | Giddey      |     469 |      599 |   1260 |    76 |   2023 | OKC
+ 4266 | Julius    | Randle      |     316 |      767 |   1936 |    77 |   2023 | NYK
+ 4047 | Nikola    | Vučević     |     265 |      903 |   1447 |    82 |   2023 | CHI
+(10 rows)
+
+ abbrev |         tname         | wins | losses | season 
+--------+-----------------------+------+--------+--------
+ ATL    | Atlanta Hawks         |   28 |     54 |   2000
+ BOS    | Boston Celtics        |   35 |     47 |   2000
+ CHH    | Charlotte Hornets     |   49 |     33 |   2000
+ CHI    | Chicago Bulls         |   17 |     65 |   2000
+ CLE    | Cleveland Cavaliers   |   32 |     50 |   2000
+ DAL    | Dallas Mavericks      |   40 |     42 |   2000
+ DEN    | Denver Nuggets        |   35 |     47 |   2000
+ DET    | Detroit Pistons       |   42 |     40 |   2000
+ GSW    | Golden State Warriors |   19 |     63 |   2000
+ HOU    | Houston Rockets       |   34 |     48 |   2000
+(10 rows)

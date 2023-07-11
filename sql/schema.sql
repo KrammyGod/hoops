@@ -4,11 +4,12 @@ CREATE TYPE roleType AS ENUM ('admin', 'user');
 CREATE TABLE HUser (
 	uid SERIAL PRIMARY KEY,
 	hash text,
-	email text,
+	email text UNIQUE,
 	uName text,
 	uRole roleType,
-	UNIQUE INDEX idxEmail (email ASC)
 );
+
+CREATE INDEX idxEmail ON Huser(email ASC);
 
 CREATE TABLE Player (
 	pid SERIAL PRIMARY KEY,

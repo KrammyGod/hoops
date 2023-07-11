@@ -4,7 +4,7 @@ CREATE TYPE roleType AS ENUM ('admin', 'user');
 CREATE TABLE HUser (
 	uid SERIAL PRIMARY KEY,
 	hash text,
-	email text,
+	email text UNIQUE NOT NULL,
 	uName text,
 	uRole roleType
 );

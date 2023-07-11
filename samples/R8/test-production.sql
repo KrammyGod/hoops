@@ -1,3 +1,4 @@
+---------- R8: Saboor ----------
 -- INSERT NEW USER --
 INSERT INTO HUser (hash, email, uName, uRole)
 VALUES ('f222f', 'bruce@gmail.com', 'Bruce', 'user');

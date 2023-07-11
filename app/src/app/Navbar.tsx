@@ -4,11 +4,9 @@ import styles from './page.module.css';
 import { useState, useEffect } from 'react';
 import { Navbar, Container, Nav, Button, NavDropdown } from 'react-bootstrap';
 import { LuSettings } from "react-icons/lu";
-import { BiSearchAlt } from "react-icons/bi"
+import { BiSearchAlt } from "react-icons/bi";
 import { useAuth } from './auth';
 
-const loginBtn = <Button href="/login" variant="outline-primary">Login/Signup</Button>;
-const logoutBtn = <Button href="/login" variant="outline-danger">Logout</Button>;
 export default function CustomNavbar() {
   const [bookmarksLink, setBookmarksLink] = useState("/login");
   const [settingsLink, setSettingsLink] = useState("/login");
@@ -32,13 +30,13 @@ export default function CustomNavbar() {
 
   useEffect(() => {
     if (auth) {
-      setUsersBtn(logoutBtn)
-      setBookmarksLink("/bookmarks")
-      setSettingsLink("/settings")
+      setUsersBtn(logoutBtn);
+      setBookmarksLink("/bookmarks");
+      setSettingsLink("/settings");
     } else {
-      setUsersBtn(loginBtn)
-      setBookmarksLink("/login")
-      setSettingsLink("/login")
+      setUsersBtn(loginBtn);
+      setBookmarksLink("/login");
+      setSettingsLink("/login");
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth]);

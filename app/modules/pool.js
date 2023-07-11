@@ -19,5 +19,3 @@ export const query = async (text, params) => {
     }
     return res;
 }
-
-process.on('beforeExit', async () => { await pool.end(); });

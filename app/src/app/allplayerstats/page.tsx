@@ -1,31 +1,31 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { API } from "../config"
-import { AiOutlineLink } from "react-icons/ai"
-import { useAuth } from "../auth"
-import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn"
-import styles from "../page.module.css"
-import React from "react"
+import { useState, useEffect } from "react";
+import { API } from "../config";
+import { AiOutlineLink } from "react-icons/ai";
+import { useAuth } from "../auth";
+import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
+import styles from "../page.module.css";
+import React from "react";
 
 export default function AllPlayerStats() {    
     const [bookmarks, setBookmarks] = useState<number[]>([]);
-    const [stats, setStats] = useState<{pid: number, name: string, asts: number, trbs: number, pts: number, games: number, seasons: number}[]>([])
-    const [error, setError] = useState(null)
+    const [stats, setStats] = useState<{pid: number, name: string, asts: number, trbs: number, pts: number, games: number, seasons: number}[]>([]);
+    const [error, setError] = useState(null);
     const { auth, uid } = useAuth();
 
     useEffect(() => {
         fetch(`${API}/allplayerstats`)
           .then(response => response.json())
           .then(data => setStats(data))
-          .catch(err => setError(err))
+          .catch(err => setError(err));
 
         getBookmarks(uid)
             .then((data) => {
                 let pids = data.data.map((marked: any) => marked["pid"])
                 setBookmarks(pids)
-            })
-    }, [])
+            });
+    }, [uid]);
 
     return (
         <div>

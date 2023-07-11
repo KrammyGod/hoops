@@ -6,7 +6,6 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import styles from '../page.module.css';
 import { Col, Container, Form, Row } from "react-bootstrap";
-import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
 import Table from 'react-bootstrap/Table';
 import { useAuth } from "../auth";
 
@@ -127,5 +126,5 @@ export default function Search() {
                 </Table>
             </div>
         </div>
-    )
+    );
 }

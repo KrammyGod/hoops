@@ -3,25 +3,25 @@
 INSERT INTO HUser (hash, email, uName, uRole)
 VALUES ('f222f', 'bruce@gmail.com', 'Bruce', 'user');
 
--- GET USER INFO USING EMAIL --
--- INDEX FOR EMAIL CREATED IMPLICITLY AS EMAIL HAS A UNIQUE CONSTRAINT --
+-- GET USER INFO --
 SELECT * 
 FROM HUser 
-WHERE email = 'bruce@gmail.com';
+WHERE uid = 2;
 
 -- UPDATE USER INFO --
 UPDATE HUser
 SET hash = 'f555f',
     email = 'clark@gmail.com', 
     uName = 'Clark' 
-WHERE email = 'bruce@gmail.com';
+WHERE uid = 2;
 
--- VERIFY LOGIN --
-SELECT COUNT(*) 
+-- HASH RETRIEVAL TO VERIFY LOGIN --
+-- UNIQUE CONSTRAINT ON EMAIL IMPLICITY CREATES AN INDEX FOR EMAIL --
+SELECT hash 
 FROM HUser
-WHERE email = 'clark@gmail.com' AND hash = 'f555f';
+WHERE email = 'clark@gmail.com';
 
 -- DELETE USER --
 -- BOOKMARKS DELETED USING ON DELETE CASCADE --
 DELETE FROM HUser 
-WHERE email = 'clark@gmail.com';
+WHERE uid = 2;

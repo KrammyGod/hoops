@@ -2,14 +2,14 @@ INSERT 0 1
 
  uid | hash  |      email      | uname | urole 
 -----+-------+-----------------+-------+-------
-   3 | f222f | bruce@gmail.com | Bruce | user
+   2 | f222f | bruce@gmail.com | Bruce | user
 (1 row)
 
 UPDATE 1
 
- count 
+ hash  
 -------
-     1
+ f555f
 (1 row)
 
 DELETE 1

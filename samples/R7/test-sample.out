@@ -36,30 +36,6 @@
    17 |     61 |   1969
 (8 rows)
 
- abbrev |        tname        | wins | losses | seasons 
---------+---------------------+------+--------+---------
- ANA    | Anaheim Amigos      |   25 |     53 |       1
- AND    | Anderson Packers    |   37 |     27 |       1
- ATL    | Atlanta Hawks       |   40 |     41 |      55
- BAL    | Baltimore Bullets   |   40 |     41 |      10
- BLB    | Baltimore Bullets   |   23 |     42 |       7
- BOS    | Boston Celtics      |   46 |     32 |      77
- BRK    | Brooklyn Nets       |   38 |     43 |      11
- BUF    | Buffalo Braves      |   32 |     50 |       8
- CAP    | Capital Bullets     |   47 |     35 |       1
- CAR    | Carolina Cougars    |   43 |     41 |       5
- CHA    | Charlotte Bobcats   |   29 |     51 |      10
- CHH    | Charlotte Hornets   |   39 |     41 |      14
- CHI    | Chicago Bulls       |   41 |     40 |      57
- CHO    | Charlotte Hornets   |   35 |     44 |       9
- CHP    | Chicago Packers     |   18 |     62 |       1
- CHS    | Chicago Stags       |   36 |     23 |       4
- CHZ    | Chicago Zephyrs     |   25 |     55 |       1
- CIN    | Cincinnati Royals   |   37 |     42 |      15
- CLE    | Cleveland Cavaliers |   37 |     43 |      53
- CLR    | Cleveland Rebels    |   30 |     30 |       1
-(20 rows)
-
  pid |     name      | asts | trbs | pts  | games | seasons 
 -----+---------------+------+------+------+-------+---------
    1 | Al Brightman  |   60 |      |  567 |    58 |       1
@@ -82,4 +58,28 @@
   18 | Bob Doll      |  273 |      | 1653 |   196 |       4
   19 | Bob Duffy     |    0 |      |   19 |    17 |       2
   20 | Bob Faught    |   33 |      |  343 |    51 |       1
+(20 rows)
+
+ abbrev |        tname        | wins | losses | seasons 
+--------+---------------------+------+--------+---------
+ ANA    | Anaheim Amigos      |   25 |     53 |       1
+ AND    | Anderson Packers    |   37 |     27 |       1
+ ATL    | Atlanta Hawks       |   40 |     41 |      55
+ BAL    | Baltimore Bullets   |   40 |     41 |      10
+ BLB    | Baltimore Bullets   |   23 |     42 |       7
+ BOS    | Boston Celtics      |   46 |     32 |      77
+ BRK    | Brooklyn Nets       |   38 |     43 |      11
+ BUF    | Buffalo Braves      |   32 |     50 |       8
+ CAP    | Capital Bullets     |   47 |     35 |       1
+ CAR    | Carolina Cougars    |   43 |     41 |       5
+ CHA    | Charlotte Bobcats   |   29 |     51 |      10
+ CHH    | Charlotte Hornets   |   39 |     41 |      14
+ CHI    | Chicago Bulls       |   41 |     40 |      57
+ CHO    | Charlotte Hornets   |   35 |     44 |       9
+ CHP    | Chicago Packers     |   18 |     62 |       1
+ CHS    | Chicago Stags       |   36 |     23 |       4
+ CHZ    | Chicago Zephyrs     |   25 |     55 |       1
+ CIN    | Cincinnati Royals   |   37 |     42 |      15
+ CLE    | Cleveland Cavaliers |   37 |     43 |      53
+ CLR    | Cleveland Rebels    |   30 |     30 |       1
 (20 rows)

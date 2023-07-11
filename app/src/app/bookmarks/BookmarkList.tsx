@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react"
-import { Table } from "react-bootstrap"
-import BookmarkBtn from "./BookmarkBtn";
-import { AiOutlineLink } from "react-icons/ai"
-import { API } from "@/app/config";
-import "./list.css"
+import { useState, useEffect } from "react";
+import { Table } from "react-bootstrap";
+import BookmarkBtn, { getBookmarks } from "./BookmarkBtn";
+import { AiOutlineLink } from "react-icons/ai";
+import "./list.css";
 
 //
 // This component requires button to redirect to /bookmarks
@@ -13,21 +12,14 @@ const BookmarkList = ({uid}: {uid: number}) => {
     const [bookmarks, setBookmarks] = useState([]);
 
     useEffect(() => {
-        fetch(API + "/bookmarks/get", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({uid})
-        })
-        .then((res) => res.json())
+        getBookmarks(uid)
         .then(data => {
-            setBookmarks(data.data)
+            setBookmarks(data.data);
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err);
         });
-    }, [uid])
+    }, [uid]);
 
     const removeBookmark = (pid: number) => {
         const newBookmarks = bookmarks.filter((i) => i["pid"] !== pid);

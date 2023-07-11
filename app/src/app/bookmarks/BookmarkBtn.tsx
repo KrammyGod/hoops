@@ -1,17 +1,36 @@
-import { useState, useEffect } from "react"
-import { BsBookmarkFill, BsBookmark } from 'react-icons/bs'
+import { useState, useEffect } from "react";
+import { BsBookmarkFill, BsBookmark } from 'react-icons/bs';
 import { API } from "@/app/config";
+
+export const getBookmarks = async (uid: number) => {
+    return fetch(API + "/bookmarks/get", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({uid})
+    })
+    .then((res) => res.json())
+    .catch((err) => console.log(err));
+}
 
 const BookmarksBtn = ({
     pid, 
-    uid, 
+    uid,
+    initialValue,
     fromBookmarksList=false,
     removeBookmarksList
-}: {pid: number; uid: number; fromBookmarksList?: boolean; removeBookmarksList?: () => void}) => {
-    const [isMarked, mark] = useState(fromBookmarksList ? true : false);
+}: {
+    pid: number; 
+    uid: number; 
+    initialValue?: boolean; 
+    fromBookmarksList?: boolean; 
+    removeBookmarksList?: () => void
+}) => {
+    const [isMarked, mark] = useState(initialValue == undefined ? false : initialValue);
 
     useEffect(() => {
-        if (!fromBookmarksList) {
+        if (!fromBookmarksList && initialValue == undefined) {
             fetch(API + "/bookmarks/get", {
                 method: "POST",
                 headers: {
@@ -21,9 +40,13 @@ const BookmarksBtn = ({
             })
             .then((res) => res.json())
             .then((data) => data.data.length === 0 ? mark(false) : mark(true))
-            .catch((err) => console.log(err))
+            .catch((err) => console.log(err));
         }
-    }, [pid, uid, fromBookmarksList]);
+
+        if (fromBookmarksList) {
+            mark(fromBookmarksList)
+        }
+    }, [pid, uid, fromBookmarksList, initialValue]);
     
     const toggleMark = () => {
         // do this first for the client

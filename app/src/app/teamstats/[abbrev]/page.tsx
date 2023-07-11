@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { API } from "../../config";
 import React from "react";
+import styles from "../../page.module.css";
 
 export default function PlayerStats({ params }: {
     params: { abbrev: string }
@@ -20,6 +21,14 @@ export default function PlayerStats({ params }: {
           })
           .catch(error => setError(error))
     }, [params.abbrev])
+
+    if (error) {
+        return (
+            <div className={styles.settingsOuterContainer}>
+                <div>No team with abbrev {params.abbrev} exists</div>
+            </div>
+        )
+    }
 
     return (
         <div>

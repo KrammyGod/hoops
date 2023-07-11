@@ -1,0 +1,65 @@
+ pid | firstname | lastname  
+-----+-----------+-----------
+ 120 | Max       | Zaslofsky
+(1 row)
+
+ assists | points | games | season | abbrev |       tname        
+---------+--------+-------+--------+--------+--------------------
+      16 |     88 |     9 |   1956 | FTW    | Fort Wayne Pistons
+     203 |    785 |    70 |   1955 | FTW    | Fort Wayne Pistons
+      33 |    180 |    11 |   1954 | BLB    | Baltimore Bullets
+      98 |    495 |    45 |   1954 | FTW    | Fort Wayne Pistons
+      23 |    136 |     9 |   1954 | MLH    | Milwaukee Hawks
+      55 |    344 |    29 |   1953 | NYK    | New York Knicks
+     156 |    931 |    66 |   1952 | NYK    | New York Knicks
+     136 |    835 |    66 |   1951 | NYK    | New York Knicks
+     155 |   1115 |    68 |   1950 | CHS    | Chicago Stags
+     149 |   1197 |    58 |   1949 | CHS    | Chicago Stags
+      29 |   1007 |    48 |   1948 | CHS    | Chicago Stags
+      40 |    877 |    61 |   1947 | CHS    | Chicago Stags
+(12 rows)
+
+ abbrev |     tname     
+--------+---------------
+ NYA    | New York Nets
+(1 row)
+
+ wins | losses | season 
+------+--------+--------
+   55 |     29 |   1976
+   58 |     26 |   1975
+   55 |     29 |   1974
+   30 |     54 |   1973
+   44 |     40 |   1972
+   40 |     44 |   1971
+   39 |     45 |   1970
+   17 |     61 |   1969
+(8 rows)
+
+ pid  |      name       | asts | trbs |  pts  | games | seasons 
+------+-----------------+------+------+-------+-------+---------
+ 2479 | Adrian Caldwell |   33 |  496 |   390 |   197 |       7
+ 1692 | Adrian Dantley  | 2830 | 5455 | 23177 |   955 |      17
+ 3169 | Adrian Griffin  |  653 | 1512 |  1919 |   477 |      10
+  720 | Adrian Smith    | 1739 | 1626 |  8750 |   772 |      12
+ 4902 | Ahmad Caver     |    0 |    0 |     2 |     1 |       1
+  700 | Al Attles       | 2483 | 2463 |  6328 |   711 |      11
+  895 | Al Beard        |    0 |   46 |    30 |    12 |       1
+  609 | Al Bianchi      | 1497 | 1722 |  5550 |   687 |      10
+    1 | Al Brightman    |   60 |      |   567 |    58 |       1
+  721 | Al Butler       |  530 |  696 |  2282 |   234 |       5
+(10 rows)
+
+ abbrev |         tname          | wins | losses | seasons 
+--------+------------------------+------+--------+---------
+ LAC    | Los Angeles Clippers   |   35 |     46 |      39
+ LAL    | Los Angeles Lakers     |   48 |     32 |      63
+ LAS    | Los Angeles Stars      |   38 |     43 |       2
+ MEM    | Memphis Grizzlies      |   40 |     41 |      22
+ MIA    | Miami Heat             |   42 |     38 |      35
+ MIL    | Milwaukee Bucks        |   43 |     38 |      55
+ MIN    | Minnesota Timberwolves |   32 |     48 |      34
+ MLH    | Milwaukee Hawks        |   23 |     48 |       4
+ MMF    | Miami Floridians       |   33 |     48 |       2
+ MMP    | Memphis Pros           |   34 |     51 |       2
+(10 rows)

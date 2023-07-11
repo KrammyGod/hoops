@@ -27,6 +27,14 @@ export default function PlayerStats({ params }: {
           .catch(error => setError(error));
     }, [params.pid]);
 
+    if (error) {
+        return (
+            <div className={styles.settingsOuterContainer}>
+                <div>No player with pid {params.pid} exists</div>
+            </div>
+        )
+    }
+
     return (
         <div className={styles.settingsOuterContainer}>
             <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: "space-between" }}>

@@ -5,11 +5,10 @@ export async function getPlayerStats(pid) {
     const res1 = await query('SELECT * FROM Player WHERE pid = $1', [pid]);
     const res2 = await query(`
         SELECT assists, points, games, season, abbrev, tname 
-        FROM Player 
-        NATURAL JOIN PlayerStats 
+        FROM PlayerStats
         NATURAL JOIN Team
         WHERE pid = $1
-        ORDER BY season DESC`, [pid]);
+        ORDER BY season DESC, pid`, [pid]);
     return {
         player: res1.rows[0],
         stats: res2.rows,
@@ -23,7 +22,7 @@ export async function getTeamStats(abbrev) {
         SELECT wins, losses, season
         FROM TeamStats
         WHERE abbrev LIKE $1
-        ORDER BY season DESC`, [abbrev]);
+        ORDER BY season DESC, abbrev`, [abbrev]);
     return {
         team: res1.rows[0],
         stats: res2.rows,
@@ -31,7 +30,7 @@ export async function getTeamStats(abbrev) {
 }
 
 /*  Gets All Players Stats */
-export async function getAllPlayerStats() {
+export async function getAllPlayerStats(page) {
     const res = await query(`
         SELECT pid, firstName || ' ' || lastName AS name,
         ROUND(SUM(assists)) AS asts,
@@ -41,12 +40,14 @@ export async function getAllPlayerStats() {
         ROUND(COUNT(season)) AS seasons
         FROM Player NATURAL JOIN PlayerStats
         GROUP BY pid, firstName, lastName
-        ORDER BY name`);
+        ORDER BY name
+        LIMIT 10
+        OFFSET $1 * 10`, [page]);
     return res.rows;
 }
 
 /*  Gets All Teams Stats */
-export async function getAllTeamStats() {
+export async function getAllTeamStats(page) {
     const res = await query(`
         SELECT abbrev, tname,
         ROUND(AVG(wins)) AS wins,
@@ -54,6 +55,8 @@ export async function getAllTeamStats() {
         COUNT(season) AS seasons
         FROM Team NATURAL JOIN TeamStats
         GROUP BY abbrev, tname
-        ORDER BY abbrev`);
+        ORDER BY abbrev
+        LIMIT 10
+        OFFSET $1 * 10`, [page]);
     return res.rows;
 }

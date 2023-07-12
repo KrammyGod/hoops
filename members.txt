@@ -1,7 +1,10 @@
 Mark
 - Maintained and organized merge of github and database
 - Imported sample data into sample database
-- Reviewed SQL queries of features
+- Imported production data into production database
+- Reviewed and tested all features in SQL and NodeJS
+- Completed work regarding R4 & R11 (queries, frontend, backend, writeup)
+- Maintained and coordinated codebase, server host, and backend database
 
 Sahij
 - Had major role in creation of ER diagram
@@ -15,15 +18,20 @@ Brandon
 - Translated ER diagram to write table definition queries in psql
 - Worked on feature 4 (R9)
 - Organized and attended weekly meetings
+- Completed work on R8 and R9 (queries, frontend, backend, and writeup)
+- Worked on integrating all features into the frontend through the navbar and useAuth hooks
+- Initialised codebase and setup baseline configuration for development
 
 Saboor
 - Helped test database permissions
 - Helped with the Database Design
 - Implemented feature 8 and completed R8a and R8b
 - Attended weekly meetings
+- Completed work regarding R8 & R10 (queries, writeup)
 
 Sahl
 - Participated in writeup for Milestone 1
 - Created and translated ER diagram for R5abc
 - Implemented feature 7 and completed R7ab
 - Organized and attended weekly meetings
+- Completed work regarding R7 (queries, frontend, backend, writeup)

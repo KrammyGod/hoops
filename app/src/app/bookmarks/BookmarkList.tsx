@@ -10,21 +10,22 @@ import "./list.css";
 //
 const BookmarkList = ({uid}: {uid: number}) => {
     const [bookmarks, setBookmarks] = useState([]);
-    const [page, setPage] = useState(0);
+    const [page, setPage] = useState(1);
 
     const next = () => {
-        getBookmarks(uid, page+1)
-            .then((data) => setBookmarks(data.data))
-        
-        setPage(page + 1)
+        setPage((page) => ++page);
     }
     const prev = () => {
-        if (page > 0) {
-            setPage(page - 1)
-        }
-        getBookmarks(uid, page)
-        .then((data) => setBookmarks(data.data))
+        setPage((page) => --page);
     }
+
+    useEffect(() => {
+        // We should display error toast if it fails.
+        // page should never be negative,
+        // but if it happens, this will throw
+        getBookmarks(uid, page)
+            .then((data) => setBookmarks(data.data));
+    }, [page]);
 
     useEffect(() => {
         getBookmarks(uid)
@@ -75,13 +76,13 @@ const BookmarkList = ({uid}: {uid: number}) => {
                     
                 </Table>
                 <Pagination >
-                    <Pagination.Prev onClick={() => prev()} disabled={page == 0}/>
-                    <p style={{ margin: "0 10px" }}>{page + 1}</p>
+                    <Pagination.Prev onClick={() => prev()} disabled={page === 1}/>
+                    <p style={{ margin: "0 10px" }}>{page}</p>
                     <Pagination.Next onClick={() => next()} disabled={bookmarks.length < 10}/>
                 </Pagination>
             </div>
         </div>
     );
-};
+}
 
 export default BookmarkList;

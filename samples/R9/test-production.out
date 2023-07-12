@@ -1,0 +1,12 @@
+INSERT 0 1
+ uid | pid 
+-----+-----
+   1 |   2
+(1 row)
+
+ pid | uid | firstname | lastname  
+-----+-----+-----------+-----------
+   2 |   1 | Al        | Lujack
+(1 row)
+
+DELETE 1

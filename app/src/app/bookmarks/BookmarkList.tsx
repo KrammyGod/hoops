@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
+import { Pagination, Table } from "react-bootstrap";
 import BookmarkBtn, { getBookmarks } from "./BookmarkBtn";
 import { AiOutlineLink } from "react-icons/ai";
 import "./list.css";
@@ -10,6 +10,22 @@ import "./list.css";
 //
 const BookmarkList = ({uid}: {uid: number}) => {
     const [bookmarks, setBookmarks] = useState([]);
+    const [page, setPage] = useState(1);
+
+    const next = () => {
+        setPage((page) => ++page);
+    }
+    const prev = () => {
+        setPage((page) => --page);
+    }
+
+    useEffect(() => {
+        // We should display error toast if it fails.
+        // page should never be negative,
+        // but if it happens, this will throw
+        getBookmarks(uid, page)
+            .then((data) => setBookmarks(data.data));
+    }, [page]);
 
     useEffect(() => {
         getBookmarks(uid)
@@ -57,10 +73,16 @@ const BookmarkList = ({uid}: {uid: number}) => {
                             </tr>
                         ))}
                     </tbody>
+                    
                 </Table>
+                <Pagination >
+                    <Pagination.Prev onClick={() => prev()} disabled={page === 1}/>
+                    <p style={{ margin: "0 10px" }}>{page}</p>
+                    <Pagination.Next onClick={() => next()} disabled={bookmarks.length < 10}/>
+                </Pagination>
             </div>
         </div>
     );
-};
+}
 
 export default BookmarkList;

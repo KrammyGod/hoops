@@ -2,8 +2,8 @@
 
 import LoginForm from "./LoginForm"
 
-export default function Login() {
+export default function Login({ searchParams } : { searchParams: any }) {
     return (
-        <LoginForm></LoginForm>
+        <LoginForm params={searchParams}></LoginForm>
     );
 }

@@ -42,7 +42,7 @@ async function updateUser(uid, email, password, name) {
 
 // This will never return error from promise...
 /* Returns true if login is successful */
-async function login(email, password) {
+export async function login(email, password) {
     // TODO: Hash?
     const res = await query(`
         SELECT * FROM HUser
@@ -62,21 +62,23 @@ async function deleteUser(uid, hash) {
 }
 
 export const usersHandler = async (req, res) => {
+    console.log(req.body)
     switch (req.query.type) {
         case "signup":
             try {
                 const data = await addAdmin(req.body.email, req.body.password, req.body.username);
-                res.status(200).json({ data: {email: data["email"], username: data["uname"]} });
+                res.status(200).json({ data: { uid: data["uid"], email: data["email"], username: data["uname"] } });
             } catch (err) {
                 res.status(500).json({ messages: err.message });
             }
             break;
         case "login":
             try {
+                console.log(req.body)
                 const data = await login(req.body.email, req.body.password);
 
-                if (data.length != 0) {
-                    res.status(200).json({ data: {uid: data["uid"], email: data["email"], username: data["uname"]} });
+                if (data) {
+                    res.status(200).json({ data: { uid: data["uid"], email: data["email"], username: data["uname"] } });
                 } else {
                     res.status(400).json({ messages: "invalid login" });
                 }
@@ -89,7 +91,7 @@ export const usersHandler = async (req, res) => {
             try {
                 const data = await getUser(req.body.email, req.body.username);
                 // don't expose the hash
-                res.status(200).json({ data: {uid: data["uid"], email: data["email"], username: data["uName"], role: data["urole"]} });
+                res.status(200).json({ data: { uid: data["uid"], email: data["email"], username: data["uName"], role: data["urole"] } });
             } catch (err) {
                 res.status(500).json({ messages: err.message });
             }

@@ -74,7 +74,6 @@ export const usersHandler = async (req, res) => {
             break;
         case "login":
             try {
-                console.log(req.body)
                 const data = await login(req.body.email, req.body.password);
 
                 if (data) {

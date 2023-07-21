@@ -1,8 +1,8 @@
-import { useState } from "react"
+import './styles.css';
+import { useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { InputGroup, Form, Button } from "react-bootstrap"
-import Loading from "../loading"
-import "./styles.css"
+import { InputGroup, Form, Button } from 'react-bootstrap';
+import Loading from '../loading';
 
 export default function LoginForm({ children, params }: { children?: React.ReactNode, params : any }): React.ReactNode {
     const isInvalid = !!params?.error;
@@ -16,11 +16,11 @@ export default function LoginForm({ children, params }: { children?: React.React
         event.preventDefault();
         event.stopPropagation();
 
-        signIn("credentials", {
+        signIn('credentials', {
             email: form[0].value,
             password: form[1].value,
             // Allows the callback to propogate to the correct page
-            callbackUrl: params?.callbackUrl ?? "/"
+            callbackUrl: params?.callbackUrl ?? '/'
         });
     }
 

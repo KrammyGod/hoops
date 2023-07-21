@@ -6,15 +6,15 @@ async function insertUser(email, password, name, role) {
     const res = await query(`
         INSERT INTO HUser (hash, email, uName, uRole)
         VALUES ($1, $2, $3, $4)
-        RETURNING *
+        RETURNING uid, email, uName, uRole
     `, [password, email, name, role]);
     return res.rows[0];
 }
-/*
-function addUser(email, password, name) {
+
+async function addUser(email, password, name) {
     return insertUser(email, password, name, 'user');
 }
-*/
+
 async function addAdmin(email, password, name) {
     return insertUser(email, password, name, 'admin');
 }
@@ -23,7 +23,7 @@ async function addAdmin(email, password, name) {
 // consider having email be part of primary key (unique)
 async function getUser(email, name) {
     return query(`
-        SELECT * FROM HUser
+        SELECT uid, email, uName, uRole FROM HUser
         WHERE email = $1 AND uName = $2
     `, [email, name]).then(res => res.rows[0]);
 }
@@ -35,19 +35,8 @@ async function updateUser(uid, email, password, name) {
         UPDATE HUser
         SET uName = $1, email = $2, hash = $3
         WHERE uid = $4
-        RETURNING *
+        RETURNING uid, email, uName, uRole
     `, [name, email, password, uid]);
-    return res.rows[0];
-}
-
-// This will never return error from promise...
-/* Returns true if login is successful */
-export async function login(email, password) {
-    // TODO: Hash?
-    const res = await query(`
-        SELECT * FROM HUser
-        WHERE email = $1 and hash = $2;
-    `, [email, password]);
     return res.rows[0];
 }
 
@@ -56,51 +45,51 @@ async function deleteUser(uid, hash) {
     const res = await query(`
         DELETE FROM HUser 
         WHERE uid = $1 AND hash = $2
-        RETURNING *
+        RETURNING uid
     `, [uid, hash]);
     return res.rows.length != 0;
 }
 
 export const usersHandler = async (req, res, session) => {
-    if (!session) return res.status(401).json({ messages: 'unauthorized' });
     switch (req.query.type) {
         case "signup":
             try {
-                const data = await addAdmin(req.body.email, req.body.password, req.body.username);
-                res.status(200).json({ data: { uid: data["uid"], email: data["email"], username: data["uname"] } });
-            } catch (err) {
-                res.status(500).json({ messages: err.message });
-            }
-            break;
-        case "login":
-            try {
-                const data = await login(req.body.email, req.body.password);
-
-                if (data) {
-                    res.status(200).json({ data: { uid: data["uid"], email: data["email"], username: data["uname"] } });
-                } else {
-                    res.status(400).json({ messages: "invalid login" });
+                if (session && session.user.role != 'admin') {
+                    // If user is not admin, shouldn't be able to create new users
+                    // Otherwise they're not logged in, so they can sign up.
+                    return res.status(401).json({ messages: 'unauthorized' });
                 }
-                
+
+                const data = await addUser(req.body.email, req.body.password, req.body.username);
+                res.status(200).json({ data });
             } catch (err) {
                 res.status(500).json({ messages: err.message });
             }
             break;
         case "get":
             try {
+                // Only admins are allowed to get users
+                if (!session || session.user.role != 'admin') {
+                    return res.status(401).json({ messages: 'unauthorized' });
+                }
+
                 const data = await getUser(req.body.email, req.body.username);
-                // don't expose the hash
-                res.status(200).json({ data: { uid: data["uid"], email: data["email"], username: data["uName"], role: data["urole"] } });
+                res.status(200).json({ data });
             } catch (err) {
                 res.status(500).json({ messages: err.message });
             }
             break;
         case "delete":
             try {
-                const data = await deleteUser(req.body.uid, req.body.password);
+                // Only admins or the user are allowed to delete users
+                if (!session || session.user.role != 'admin' || session.user.uid != req.body.uid) {
+                    return res.status(401).json({ messages: 'unauthorized' });
+                }
 
-                if (data) {
-                    res.status(200).json({});
+                const success = await deleteUser(req.body.uid, req.body.password);
+
+                if (success) {
+                    res.status(200).json({ success: true });
                 } else {
                     res.status(400).json({ messages: "invalid password or user" });
                 }
@@ -109,17 +98,19 @@ export const usersHandler = async (req, res, session) => {
             }
             break;
         case "update":
+            // Only admins or the user are allowed to update users
+            if (!session || session.user.role != 'admin' || session.user.uid != req.body.uid) {
+                return res.status(401).json({ messages: 'unauthorized' });
+            }
+
             try {
                 const data = await updateUser(req.body.uid, req.body.email, req.body.password, req.body.username);
-                const returnData = {...data};
-                delete returnData["hash"];
-                res.status(200).json({ data: returnData });
+                res.status(200).json({ data: data });
             } catch (err) {
                 res.status(500).json({ messages: err.message });
             }
             break;
         default:
-            res.status(401).json("Not found.");
-            throw new Error("Invalid route.");
+            res.status(401).json({ messages: "Not found." });
     }
 }

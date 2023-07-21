@@ -2,7 +2,7 @@
  * Important: MUST be ts file otherwise CredentialsProvider is not a function
  * (1 hour of debugging)
  */
-import { login } from '../../../apis/users';
+import { query } from '../../../modules/pool';
 import NextAuth, { User, Session, TokenSet } from 'next-auth';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
@@ -18,7 +18,11 @@ const authOptions : NextAuthOptions = {
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials, req) {
-                const res = await login(credentials?.email, credentials?.password);
+                // Performing the query without using users.js as dependency
+                const res = await query(`
+                    SELECT uid, email, uName, uRole FROM HUser
+                    WHERE email = $1 and hash = $2;
+                `, [credentials?.email, credentials?.password]).then(ret => ret.rows[0]);
                 return res;
             }
         })
@@ -30,7 +34,6 @@ const authOptions : NextAuthOptions = {
         signIn: '/login',
     },
     callbacks: {
-        // eslint-disable-next-line
         async jwt({ token, user } : { token: TokenSet, user: User }) {
             const customUser = user as type.DatabaseUser;
             const customToken = token as type.CustomToken;

@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { API } from "../../config";
+import { API } from "@/types/config";
 import React from "react";
 import BookmarkBtn from "@/app/bookmarks/BookmarkBtn";
-import { useAuth } from "@/app/auth";
+import useSession from "@/hooks/auth";
 import styles from "../../page.module.css";
 
 export default function PlayerStats({ params }: {
@@ -14,7 +14,7 @@ export default function PlayerStats({ params }: {
     const [lastName, setLastName] = useState([]);
     const [playerStats, setPlayerStats] = useState<{assists: number, points: number, games: number, season: number, abbrev: string, tname: string}[]>([]);
     const [error, setError] = useState(null);
-    const { uid } = useAuth();
+    const { session } = useSession();
 
     useEffect(() => {
         fetch(`${API}/playerstats/${params.pid}`)
@@ -39,7 +39,7 @@ export default function PlayerStats({ params }: {
         <div className={styles.settingsOuterContainer}>
             <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: "space-between" }}>
                 <h3>{params.pid} {firstName} {lastName}</h3>
-                <BookmarkBtn uid={uid} pid={Number(params.pid)} />
+                <BookmarkBtn uid={session?.user.id ?? 0} pid={Number(params.pid)} />
             </div>
             <table className={`table table-bordered table-sm m-4 ${styles.settingsContainer}`}>
                 <thead>

@@ -1,11 +1,11 @@
 "use client"
 
 import BookmarkList from "./BookmarkList";
-import { useAuth } from "../auth";
+import useSession from "@/hooks/auth";
 
 export default function BookmarksPage() {
-    const { uid } = useAuth()
+    const { session } = useSession()
     return (
-       <BookmarkList uid={uid} />
+       <BookmarkList uid={session?.user.id ?? 0} />
     );
 }

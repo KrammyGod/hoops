@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Button } from "react-bootstrap";
 import SignUpForm from "./SignUpForm";
-import { API } from "../config";
+import { API } from "@/types/config";
 import styles from "../page.module.css";
 
 export default function SignUp() {

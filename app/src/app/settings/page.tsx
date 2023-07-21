@@ -5,12 +5,13 @@ import ModifyUser from "../signup/SignUpForm";
 import DeleteUser from "./DeleteUser";
 import { useRouter } from "next/navigation";
 import { Card, Button } from "react-bootstrap";
-import { API } from "../config";
-import { useAuth } from "../auth";
+import { API } from "@/types/config";
+import useSession from "@/hooks/auth";
 
+// TODO: Block this page if session does not exist
 export default function Settings() {
     const router = useRouter();
-    const { handleAuth, uid, username, email } = useAuth();
+    const { session } = useSession();
 
     const handleSubmit = (event: any) => {
         const form = event.target;
@@ -24,7 +25,7 @@ export default function Settings() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                uid: uid,
+                uid: session?.user.id,
                 email: form[1].value,
                 password: form[2].value,
                 username: form[0].value
@@ -35,7 +36,8 @@ export default function Settings() {
             console.log(err);
         });
 
-        handleAuth(false);
+        // TODO: FIXME
+        // handleAuth(false);
         router.push("/login");
     }
 
@@ -50,8 +52,8 @@ export default function Settings() {
                             submit={handleSubmit}
                             btns={<Button type="submit">Change</Button>}
                             values={{
-                                name: username,
-                                email: email
+                                name: session?.user.name ?? '',
+                                email: session?.user.email ?? ''
                             }}
                         />
                     </Card.Body>

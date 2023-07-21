@@ -3,9 +3,10 @@
  * (1 hour of debugging)
  */
 import { login } from '../../../apis/users';
-import NextAuth from 'next-auth';
+import NextAuth, { User, Session, TokenSet } from 'next-auth';
 import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import * as type from '@/types/SessionDataTypes';
 
 export const authOptions : NextAuthOptions = {
     // Our custom provider
@@ -30,24 +31,30 @@ export const authOptions : NextAuthOptions = {
     },
     callbacks: {
         // eslint-disable-next-line
-        async jwt({ token, user } : { token: any, user: any }) {
+        async jwt({ token, user } : { token: TokenSet, user: User }) {
+            const customUser = user as type.DatabaseUser;
+            const customToken = token as type.CustomToken;
             // Sets token to pass into session
-            if (user) {
-                token.id = user.uid;
-                token.role = user.urole;
-                token.name = user.uname;
+            if (customUser) {
+                customToken.id = customUser.uid;
+                customToken.role = customUser.urole;
+                customToken.name = customUser.uname;
+                customToken.email = customUser.email;
             }
-            return token;
+            return customToken;
         },
-        async session({ session, token } : { session: any, token: any }) {
+        async session({ session, token } : { session: Session, token: TokenSet }) {
+            const customSession = session as type.CustomSession;
+            const customToken = token as type.CustomToken;
             // Sets session to pass into frontend
             // This is all frontend has access to.
-            if (session?.user) {
-                session.user.id = token.id;
-                session.user.role = token.role;
-                session.user.name = token.name;
+            if (customSession?.user) {
+                customSession.user.id = customToken.id;
+                customSession.user.role = customToken.role;
+                customSession.user.name = customToken.name;
+                customSession.user.email = customToken.email;
             }
-            return session;
+            return customSession;
         }
     }
 }

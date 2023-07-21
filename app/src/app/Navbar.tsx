@@ -36,6 +36,7 @@ export default function CustomNavbar() {
         setSettingsLink(() => () => signIn(undefined, { callbackUrl: "/settings" }));
       }
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const searchBtn = 

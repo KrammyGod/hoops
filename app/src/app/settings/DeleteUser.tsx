@@ -1,19 +1,21 @@
 import { useState } from 'react';
 import { Button, Modal, Form, CloseButton } from 'react-bootstrap';
 import { FaTrash } from "react-icons/fa";
-import { API } from '../config';
-import { useAuth } from "../auth";
+import { API } from '@/types/config';
 import { useRouter } from "next/navigation";
+import useSession from "@/hooks/auth";
 import Loading from '../loading';
 import styles from "../page.module.css";
 
+// TODO: FIXME!!!
+// TODO: Block this page if session does not exist
 export default function DeleteUser() {
     const router = useRouter();
 
     const [validated, setValidated] = useState(false);
     const [attempted, setAttempted] = useState(false);
     const [loading, setLoading] = useState(false);
-    const { handleAuth, uid } = useAuth();
+    const { session } = useSession();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -31,7 +33,7 @@ export default function DeleteUser() {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                uid: uid,
+                uid: session?.user.id,
                 password: form[0].value
             })
         })
@@ -43,7 +45,6 @@ export default function DeleteUser() {
             } else {
                 setLoading(false);
                 setValidated(true);
-                handleAuth(false);
                 handleClose();
                 router.push("/login");
             }

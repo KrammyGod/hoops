@@ -2,20 +2,18 @@
 
 import styles from './page.module.css';
 import Leaderboards from './leaderboards';
-import { useAuth } from './auth';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getSession } from 'next-auth/react';
 
 export default function Home() {
-  const { username, auth } = useAuth();
   const session = getSession();
+  const [welcomeMsg, setWelcomeMsg] = useState('');
 
-  const [welcomeMsg, setWelcomeMsg] = useState("");
   session.then(data => {
     if (data?.user) {
-      setWelcomeMsg(`Hi ${data.user.name}! Welcome to your dashboard.`)
+      setWelcomeMsg(`Hi ${data.user.name}! Welcome to your dashboard.`);
     } else {
-      setWelcomeMsg("")
+      setWelcomeMsg('');
     }
   });
 

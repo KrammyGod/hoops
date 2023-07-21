@@ -5,7 +5,7 @@ import { InputGroup, Form  } from "react-bootstrap"
 export default function SignUp({
     btns = <div></div>,
     submit=(event: any)=>{},
-    values={name: undefined, email: undefined}
+    values={ name: '', email: '' }
 }) {
     return (
         <Form onSubmit={submit}>

@@ -8,7 +8,7 @@ import "./list.css";
 // This component requires button to redirect to /bookmarks
 // NOTE: See BookmarkListOffCanvas for advanced development
 //
-const BookmarkList = ({uid}: {uid: number}) => {
+const BookmarkList = ({ uid }: { uid: number }) => {
     const [bookmarks, setBookmarks] = useState([]);
     const [page, setPage] = useState(1);
 
@@ -25,7 +25,7 @@ const BookmarkList = ({uid}: {uid: number}) => {
         // but if it happens, this will throw
         getBookmarks(uid, page)
             .then((data) => setBookmarks(data.data));
-    }, [page]);
+    }, [uid, page]);
 
     useEffect(() => {
         getBookmarks(uid)

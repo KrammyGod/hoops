@@ -61,8 +61,8 @@ async function deleteUser(uid, hash) {
     return res.rows.length != 0;
 }
 
-export const usersHandler = async (req, res) => {
-    console.log(req.body)
+export const usersHandler = async (req, res, session) => {
+    if (!session) return res.status(401).json({ messages: 'unauthorized' });
     switch (req.query.type) {
         case "signup":
             try {

@@ -1,13 +1,13 @@
 'use client'
 
-import { API } from "../config";
+import { API } from "@/types/config";
 import { useState } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import styles from '../page.module.css';
 import { Col, Container, Form, Row } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
-import { useAuth } from "../auth";
+import useSession from "@/hooks/auth";
 
 export default function Search() {
     const [radioValue, setRadioValue] = useState(1);
@@ -15,7 +15,7 @@ export default function Search() {
     const [val, setVal] = useState("");
     const [searchVal, setSearchVal] = useState(1);
     const [bookmarks, setBookmarks] = useState<number[]>([]);
-    const { uid } = useAuth();
+    const { session } = useSession();
 
     const radios = [
         { name: 'Search for Player', value: 1 },

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { BsBookmarkFill, BsBookmark } from 'react-icons/bs';
-import { API } from "@/types/config";
+import { API } from "@/types/ApiRoute";
 
 export const getBookmarks = async (uid: number, page?: number) => {
     return fetch(API + "/bookmarks/get", {

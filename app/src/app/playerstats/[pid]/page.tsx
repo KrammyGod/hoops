@@ -1,10 +1,10 @@
 'use client'
 
 import { useState, useEffect } from "react";
-import { API } from "@/types/config";
+import { API } from "@/types/ApiRoute";
 import React from "react";
 import BookmarkBtn from "@/app/bookmarks/BookmarkBtn";
-import useSession from "@/hooks/auth";
+import useSession from "@/hooks/Auth";
 import styles from "../../page.module.css";
 
 export default function PlayerStats({ params }: {

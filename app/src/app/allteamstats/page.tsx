@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect } from "react";
-import { API } from "@/types/config";
+import { API } from "@/types/ApiRoute";
 import React from "react";
 
 export default function AllTeamStats() {    

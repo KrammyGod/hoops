@@ -1,7 +1,7 @@
 "use client"
 
 import BookmarkList from "./BookmarkList";
-import useSession from "@/hooks/auth";
+import useSession from "@/hooks/Auth";
 
 export default function BookmarksPage() {
     const { session } = useSession()

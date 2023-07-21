@@ -5,8 +5,8 @@ import ModifyUser from "../signup/SignUpForm";
 import DeleteUser from "./DeleteUser";
 import { useRouter } from "next/navigation";
 import { Card, Button } from "react-bootstrap";
-import { API } from "@/types/config";
-import useSession from "@/hooks/auth";
+import { API } from "@/types/ApiRoute";
+import useSession from "@/hooks/Auth";
 
 // TODO: Block this page if session does not exist
 export default function Settings() {

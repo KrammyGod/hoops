@@ -7,7 +7,7 @@ import { Navbar, Container, Nav, Button, NavDropdown } from 'react-bootstrap';
 import { LuSettings } from "react-icons/lu";
 import { BiSearchAlt } from "react-icons/bi";
 import { signIn, signOut } from 'next-auth/react';
-import useSession from "@/hooks/auth";
+import useSession from "@/hooks/Auth";
 
 export default function CustomNavbar() {
   const router = useRouter();

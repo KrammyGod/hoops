@@ -8,7 +8,7 @@ import { NextAuthOptions } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import * as type from '@/types/SessionDataTypes';
 
-export const authOptions : NextAuthOptions = {
+const authOptions : NextAuthOptions = {
     // Our custom provider
     providers: [
         CredentialsProvider({

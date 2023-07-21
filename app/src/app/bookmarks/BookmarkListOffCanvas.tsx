@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Button, Table, Offcanvas } from "react-bootstrap"
 import BookmarkBtn from "./BookmarkBtn";
-import { API } from "@/types/config";
+import { API } from "@/types/ApiRoute";
 
 //
 // This component is temporarily disabled until further development

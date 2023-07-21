@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { API } from "@/types/config";
+import { API } from "@/types/ApiRoute";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Table from 'react-bootstrap/Table';

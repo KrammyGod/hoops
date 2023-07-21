@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { Button, Modal, Form, CloseButton } from 'react-bootstrap';
 import { FaTrash } from "react-icons/fa";
-import { API } from '@/types/config';
+import { API } from '@/types/ApiRoute';
 import { useRouter } from "next/navigation";
-import useSession from "@/hooks/auth";
+import useSession from "@/hooks/Auth";
 import Loading from '../loading';
 import styles from "../page.module.css";
 

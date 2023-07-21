@@ -2,7 +2,7 @@
 
 import styles from './page.module.css';
 import Leaderboards from './leaderboards';
-import useSession from '@/hooks/auth';
+import useSession from '@/hooks/Auth';
 import { useEffect, useState } from 'react';
 
 export default function Home() {

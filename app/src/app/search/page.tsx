@@ -1,13 +1,13 @@
 'use client'
 
-import { API } from "@/types/config";
+import { API } from "@/types/ApiRoute";
 import { useState } from 'react';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import styles from '../page.module.css';
 import { Col, Container, Form, Row } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
-import useSession from "@/hooks/auth";
+import useSession from "@/hooks/Auth";
 
 export default function Search() {
     const [radioValue, setRadioValue] = useState(1);

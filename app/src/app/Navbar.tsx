@@ -6,16 +6,18 @@ import { useState, useEffect } from 'react';
 import { Navbar, Container, Nav, Button, NavDropdown } from 'react-bootstrap';
 import { LuSettings } from "react-icons/lu";
 import { BiSearchAlt } from "react-icons/bi";
-import { signIn, signOut, getSession } from 'next-auth/react';
+import { signIn, signOut } from 'next-auth/react';
+import useSession from "@/hooks/auth";
 
 export default function CustomNavbar() {
   const router = useRouter();
   const [bookmarksFn, setBookmarksLink] = useState(() => () => {});
   const [settingsFn, setSettingsLink] = useState(() => () => {});
   const [usersBtn, setUsersBtn] = useState<any>();
+  const { session, loading } = useSession();
   
-  const loginBtn = <Button href="/login" variant="outline-primary" onClick={() => signIn(undefined, { callbackUrl: '/' })}>Login/Signup</Button>;
-  const logoutBtn = <Button href="/login" variant="outline-danger" onClick={() => signOut()}>Logout</Button>;
+  const loginBtn = <Button variant="outline-primary" onClick={() => signIn(undefined, { callbackUrl: '/' })}>Login/Signup</Button>;
+  const logoutBtn = <Button variant="outline-danger" onClick={() => signOut()}>Logout</Button>;
   const bookmarksBtn = <Button variant="info" onClick={bookmarksFn}>Bookmarks</Button>;
   const settingsBtn = 
     <Button variant='secondary' onClick={settingsFn}>
@@ -23,21 +25,21 @@ export default function CustomNavbar() {
     </Button>;
 
   useEffect(() => {
-    // Ensure getSession is only called once per load
-    getSession().then(session => {
-      if (session) {
-        setUsersBtn(logoutBtn);
-        setBookmarksLink(() => () => router.push("/bookmarks"));
-        setSettingsLink(() => () => router.push("/settings"));
-      } else {
-        setUsersBtn(loginBtn);
-        // Require to use this to ensure proper redirection
-        setBookmarksLink(() => () => signIn(undefined, { callbackUrl: "/bookmarks" }));
-        setSettingsLink(() => () => signIn(undefined, { callbackUrl: "/settings" }));
-      }
-    });
+    // Wait for loading to finish
+    if (loading) return;
+    // Update based on session state
+    if (session) {
+      setUsersBtn(logoutBtn);
+      setBookmarksLink(() => () => router.push("/bookmarks"));
+      setSettingsLink(() => () => router.push("/settings"));
+    } else {
+      setUsersBtn(loginBtn);
+      // Require to use this to ensure proper redirection
+      setBookmarksLink(() => () => signIn(undefined, { callbackUrl: "/bookmarks" }));
+      setSettingsLink(() => () => signIn(undefined, { callbackUrl: "/settings" }));
+    }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [session, loading]);
 
   const searchBtn = 
     <Button href="/search" variant='secondary' style={{ color: "coral" }}>

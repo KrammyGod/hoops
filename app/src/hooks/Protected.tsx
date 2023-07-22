@@ -8,7 +8,7 @@ import useSession from '@/hooks/Auth';
 
 // Pass in the component that should be rendered
 // on authorization success. Otherwise will default
-// authorization failure.
+// to bringing user into sign in page
 export default function useProtect(successNode : React.ReactNode): React.ReactNode {
     // This allows us to redirect the user back here
     // after returning from login page.
@@ -17,7 +17,7 @@ export default function useProtect(successNode : React.ReactNode): React.ReactNo
     const { session, loading } = useSession();
 
     // Spinner that appears in the middle of the screen when loading
-    const spinner = <div className='centerContainer'><Spinner animation='grow'></Spinner></div>;
+    const spinner = <div className='centerContainer'><Spinner animation='grow' /></div>;
 
     useEffect(() => {
         if (loading) setNode(spinner);

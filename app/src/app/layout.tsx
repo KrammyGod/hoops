@@ -6,21 +6,21 @@ import Navbar from './Navbar';
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: 'Hoops',
-  description: 'A analytical stats platform for the NBA',
+    title: 'Hoops',
+    description: 'A analytical stats platform for the NBA',
 }
 
 export default function RootLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode
+    children: React.ReactNode
 }) {
-  return (
-    <html lang="en">
-      <body className={inter.className}>
-          <Navbar />
-          {children}
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en">
+            <body className={inter.className}>
+                <Navbar />
+                {children}
+            </body>
+        </html>
+    );
 }

@@ -1,9 +1,9 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react";
-import { API } from "@/types/ApiRoute";
-import React from "react";
-import styles from "../../page.module.css";
+import { useState, useEffect } from 'react';
+import { API } from '@/types/ApiRoute';
+import React from 'react';
+import styles from '../../page.module.css';
 
 export default function PlayerStats({ params }: {
     params: { abbrev: string }
@@ -32,7 +32,7 @@ export default function PlayerStats({ params }: {
 
     return (
         <div>
-            <table className="table table-bordered table-sm m-4">
+            <table className='table table-bordered table-sm m-4'>
                 <thead>
                     <tr>
                         <th colSpan={3}>{params.abbrev} {name}</th>

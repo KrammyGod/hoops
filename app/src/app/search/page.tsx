@@ -2,10 +2,10 @@
 
 import { API } from "@/types/ApiRoute";
 import { useState } from 'react';
+import { Col, Container, Form, Row } from "react-bootstrap";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import styles from '../page.module.css';
-import { Col, Container, Form, Row } from "react-bootstrap";
 import Table from 'react-bootstrap/Table';
 import useSession from "@/hooks/Auth";
 
@@ -70,7 +70,7 @@ export default function Search() {
                 .then((data) => setResults(data.data ?? []))
                 .catch(() => setResults([]));
             /*
-            getBookmarks(uid)
+            getBookmarks()
                 .then((data) => {
                     let pids = data.data.map((marked: any) => marked["pid"])
                     setBookmarks(pids)

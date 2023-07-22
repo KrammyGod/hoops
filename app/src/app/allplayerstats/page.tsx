@@ -20,8 +20,7 @@ export default function AllPlayerStats() {
           .then(data => setStats(data))
           .catch(err => setError(err));
 
-        // Since we have no 0 IDs, this will return nothing if no login
-        getBookmarks(session?.user.id ?? 0)
+        getBookmarks()
             .then((data) => {
                 let pids = data.data.map((marked: any) => marked["pid"])
                 setBookmarks(pids)
@@ -53,7 +52,7 @@ export default function AllPlayerStats() {
                                             <a href={`/playerstats/${stat.pid}`}>{stat.name}</a>
                                             <AiOutlineLink color="blue" />
                                         </div>
-                                        {session ? <BookmarksBtn pid={stat.pid} uid={session.user.id} initialValue={bookmarks.includes(stat.pid)} /> : ""}
+                                        {session ? <BookmarksBtn pid={stat.pid} initialValue={bookmarks.includes(stat.pid)} /> : ""}
                                     </div>
                                 </td>
                                 <td>{stat.asts}</td>

@@ -14,7 +14,7 @@ export default function useSession(): SessionData {
 
     useEffect(() => {
         async function fetchSession() {
-            const session = await getSession() as CustomSession;
+            const session = await getSession().catch(() => {}) as CustomSession;
             setSession(session);
             setLoading(false);
         }

@@ -8,7 +8,7 @@ import "./list.css";
 // This component requires button to redirect to /bookmarks
 // NOTE: See BookmarkListOffCanvas for advanced development
 //
-const BookmarkList = ({ uid }: { uid: number }) => {
+export default function BookmarkList() {
     const [bookmarks, setBookmarks] = useState([]);
     const [page, setPage] = useState(1);
 
@@ -23,19 +23,12 @@ const BookmarkList = ({ uid }: { uid: number }) => {
         // We should display error toast if it fails.
         // page should never be negative,
         // but if it happens, this will throw
-        getBookmarks(uid, page)
-            .then((data) => setBookmarks(data.data));
-    }, [uid, page]);
-
-    useEffect(() => {
-        getBookmarks(uid)
-        .then(data => {
-            setBookmarks(data.data);
-        })
-        .catch((err) => {
-            console.log(err);
-        });
-    }, [uid]);
+        getBookmarks(page)
+            .then((data) => setBookmarks(data.data))
+            .catch((err) => {
+                console.log(err);
+            });
+    }, [page]);
 
     const removeBookmark = (pid: number) => {
         const newBookmarks = bookmarks.filter((i) => i["pid"] !== pid);
@@ -64,8 +57,7 @@ const BookmarkList = ({ uid }: { uid: number }) => {
                                 </td>
                                 <td align="right" valign="middle">
                                     <BookmarkBtn 
-                                        pid={bookmark["pid"]} 
-                                        uid={bookmark["uid"]} 
+                                        pid={bookmark["pid"]}
                                         fromBookmarksList={true}
                                         removeBookmarksList={()=>removeBookmark(bookmark["pid"])}
                                     />
@@ -84,5 +76,3 @@ const BookmarkList = ({ uid }: { uid: number }) => {
         </div>
     );
 }
-
-export default BookmarkList;

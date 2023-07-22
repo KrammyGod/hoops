@@ -13,7 +13,6 @@ export default function SignUp() {
     const { session, loading } = useSession();
     const [node, setNode] = useState<React.ReactNode>(null);
 
-    const errNode = <div className={styles.outerContainer}>You are already logged in.</div>;
     const spinner = <div className={styles.outerContainer}><Spinner animation='grow'></Spinner></div>;
 
     const handleSubmit = (event: any) => {
@@ -41,7 +40,8 @@ export default function SignUp() {
 
     useEffect(() => {
         if (loading) setNode(spinner);
-        else if (session) setNode(errNode);
+        // Force users back to homepage if they are already logged in
+        else if (session) router.push('/');
         else setNode(
             <div className={styles.outerContainer}>
                 <div className={styles.subContainer}>

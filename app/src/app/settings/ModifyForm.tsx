@@ -1,10 +1,10 @@
 'use client'
 
-import { InputGroup, Form } from 'react-bootstrap';
+import { Button, InputGroup, Form } from 'react-bootstrap';
 
-export default function SignUp({
-    btns = <div></div>,
+export default function Modify({
     submit=(event: any)=>{},
+    values={ name: '', email: '' }
 }) {
     return (
         <Form onSubmit={submit}>
@@ -16,6 +16,7 @@ export default function SignUp({
                         name='name'
                         aria-label='Name'
                         required
+                        defaultValue={values.name}
                     />
                 </InputGroup>
             </Form.Group>
@@ -28,23 +29,36 @@ export default function SignUp({
                         name='email'
                         aria-label='Email'
                         required
+                        defaultValue={values.email}
                     />
                 </InputGroup>
             </Form.Group>
     
             <Form.Group>
-                <Form.Label>Password</Form.Label>
+                <Form.Label>Old Password</Form.Label>
                 <InputGroup className='mb-3'>
                     <Form.Control 
                         type='password'
-                        name='password'
-                        id='password' 
-                        aria-label='Password' 
+                        name='old_password'
+                        id='old_password' 
+                        aria-label='Old Password' 
                         required
                     />
                 </InputGroup>
             </Form.Group>
-            {btns}
+
+            <Form.Group>
+                <Form.Label>New Password</Form.Label>
+                <InputGroup className='mb-3'>
+                    <Form.Control 
+                        type='password'
+                        name='new_password'
+                        id='new_password' 
+                        aria-label='New Password'
+                    />
+                </InputGroup>
+            </Form.Group>
+            <Button type='submit'>Change</Button>
         </Form>
     );
 }

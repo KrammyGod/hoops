@@ -1,3 +1,4 @@
 import { bookmarksHandler } from "../../../apis/bookmarks";
+import protect from '../../../apis/protect';
 
-export default bookmarksHandler;
+export default protect(bookmarksHandler);

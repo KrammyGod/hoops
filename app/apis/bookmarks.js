@@ -1,12 +1,12 @@
-import { query } from "../modules/pool.js";
+import { query } from '../modules/pool.js';
 
-const createBookmark = async (req, res) => {
+const createBookmark = async (req, res, session) => {
     try {
         const data = await query(
             'INSERT INTO Bookmarks (pid, uid) VALUES ($1, $2) RETURNING *',
-            [req.body.pid, req.body.uid]
+            [req.body.pid, session.user.id]
         )
-        res.status(200).json({ data: data.rows })
+        res.status(200).json({ data: data.rows[0] })
     } catch (err) {
         res.status(500).json({ messages: err.messages })
     }
@@ -14,21 +14,21 @@ const createBookmark = async (req, res) => {
 
 // This function will return all bookmarks if uid exists,
 // but will return a specific bookmark if uid and pid exists
-const getBookmarks = async (req, res) => {
+const getBookmarks = async (req, res, session) => {
     try {
-        var data;
-        if (req.body.hasOwnProperty("pid")) {
+        let data;
+        if (req.body.hasOwnProperty('pid')) {
             data = await query(
                 'SELECT * FROM Bookmarks NATURAL JOIN Player WHERE uid = $1 AND pid = $2',    // maybe have IF EXISTS
-                [req.body.uid, req.body.pid]
-            )
+                [session.user.id, req.body.pid]
+            );
         } else {
             const page = (req.body.page ?? 1) - 1;
-            if (page < 0) return res.status(400).json({ messages: "Invalid page number" });
+            if (page < 0) return res.status(400).json({ messages: 'Invalid page number' });
             data = await query(
                 'SELECT * FROM Bookmarks NATURAL JOIN Player WHERE uid = $1 LIMIT 10 OFFSET $2 * 10',
-                [req.body.uid, page]
-            )
+                [session.user.id, page]
+            );
         }
         res.status(200).json({ data: data.rows })
     } catch (err) {
@@ -36,31 +36,32 @@ const getBookmarks = async (req, res) => {
     }
 }
 
-const deleteBookmark = async (req, res) => {
+const deleteBookmark = async (req, res, session) => {
     try {
         const data = await query(
             'DELETE FROM Bookmarks WHERE pid = $1 AND uid = $2 RETURNING *',
-            [req.body.pid, req.body.uid]
+            [req.body.pid, session.user.id]
         )
-        res.status(200).json({ data: {pid: req.body.pid, uid: req.body.uid} })
+        res.status(200).json({ data: data.rows[0] })
     } catch (err) {
         res.status(500).json({ messages: err.messages });
     }
 }
 
-export async function bookmarksHandler(req, res) {
+export async function bookmarksHandler(req, res, session) {
+    // We must guarantee that session exists before performing any sort of operation
+    if (!session) return res.status(401).json({ messages: 'Unauthorized' });
     switch (req.query.type) {
-        case "create":
-            await createBookmark(req, res)
+        case 'create':
+            await createBookmark(req, res, session);
             break;
-        case "delete":
-            await deleteBookmark(req, res)
+        case 'delete':
+            await deleteBookmark(req, res, session);
             break;
-        case "get":
-            await getBookmarks(req, res)
+        case 'get':
+            await getBookmarks(req, res, session);
             break;
         default:
-            res.status(401).json("Not found.")
-            throw new Error("Invalid route.");
+            res.status(404).json({ messages: 'Not found.' });
     }
 };

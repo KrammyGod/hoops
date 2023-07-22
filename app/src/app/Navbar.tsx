@@ -1,26 +1,26 @@
 'use client'
 
 import styles from './page.module.css';
-import { useRouter } from "next/navigation"
+import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Navbar, Container, Nav, Button, NavDropdown } from 'react-bootstrap';
-import { LuSettings } from "react-icons/lu";
-import { BiSearchAlt } from "react-icons/bi";
+import { LuSettings } from 'react-icons/lu';
+import { BiSearchAlt } from 'react-icons/bi';
 import { signIn, signOut } from 'next-auth/react';
-import useSession from "@/hooks/Auth";
+import useSession from '@/hooks/Auth';
 
 export default function CustomNavbar() {
-  const router = useRouter();
-  const [bookmarksFn, setBookmarksLink] = useState(() => () => {});
-  const [settingsFn, setSettingsLink] = useState(() => () => {});
   const [usersBtn, setUsersBtn] = useState<any>();
   const { session, loading } = useSession();
+  const path = usePathname() ?? '/';
   
-  const loginBtn = <Button variant="outline-primary" onClick={() => signIn(undefined, { callbackUrl: '/' })}>Login/Signup</Button>;
-  const logoutBtn = <Button variant="outline-danger" onClick={() => signOut()}>Logout</Button>;
-  const bookmarksBtn = <Button variant="info" onClick={bookmarksFn}>Bookmarks</Button>;
+  const loginBtn = <Button variant="outline-primary" onClick={() => signIn(undefined, { callbackUrl: path })}>Login/Signup</Button>;
+  const logoutBtn = <Button variant="outline-danger" onClick={() => signOut({ callbackUrl: path })}>Logout</Button>;
+  // Bookmarks and settings are protected. Navigating to them will automatically
+  // redirect to login if they are not logged in.
+  const bookmarksBtn = <Button href='/bookmarks' variant="info">Bookmarks</Button>;
   const settingsBtn = 
-    <Button variant='secondary' onClick={settingsFn}>
+    <Button href='/settings' variant='secondary'>
       <h3 style={{ margin: 0, fontSize: "1.3rem" }}><LuSettings /></h3>
     </Button>;
 
@@ -30,13 +30,8 @@ export default function CustomNavbar() {
     // Update based on session state
     if (session) {
       setUsersBtn(logoutBtn);
-      setBookmarksLink(() => () => router.push("/bookmarks"));
-      setSettingsLink(() => () => router.push("/settings"));
     } else {
       setUsersBtn(loginBtn);
-      // Require to use this to ensure proper redirection
-      setBookmarksLink(() => () => signIn(undefined, { callbackUrl: "/bookmarks" }));
-      setSettingsLink(() => () => signIn(undefined, { callbackUrl: "/settings" }));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [session, loading]);

@@ -2,7 +2,6 @@ import { query } from '../modules/pool';
 
 async function insertUser(email, password, name, role) {
     // Returns the user that was inserted to ensure successful insertion
-    // TODO: Hash password
     const res = await query(`
         INSERT INTO HUser (hash, email, uName, uRole)
         VALUES ($1, $2, $3, $4)
@@ -26,15 +25,15 @@ async function getUser(uid) {
     `, [uid]).then(res => res.rows[0]);
 }
 
-async function updateUser(uid, email, password, name) {
+async function updateUser(uid, email, old_password, name, new_password) {
+    if (!new_password) new_password = old_password;
     // Returns the user that was updated to ensure successful update
-    // TODO: Call hash password function?
     const res = await query(`
         UPDATE HUser
         SET uName = $1, email = $2, hash = $3
-        WHERE uid = $4
+        WHERE uid = $4 AND hash = $5
         RETURNING uid, email, uName, uRole
-    `, [name, email, password, uid]);
+    `, [name, email, new_password, uid, old_password]);
     return res.rows[0];
 }
 
@@ -49,6 +48,9 @@ async function deleteUser(uid, hash) {
 }
 
 export const usersHandler = async (req, res, session) => {
+    // Prioritize uid in body
+    // If none provided, then assume user is doing on own behalf
+    const uid = req.body.uid ?? session?.user.id;
     switch (req.query.type) {
         case 'addadmin':
             try {
@@ -93,16 +95,15 @@ export const usersHandler = async (req, res, session) => {
         case 'delete':
             try {
                 // Only admins or the user are allowed to delete users
-                if (!session || session.user.role != 'admin' || session.user.uid != req.body.uid) {
+                if (!session || (session.user.role !== 'admin' && session.user.id != uid)) {
                     return res.status(401).json({ messages: 'unauthorized' });
                 }
 
-                const success = await deleteUser(req.body.uid, req.body.password);
-
+                const success = await deleteUser(uid, req.body.password);
                 if (success) {
                     res.status(200).json({ success: true });
                 } else {
-                    res.status(400).json({ messages: 'invalid password or user' });
+                    res.status(401).json({ messages: 'invalid password or user' });
                 }
             } catch (err) {
                 res.status(500).json({ messages: err.message });
@@ -110,18 +111,22 @@ export const usersHandler = async (req, res, session) => {
             break;
         case 'update':
             // Only admins or the user are allowed to update users
-            if (!session || session.user.role != 'admin' || session.user.uid != req.body.uid) {
+            if (!session || (session.user.role !== 'admin' && session.user.id != uid)) {
                 return res.status(401).json({ messages: 'unauthorized' });
             }
 
             try {
-                const data = await updateUser(req.body.uid, req.body.email, req.body.password, req.body.username);
-                res.status(200).json({ data: data });
+                const data = await updateUser(uid, req.body.email, req.body.old_password, req.body.username, req.body.new_password);
+                if (data) {
+                    res.status(200).json({ data });
+                } else {
+                    res.status(401).json({ messages: 'invalid password' });
+                }
             } catch (err) {
                 res.status(500).json({ messages: err.message });
             }
             break;
         default:
-            res.status(401).json({ messages: 'Not found.' });
+            res.status(404).json({ messages: 'Not found.' });
     }
 }

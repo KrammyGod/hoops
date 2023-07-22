@@ -21,7 +21,7 @@ const getBookmarks = async (req, res, session) => {
             data = await query(
                 `SELECT * FROM Bookmarks NATURAL JOIN Player
                 WHERE uid = $1 AND pid = $2
-                ORDER BY pid`,
+                ORDER BY firstName, lastName`,
                 [session.user.id, req.body.pid]
             );
         } else {
@@ -30,7 +30,7 @@ const getBookmarks = async (req, res, session) => {
             data = await query(
                 `SELECT * FROM Bookmarks NATURAL JOIN Player
                 WHERE uid = $1 LIMIT 10 OFFSET $2 * 10
-                ORDER BY pid`,
+                ORDER BY firstName, lastName`,
                 [session.user.id, page]
             );
         }

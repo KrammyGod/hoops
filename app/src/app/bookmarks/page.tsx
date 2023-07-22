@@ -1,8 +1,8 @@
 'use client'
 
 import BookmarkList from './BookmarkList';
-import useSession from '@/hooks/Auth';
-import useProtect from '@/hooks/Protected';
+import useSession from '@hooks/Auth';
+import useProtect from '@hooks/Protected';
 
 function BookmarksPage() {
     const { session } = useSession()

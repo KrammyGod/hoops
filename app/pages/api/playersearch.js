@@ -1,3 +1,3 @@
-import { searchPlayerByName } from "../../apis/playerteam.js";
+import { searchPlayerByName } from "@apis/playerteam.js";
 
 export default searchPlayerByName;

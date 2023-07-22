@@ -1,4 +1,4 @@
-import { query } from "../modules/pool.js";
+import { query } from "@modules/pool.js";
 
 // All values are renamed to make switching tables seamless.
 

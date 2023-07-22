@@ -1,3 +1,3 @@
-import { getLeaderboards } from "../../../apis/leaderboards.js";
+import { getLeaderboards } from "@apis/leaderboards.js";
 
 export default getLeaderboards;

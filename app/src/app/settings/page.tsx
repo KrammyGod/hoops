@@ -7,8 +7,8 @@ import { API } from '@/types/ApiRoute';
 import styles from '../page.module.css';
 import ModifyForm from './ModifyForm';
 import DeleteUser from './DeleteUser';
-import useSession from '@/hooks/Auth';
-import useProtect from '@/hooks/Protected';
+import useSession from '@hooks/Auth';
+import useProtect from '@hooks/Protected';
 
 function Settings() {
     const { session } = useSession();

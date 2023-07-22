@@ -4,7 +4,7 @@ import { API } from '@/types/ApiRoute';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Button, Spinner } from 'react-bootstrap';
-import useSession from '@/hooks/Auth';
+import useSession from '@hooks/Auth';
 import SignUpForm from './SignUpForm';
 import styles from '../page.module.css';
 

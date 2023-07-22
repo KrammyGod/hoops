@@ -7,7 +7,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import styles from '../page.module.css';
 import Table from 'react-bootstrap/Table';
-import useSession from "@/hooks/Auth";
+import useSession from "@hooks/Auth";
 
 export default function Search() {
     const [radioValue, setRadioValue] = useState(1);

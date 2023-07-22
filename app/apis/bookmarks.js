@@ -1,4 +1,4 @@
-import { query } from '../modules/pool.js';
+import { query } from '@modules/pool.js';
 
 const createBookmark = async (req, res, session) => {
     try {
@@ -8,7 +8,7 @@ const createBookmark = async (req, res, session) => {
         )
         res.status(200).json({ data: data.rows[0] })
     } catch (err) {
-        res.status(500).json({ messages: err.messages })
+        res.status(500).json({ messages: err.message })
     }
 }
 
@@ -29,14 +29,15 @@ const getBookmarks = async (req, res, session) => {
             if (page < 0) return res.status(400).json({ messages: 'Invalid page number' });
             data = await query(
                 `SELECT * FROM Bookmarks NATURAL JOIN Player
-                WHERE uid = $1 LIMIT 10 OFFSET $2 * 10
-                ORDER BY firstName, lastName`,
+                WHERE uid = $1
+                ORDER BY firstName, lastName
+                LIMIT 10 OFFSET $2 * 10`,
                 [session.user.id, page]
             );
         }
         res.status(200).json({ data: data.rows })
     } catch (err) {
-        res.status(500).json({ messages: err.messages });
+        res.status(500).json({ messages: err.message });
     }
 }
 
@@ -48,7 +49,7 @@ const deleteBookmark = async (req, res, session) => {
         )
         res.status(200).json({ data: data.rows[0] })
     } catch (err) {
-        res.status(500).json({ messages: err.messages });
+        res.status(500).json({ messages: err.message });
     }
 }
 

@@ -1,4 +1,4 @@
-import { query } from '../modules/pool';
+import { query } from '@modules/pool';
 
 async function insertUser(email, password, name, role) {
     // Returns the user that was inserted to ensure successful insertion

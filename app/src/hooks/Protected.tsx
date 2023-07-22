@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Spinner } from 'react-bootstrap';
 import { signIn } from 'next-auth/react';
-import useSession from '@/hooks/Auth';
+import useSession from '@hooks/Auth';
 
 // Pass in the component that should be rendered
 // on authorization success. Otherwise will default

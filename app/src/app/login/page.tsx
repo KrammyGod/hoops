@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Spinner, Alert } from 'react-bootstrap';
-import useSession from '@/hooks/Auth';
+import useSession from '@hooks/Auth';
 import LoginForm from './LoginForm';
 
 function generateAlert(searchParams : any) {

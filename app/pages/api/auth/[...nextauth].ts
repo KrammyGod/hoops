@@ -2,11 +2,11 @@
  * Important: MUST be ts file otherwise CredentialsProvider is not a function
  * (1 hour of debugging)
  */
-import { query } from '../../../modules/pool';
-import NextAuth, { User, Session, TokenSet } from 'next-auth';
-import { NextAuthOptions } from 'next-auth';
-import CredentialsProvider from 'next-auth/providers/credentials';
+import { query } from '@modules/pool';
+import { NextAuthOptions, User, Session, TokenSet } from 'next-auth';
+import NextAuth from 'next-auth';
 import * as type from '@/types/SessionDataTypes';
+import CredentialsProvider from 'next-auth/providers/credentials';
 
 const authOptions : NextAuthOptions = {
     // Our custom provider

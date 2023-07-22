@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { API } from "@/types/ApiRoute";
 import { AiOutlineLink } from "react-icons/ai";
-import useSession from "@/hooks/Auth";
+import useSession from "@hooks/Auth";
 import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
 import styles from "../page.module.css";
 import React from "react";

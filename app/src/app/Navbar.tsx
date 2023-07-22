@@ -7,7 +7,7 @@ import { signIn, signOut } from 'next-auth/react';
 import { useState, useEffect } from 'react';
 import { Navbar, Container, Nav, Button, NavDropdown } from 'react-bootstrap';
 import styles from './page.module.css';
-import useSession from '@/hooks/Auth';
+import useSession from '@hooks/Auth';
 
 export default function CustomNavbar() {
     const [usersBtn, setUsersBtn] = useState<React.ReactNode>();

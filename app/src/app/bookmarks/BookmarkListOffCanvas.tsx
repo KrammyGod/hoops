@@ -53,7 +53,7 @@ const BookmarkListOffCanvas = ({uid}: {uid: number}) => {
                             <tr key={`${bookmark["firstname"]} ${bookmark["lastname"]}`}>
                                 <td>{`${bookmark["firstname"]} ${bookmark["lastname"]}`}</td>
                                 <td align="right">
-                                    <BookmarkBtn pid={bookmark["pid"]} uid={bookmark["uid"]} fromBookmarksList={true}/>
+                                    <BookmarkBtn pid={bookmark["pid"]} fromBookmarksList={true}/>
                                 </td>
                             </tr>
                         )) : <></>}

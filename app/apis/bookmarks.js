@@ -19,14 +19,18 @@ const getBookmarks = async (req, res, session) => {
         let data;
         if (req.body.hasOwnProperty('pid')) {
             data = await query(
-                'SELECT * FROM Bookmarks NATURAL JOIN Player WHERE uid = $1 AND pid = $2',    // maybe have IF EXISTS
+                `SELECT * FROM Bookmarks NATURAL JOIN Player
+                WHERE uid = $1 AND pid = $2
+                ORDER BY pid`,
                 [session.user.id, req.body.pid]
             );
         } else {
             const page = (req.body.page ?? 1) - 1;
             if (page < 0) return res.status(400).json({ messages: 'Invalid page number' });
             data = await query(
-                'SELECT * FROM Bookmarks NATURAL JOIN Player WHERE uid = $1 LIMIT 10 OFFSET $2 * 10',
+                `SELECT * FROM Bookmarks NATURAL JOIN Player
+                WHERE uid = $1 LIMIT 10 OFFSET $2 * 10
+                ORDER BY pid`,
                 [session.user.id, page]
             );
         }

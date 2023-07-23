@@ -1,3 +1,4 @@
-import { usersHandler } from "../../../apis/users";
+import { usersHandler } from "@apis/users";
+import protect from '@apis/protect';
 
-export default usersHandler;
+export default protect(usersHandler);

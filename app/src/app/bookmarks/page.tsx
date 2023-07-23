@@ -1,11 +1,16 @@
-"use client"
+'use client'
 
-import BookmarkList from "./BookmarkList";
-import { useAuth } from "../auth";
+import BookmarkList from './BookmarkList';
+import useSession from '@hooks/Auth';
+import useProtect from '@hooks/Protected';
 
-export default function BookmarksPage() {
-    const { uid } = useAuth()
+function BookmarksPage() {
+    const { session } = useSession()
     return (
-       <BookmarkList uid={uid} />
+       <BookmarkList />
     );
+}
+
+export default function ProtectedBookmarksPage() {
+    return useProtect(<BookmarksPage />);
 }

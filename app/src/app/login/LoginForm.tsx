@@ -1,15 +1,11 @@
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { InputGroup, Form, Button } from "react-bootstrap"
-import { authenticate, useAuth } from "../auth"
-import { API } from "../config"
-import Loading from "../loading"
-import "./styles.css"
+import './styles.css';
+import { useState } from 'react';
+import { signIn } from 'next-auth/react';
+import { InputGroup, Form, Button } from 'react-bootstrap';
+import Loading from '../loading';
 
-export default function LoginForm({ children }: { children?: React.ReactNode }): React.ReactNode {
-    const router = useRouter();
-    const { handleAuth } = useAuth();
-    const [validated, setValidated] = useState(false);
+export default function LoginForm({ children, params }: { children?: React.ReactNode, params : any }): React.ReactNode {
+    const isInvalid = !!params?.error;
     const [attempted, setAttempted] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -19,35 +15,12 @@ export default function LoginForm({ children }: { children?: React.ReactNode }):
 
         event.preventDefault();
         event.stopPropagation();
-        
-        // start loading wheel
-        fetch(API + "/users/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                email: form[0].value,
-                password: form[1].value,
-            })
-        })
-        .then((res) => res.json())
-        .then((data) => {
-            if (!data.hasOwnProperty("messages")) {
-                setValidated(true);
-                authenticate(data['data']);
-                handleAuth(true);
-                setLoading(false);
-                router.push("/");
-            } else {
-                setValidated(false);
-                setAttempted(true);
-                handleAuth(false);
-                setLoading(false);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
+
+        signIn('credentials', {
+            email: form[0].value,
+            password: form[1].value,
+            // Allows the callback to propogate to the correct page
+            callbackUrl: params?.callbackUrl ?? '/'
         });
     }
 
@@ -55,7 +28,7 @@ export default function LoginForm({ children }: { children?: React.ReactNode }):
         <div className="outerContainer">
             <div className="subContainer">
                 {children}
-                <Form noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form noValidate onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label>Email</Form.Label>
                         <InputGroup className="mb-3" hasValidation>
@@ -64,8 +37,8 @@ export default function LoginForm({ children }: { children?: React.ReactNode }):
                                 name="email"
                                 aria-label="Email"
                                 required
-                                onChange={(e) => setAttempted(false)}
-                                isInvalid={!validated && attempted}
+                                onChange={(e) => setAttempted(true)}
+                                isInvalid={isInvalid && !attempted}
                             />
                         </InputGroup>
                     </Form.Group>
@@ -79,8 +52,8 @@ export default function LoginForm({ children }: { children?: React.ReactNode }):
                                 id="password" 
                                 aria-label="Password" 
                                 required
-                                onChange={(e) => setAttempted(false)}
-                                isInvalid={!validated && attempted}
+                                onChange={(e) => setAttempted(true)}
+                                isInvalid={isInvalid && !attempted}
                             />
                             <Form.Control.Feedback type="invalid">
                                 Invalid email/password.

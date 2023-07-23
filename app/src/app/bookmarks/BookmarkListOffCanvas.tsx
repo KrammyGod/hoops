@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { Button, Table, Offcanvas } from "react-bootstrap"
 import BookmarkBtn from "./BookmarkBtn";
-import { API } from "@/app/config";
+import { API } from "@/types/ApiRoute";
 
 //
 // This component is temporarily disabled until further development
@@ -53,7 +53,7 @@ const BookmarkListOffCanvas = ({uid}: {uid: number}) => {
                             <tr key={`${bookmark["firstname"]} ${bookmark["lastname"]}`}>
                                 <td>{`${bookmark["firstname"]} ${bookmark["lastname"]}`}</td>
                                 <td align="right">
-                                    <BookmarkBtn pid={bookmark["pid"]} uid={bookmark["uid"]} fromBookmarksList={true}/>
+                                    <BookmarkBtn pid={bookmark["pid"]} fromBookmarksList={true}/>
                                 </td>
                             </tr>
                         )) : <></>}

@@ -1,42 +1,49 @@
-"use client"
+'use client'
 
-import styles from "../page.module.css";
-import ModifyUser from "../signup/SignUpForm";
-import DeleteUser from "./DeleteUser";
-import { useRouter } from "next/navigation";
-import { Card, Button } from "react-bootstrap";
-import { API } from "../config";
-import { useAuth } from "../auth";
+import { useState } from 'react';
+import { signOut } from 'next-auth/react';
+import { Card, Alert } from 'react-bootstrap';
+import { API } from '@/types/ApiRoute';
+import styles from '../page.module.css';
+import ModifyForm from './ModifyForm';
+import DeleteUser from './DeleteUser';
+import useSession from '@hooks/Auth';
+import useProtect from '@hooks/Protected';
 
-export default function Settings() {
-    const router = useRouter();
-    const { handleAuth, uid, username, email } = useAuth();
+function Settings() {
+    const { session } = useSession();
+    const [validated, setValidated] = useState(true);
 
     const handleSubmit = (event: any) => {
-        const form = event.target;
+        const form = new FormData(event.target);
 
         event.preventDefault();
         event.stopPropagation();
 
-        fetch(API + "/users/update", {
-            method: "POST",
+        setValidated(true);
+        fetch(`${API}/users/update`, {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                uid: uid,
-                email: form[1].value,
-                password: form[2].value,
-                username: form[0].value
+                username: form.get('name'),
+                email: form.get('email'),
+                old_password: form.get('old_password'),
+                new_password: form.get('new_password')
             })
         })
-        .then((res) => res.json())
+        .then((res) => {
+            if (res.status !== 200) {
+                // Wrong password
+                setValidated(false);
+            } else {
+                signOut({ callbackUrl: '/login?update=true' });
+            }
+        })
         .catch((err) => {
             console.log(err);
         });
-
-        handleAuth(false);
-        router.push("/login");
     }
 
     return (
@@ -44,14 +51,14 @@ export default function Settings() {
             <div className={styles.settingsContainer}>
                 <Card className={styles.card}>
                     <Card.Title>Change User Settings</Card.Title>
-                    <Card.Text>Must create new password**</Card.Text>
+                    <Card.Text>Must enter old password**</Card.Text>
                     <Card.Body>
-                        <ModifyUser
+                        {!validated ? <Alert variant='danger'>Incorrect password</Alert> : <></>}
+                        <ModifyForm
                             submit={handleSubmit}
-                            btns={<Button type="submit">Change</Button>}
                             values={{
-                                name: username,
-                                email: email
+                                name: session?.user.name ?? '',
+                                email: session?.user.email ?? ''
                             }}
                         />
                     </Card.Body>
@@ -60,7 +67,7 @@ export default function Settings() {
             <div className={styles.settingsContainer}>
                 <Card 
                     className={`${styles.card} ${styles.rowContainer}`} 
-                    style={{ justifyContent: "space-between" }}
+                    style={{ justifyContent: 'space-between' }}
                 >
                     <div>
                         <Card.Title>Delete Account</Card.Title>
@@ -71,4 +78,9 @@ export default function Settings() {
             </div>
         </div>
     );
+}
+
+// Wrap inside our protect hook
+export default function SettingsProtected() {
+    return useProtect(<Settings />);
 }

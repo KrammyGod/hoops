@@ -1,9 +1,9 @@
 "use client"
 
 import { useState, useEffect } from "react";
-import { API } from "../config";
+import { API } from "@/types/ApiRoute";
 import { AiOutlineLink } from "react-icons/ai";
-import { useAuth } from "../auth";
+import useSession from "@hooks/Auth";
 import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
 import styles from "../page.module.css";
 import React from "react";
@@ -12,7 +12,7 @@ export default function AllPlayerStats() {
     const [bookmarks, setBookmarks] = useState<number[]>([]);
     const [stats, setStats] = useState<{pid: number, name: string, asts: number, trbs: number, pts: number, games: number, seasons: number}[]>([]);
     const [error, setError] = useState(null);
-    const { auth, uid } = useAuth();
+    const { session } = useSession();
 
     useEffect(() => {
         fetch(`${API}/allplayerstats`)
@@ -20,12 +20,13 @@ export default function AllPlayerStats() {
           .then(data => setStats(data))
           .catch(err => setError(err));
 
-        getBookmarks(uid)
+        getBookmarks()
             .then((data) => {
                 let pids = data.data.map((marked: any) => marked["pid"])
                 setBookmarks(pids)
             });
-    }, [uid]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <div>
@@ -51,7 +52,7 @@ export default function AllPlayerStats() {
                                             <a href={`/playerstats/${stat.pid}`}>{stat.name}</a>
                                             <AiOutlineLink color="blue" />
                                         </div>
-                                        {auth ? <BookmarksBtn pid={stat.pid} uid={uid} initialValue={bookmarks.includes(stat.pid)} /> : ""}
+                                        {session ? <BookmarksBtn pid={stat.pid} initialValue={bookmarks.includes(stat.pid)} /> : ""}
                                     </div>
                                 </td>
                                 <td>{stat.asts}</td>

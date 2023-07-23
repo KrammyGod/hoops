@@ -1,4 +1,4 @@
-import { query } from "../modules/pool.js";
+import { query } from "@modules/pool.js";
 
 /* Returns all players matching name */
 async function searchPlayerName(name) {

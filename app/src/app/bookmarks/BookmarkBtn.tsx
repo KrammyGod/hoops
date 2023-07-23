@@ -1,42 +1,40 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import { BsBookmarkFill, BsBookmark } from 'react-icons/bs';
-import { API } from "@/app/config";
+import { API } from '@/types/ApiRoute';
 
-export const getBookmarks = async (uid: number, page?: number) => {
-    return fetch(API + "/bookmarks/get", {
-        method: "POST",
+export const getBookmarks = async (page?: number) => {
+    return fetch(`${API}/bookmarks/get`, {
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+            'Content-Type': 'application/json'
         },
-        body: JSON.stringify({uid, page})
+        body: JSON.stringify({ page })
     })
     .then((res) => res.json())
     .catch((err) => console.log(err));
 }
 
 const BookmarksBtn = ({
-    pid, 
-    uid,
+    pid,
     initialValue,
     fromBookmarksList=false,
     removeBookmarksList
 }: {
-    pid: number; 
-    uid: number; 
-    initialValue?: boolean; 
-    fromBookmarksList?: boolean; 
-    removeBookmarksList?: () => void
+    pid: number;
+    initialValue?: boolean;
+    fromBookmarksList?: boolean;
+    removeBookmarksList?: () => void;
 }) => {
     const [isMarked, mark] = useState(initialValue == undefined ? false : initialValue);
 
     useEffect(() => {
         if (!fromBookmarksList && initialValue == undefined) {
-            fetch(API + "/bookmarks/get", {
-                method: "POST",
+            fetch(`${API}/bookmarks/get`, {
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({pid, uid})
+                body: JSON.stringify({ pid })
             })
             .then((res) => res.json())
             .then((data) => data.data.length === 0 ? mark(false) : mark(true))
@@ -46,31 +44,31 @@ const BookmarksBtn = ({
         if (fromBookmarksList) {
             mark(fromBookmarksList)
         }
-    }, [pid, uid, fromBookmarksList, initialValue]);
+    }, [pid, fromBookmarksList, initialValue]);
     
     const toggleMark = () => {
         // do this first for the client
         mark((s) => !s);
 
         if (!isMarked) {
-            fetch(API + "/bookmarks/create", {
-                method: "POST",
+            fetch(API + '/bookmarks/create', {
+                method: 'POST',
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({pid, uid})
+                body: JSON.stringify({ pid })
             }).catch((err) => console.log(err))
             .then(
                 () => { mark(true) },
                 () => { mark(false) }
             );
         } else {
-            fetch(API + "/bookmarks/delete", {
-                method: "DELETE",
+            fetch(`${API}/bookmarks/delete`, {
+                method: 'DELETE',
                 headers: {
-                    "Content-Type": "application/json"
+                    'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({pid, uid})
+                body: JSON.stringify({ pid })
             }).catch((err) => console.log(err))
             .then(
                 () => { 

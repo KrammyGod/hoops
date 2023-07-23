@@ -1,51 +1,45 @@
 import { useState } from 'react';
 import { Button, Modal, Form, CloseButton } from 'react-bootstrap';
-import { FaTrash } from "react-icons/fa";
-import { API } from '../config';
-import { useAuth } from "../auth";
-import { useRouter } from "next/navigation";
+import { FaTrash } from 'react-icons/fa';
+import { signOut } from 'next-auth/react';
+import { API } from '@/types/ApiRoute';
 import Loading from '../loading';
-import styles from "../page.module.css";
+import styles from '../page.module.css';
 
 export default function DeleteUser() {
-    const router = useRouter();
-
     const [validated, setValidated] = useState(false);
     const [attempted, setAttempted] = useState(false);
     const [loading, setLoading] = useState(false);
-    const { handleAuth, uid } = useAuth();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
     const handleSubmit = (event: any) => {
         setLoading(true);
-        const form = event.target;
+        const form = new FormData(event.target);
 
         event.preventDefault();
         event.stopPropagation();
 
-        fetch(API + "/users/delete", {
-            method: "DELETE",
+        fetch(API + '/users/delete', {
+            method: 'DELETE',
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                uid: uid,
-                password: form[0].value
+                password: form.get('pass')
             })
         })
         .then((res) => {
-            if (res.status == 400) {
+            if (res.status != 200) {
                 setLoading(false);
                 setValidated(false);
                 setAttempted(true);
             } else {
                 setLoading(false);
                 setValidated(true);
-                handleAuth(false);
                 handleClose();
-                router.push("/login");
+                signOut({ callbackUrl: '/' });
             }
         })
         .catch((err) => {
@@ -83,7 +77,7 @@ export default function DeleteUser() {
                         <div style={{ marginTop: "1vh" }}>
                             {loading ? 
                                 <Button disabled variant="outline-danger" type="submit"><Loading styled={false}/></Button> :
-                                <Button variant="outline-danger" type="submit">Login</Button>
+                                <Button variant="outline-danger" type="submit">Confirm Delete</Button>
                             }
                         </div>
                     </Form>

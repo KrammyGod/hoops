@@ -24,19 +24,22 @@ export default function Search() {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetch(`${API}/playersearch?id=${val}&page=${ppage}`)
-          .then(response => response.json())
-          .then((data) => setResults(data.data ?? []))
-          .catch(err => setError(err));
-    }, [ppage]);
+        if (val.length > 0) {
+            fetch(`${API}/playersearch?id=${val}&page=${ppage}`)
+                .then(response => response.json())
+                .then((data) => setResults(data.data ?? []))
+                .catch(err => setError(err));
+        }
+    }, [ppage])
 
     useEffect(() => {
-        fetch(`${API}/teamsearch?id=${val}&page=${tpage}`)
-          .then(response => response.json())
-          .then((data) => setResults(data.data ?? []))
-          .catch(err => setError(err));
+        if (val.length > 0) {
+            fetch(`${API}/teamsearch?id=${val}&page=${tpage}`)
+                .then(response => response.json())
+                .then((data) => setResults(data.data ?? []))
+                .catch(err => setError(err));
+        }
     }, [tpage]);
-
 
     const handlePPageChange = (page: number) => {
         setPPage(page);
@@ -113,7 +116,7 @@ export default function Search() {
     const handleSubmit = (event : any) => {
         event.preventDefault();
         setSearchVal(radioValue);
-        if (radioValue == 1) {
+        if (radioValue == 1 && val.length > 0) {
             setPPage(1)
             fetch(`${API}/playersearch?id=${val}`)
                 .then((res) => res.json())
@@ -131,7 +134,7 @@ export default function Search() {
                     setBookmarks(pids)
                 })
             */
-        } else {
+        } else if (radioValue == 2 && val.length > 0) {
             setTPage(1)
             fetch(`${API}/teamsearch?id=${val}`)
                 .then((res) => res.json())

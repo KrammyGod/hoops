@@ -68,14 +68,7 @@ export default function Leaderboards() {
             .then((res) => res.json())
             .then((data) => setData(data.data ?? []))
             .catch(() => setData([]));
-    }, [leaderboardAbbrev]);
-
-    useEffect(() => {
-        fetch(`${API}/leaderboards/${leaderboardAbbrev}?page=${page}`)
-            .then((res) => res.json())
-            .then((data) => setData(data.data ?? []))
-            .catch(() => setData([]));
-    }, [page]);
+    }, [leaderboardAbbrev, page]);
 
     const radioChange = (val : number) => {
         setRadioValue(val);

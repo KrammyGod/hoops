@@ -19,7 +19,7 @@ export default function BookmarkList() {
     useEffect(() => {
         fetch(`${API}/pages?optn=bkmk`)
           .then(response => response.json())
-          .then(data => setNumPages(data.total))
+          .then(data => setNumPages(data.data.total ?? 1))
           .catch(err => console.log(err))
     }, [bookmarks])
 

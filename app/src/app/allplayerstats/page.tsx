@@ -33,7 +33,7 @@ export default function AllPlayerStats() {
     useEffect(() => {
         fetch(`${API}/pages?optn=plyr`)
           .then(response => response.json())
-          .then(data => setNumPages(data.total))
+          .then(data => setNumPages(data.data.total ?? 1))
           .catch(err => setError(err))
     }, []);
 

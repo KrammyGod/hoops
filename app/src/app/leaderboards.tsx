@@ -51,14 +51,14 @@ export default function Leaderboards() {
     useEffect(() => {
         fetch(`${API}/pages?optn=plyr`)
             .then(response => response.json())
-            .then(data => setNumPlyrPages(data.total))
+            .then(data => setNumPlyrPages(data.data.total ?? 1))
             .catch(err => setData(err));
         
         fetch(`${API}/pages?optn=team`)
             .then(response => response.json())
             .then(data => {
-                setNumTeamPages(data.total);
-                setNumPages(data.total);
+                setNumTeamPages(data.data.total ?? 1);
+                setNumPages(data.data.total ?? 1);
             })
             .catch(err => setData(err));
     }, []);

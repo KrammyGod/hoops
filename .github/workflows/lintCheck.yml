@@ -25,9 +25,4 @@ jobs:
           node-version: 19
 
       - name: Install Node.js dependencies
-        run: cd app && npm ci
-
-      - name: Run linters
-        uses: wearerequired/lint-action@v2
-        with:
-          eslint: true
+        run: cd app && npm ci && npm run lint

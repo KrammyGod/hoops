@@ -24,5 +24,5 @@ jobs:
         with:
           node-version: 19
 
-      - name: Install Node.js dependencies
+      - name: Install dependencies and lint
         run: cd app && npm ci && npm run lint

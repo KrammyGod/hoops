@@ -39,7 +39,7 @@ export default function PlayerStats({ params }: {
         <div className={styles.settingsOuterContainer}>
             <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: "space-between" }}>
                 <h3>{params.pid} {firstName} {lastName}</h3>
-                <BookmarkBtn pid={Number(params.pid)} />
+                {session ? <BookmarkBtn pid={Number(params.pid)} /> : <></>}
             </div>
             <table className={`table table-bordered table-sm m-4 ${styles.settingsContainer}`}>
                 <thead>

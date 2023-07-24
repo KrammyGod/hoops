@@ -26,7 +26,7 @@ export default function Pagination({page, numPages, onPageChange}: PaginationPro
     const handlePrev = () => {
         const value = page - 1;
         if (value <= 0 || value > numPages) return;
-		onPageChange(value);
+        onPageChange(value);
         setInput(value);
 	}
 
@@ -41,7 +41,7 @@ export default function Pagination({page, numPages, onPageChange}: PaginationPro
         <div className="mx-auto d-flex align-items-center" style={{width: '200px'}}>
             <button type="button" className="btn" onClick={handlePrev}><BiChevronLeft/></button>
             <span style={{margin:'10px'}}>
-                <input type="number" value={(input > numPages) ? 1 : page} onChange={handleChange} onKeyDown={handleKeyPress} style={{width:'40px', textAlign:'center', appearance:'textfield'}}></input> of {numPages}
+                <input type="number" value={(input > numPages) ? 1 : input} onChange={handleChange} onKeyDown={handleKeyPress} style={{width:'40px', textAlign:'center', appearance:'textfield'}}></input> of {numPages}
             </span>
             <button type="button" className="btn" onClick={handleNext}><BiChevronRight/></button>
         </div>

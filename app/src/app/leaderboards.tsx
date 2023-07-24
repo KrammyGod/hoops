@@ -4,6 +4,7 @@ import { API } from "@/types/ApiRoute";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Table from 'react-bootstrap/Table';
+import Pagination from "./pagination";
 
 const LeaderboardTypes = {
     TOTAL_WINS_PER_TEAM: <><th>Team Abbreviation</th><th>Team</th><th>Lifetime Wins</th></>,
@@ -35,6 +36,15 @@ export default function Leaderboards() {
     const [leaderboardType, setLeaderboardType] = useState<JSX.Element>(LeaderboardTypes.TOTAL_WINS_PER_TEAM);
     const [leaderboardAbbrev, setLeaderboardAbbrev] = useState<string>(LeaderboardAbbrevs.TOTAL_WINS_PER_TEAM);
     const [radioValue, setRadioValue] = useState(1);
+    const [page, setPage] = useState<number>(1);
+    const [tpage, setTPage] = useState<number>(1);
+    const [apage, setAPage] = useState<number>(1);
+    const [mpage, setMPage] = useState<number>(1);
+    const [ppage, setPPage] = useState<number>(1);
+    const [numTPages, setNumTPages] = useState<number>(1);
+    const [numAPages, setNumAPages] = useState<number>(1);
+    const [numMPages, setNumMPages] = useState<number>(1);
+    const [numPPages, setNumPPages] = useState<number>(1);
 
     const radios = [
         { name: 'Total Wins Per Team', value: 1 },
@@ -42,6 +52,31 @@ export default function Leaderboards() {
         { name: 'Most Bookmarked Players', value: 3 },
         { name: 'Percentage Wins Per Team', value: 4 },
     ];
+
+    useEffect(() => {
+        fetch(`${API}/pages?optn=plyr`)
+            .then(response => response.json())
+            .then(data => {
+                setNumAPages(data.total);
+                setNumMPages(data.total);
+            })
+            .catch(err => setData(err));
+        
+        fetch(`${API}/pages?optn=team`)
+            .then(response => response.json())
+            .then(data => {
+                setNumTPages(data.total);
+                setNumPPages(data.total);
+            })
+            .catch(err => setData(err));
+    }, []);
+
+    useEffect(() => {
+        fetch(`${API}/leaderboards/${leaderboardAbbrev}?page=${page}`)
+            .then((res) => res.json())
+            .then((data) => setData(data.data ?? []))
+            .catch(() => setData([]));
+    }, [leaderboardAbbrev, page]);
 
     const radioChange = (val : number) => {
         setRadioValue(val);
@@ -78,12 +113,14 @@ export default function Leaderboards() {
         }
     }, [leaderboardType]);
 
-    useEffect(() => {
-        fetch(`${API}/leaderboards/${leaderboardAbbrev}`)
-            .then((res) => res.json())
-            .then((data) => setData(data.data ?? []))
-            .catch(() => setData([]));
-    }, [leaderboardAbbrev]);
+    const generatePagination = () => {
+        switch (radioValue) {
+            case 1: return (<Pagination page={tpage} numPages={numTPages} onPageChange={(page) => (setTPage(page), setPage(page))}/>)
+            case 2: return (<Pagination page={apage} numPages={numAPages} onPageChange={(page) => (setAPage(page), setPage(page))}/>)
+            case 3: return (<Pagination page={mpage} numPages={numMPages} onPageChange={(page) => (setMPage(page), setPage(page))}/>)
+            case 4: return (<Pagination page={ppage} numPages={numPPages} onPageChange={(page) => (setPPage(page), setPage(page))}/>)
+        }
+    }
     
     return (
         <div>
@@ -110,6 +147,7 @@ export default function Leaderboards() {
                 {generateCols(data)}
             </tbody>
         </Table>
+        {generatePagination()}
         </div>
     );
 }

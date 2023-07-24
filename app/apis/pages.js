@@ -2,7 +2,7 @@ import { query } from "@modules/pool.js";
 
 const size = 10
 
-/* Pages for All Teams */
+/* Pages for Teams */
 async function team() {
     const res = await query(`
         SELECT CEIL(COUNT(*)::float / $1) AS total
@@ -10,7 +10,7 @@ async function team() {
     return res.rows[0];
 }
 
-/* Pages for All Players */
+/* Pages for Players */
 async function plyr() {
     const res = await query(`
         SELECT CEIL(COUNT(*)::float / $1) AS total
@@ -37,17 +37,6 @@ async function srpl(name) {
     return res.rows[0];
 }
 
-/* Pages for Leaderboards */
-async function ldbd(type) {
-    let res = null;
-    if (type == 'twpt' || type == 'pwpt') {
-        res = team()
-    } else if (type == 'appp' || type == 'mbp') {
-        res = plyr()
-    }
-    return res;
-}
-
 export async function getPages(req, res) {
     let data = null;
     try {
@@ -57,9 +46,6 @@ export async function getPages(req, res) {
                 break;
             case "plyr":
                 data = await plyr();
-                break;
-            case "ldbd":
-                data = await ldbd(req.query.type);
                 break;
             case "bkmk":
                 data = await bkmk(req.query.user);

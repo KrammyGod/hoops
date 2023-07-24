@@ -4,35 +4,35 @@ import BookmarkBtn, { getBookmarks } from "./BookmarkBtn";
 import { AiOutlineLink } from "react-icons/ai";
 import "./list.css";
 import Pagination from "@components/pagination";
+import { API } from "@/types/ApiRoute";
 
 //
 // This component requires button to redirect to /bookmarks
 // NOTE: See BookmarkListOffCanvas for advanced development
 //
+
 export default function BookmarkList() {
     const [bookmarks, setBookmarks] = useState([]);
     const [page, setPage] = useState(1);
-    const [numPages, setNumPages] = useState<number>(10);
-
-    const handlePageChange = (page: number) => {
-        setPage(page);
-    }
+    const [numPages, setNumPages] = useState<number>(1);
 
     useEffect(() => {
-        // We should display error toast if it fails.
-        // page should never be negative,
-        // but if it happens, this will throw
+        fetch(`${API}/pages?optn=bkmk`)
+          .then(response => response.json())
+          .then(data => setNumPages(data.total))
+          .catch(err => console.log(err))
+    }, [bookmarks])
+
+    useEffect(() => { 
         getBookmarks(page)
             .then((data) => setBookmarks(data.data))
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [page]);
+            .catch((err) => console.log(err))
+    }, [page, bookmarks])
 
     const removeBookmark = (pid: number) => {
         const newBookmarks = bookmarks.filter((i) => i["pid"] !== pid);
         setBookmarks(newBookmarks);
-    };
+    }
 
     return (
         <div className="listContainer">
@@ -70,7 +70,7 @@ export default function BookmarkList() {
                 <Pagination 
                     page={page}
                     numPages={numPages}
-                    onPageChange={handlePageChange}
+                    onPageChange={(page) => setPage(page)}
                 />
             </div>
         </div>

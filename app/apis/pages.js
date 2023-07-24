@@ -46,8 +46,9 @@ async function bkmk(uid) {
     return res.rows[0];
 }
 
-export async function getPages(req, res) {
+export async function getPages(req, res, session) {
     let data = null;
+    const uid = req.body.uid ?? session?.user.id;
     try {
         switch (req.query.optn) {
             case "team":
@@ -57,7 +58,7 @@ export async function getPages(req, res) {
                 data = await plyr();
                 break;
             case "bkmk":
-                data = await bkmk(req.query.uid);
+                data = await bkmk(uid);
                 break;
             case "srtm":
                 data = await srtm(req.query.name);

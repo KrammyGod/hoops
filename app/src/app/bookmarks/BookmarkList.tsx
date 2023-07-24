@@ -27,11 +27,13 @@ export default function BookmarkList() {
         getBookmarks(page)
             .then((data) => setBookmarks(data.data))
             .catch((err) => console.log(err))
-    }, [page, bookmarks])
+    }, [page])
 
     const removeBookmark = (pid: number) => {
-        const newBookmarks = bookmarks.filter((i) => i["pid"] !== pid);
-        setBookmarks(newBookmarks);
+        bookmarks.filter((i) => i["pid"] !== pid);
+        getBookmarks(page)
+            .then((data) => setBookmarks(data.data))
+            .catch((err) => console.log(err))
     }
 
     return (

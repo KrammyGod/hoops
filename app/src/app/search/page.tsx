@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Col, Container, Form, Row } from "react-bootstrap";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
 import styles from '../page.module.css';
 import Table from 'react-bootstrap/Table';
 import useSession from "@hooks/Auth";
@@ -28,7 +29,7 @@ export default function Search() {
 
     const generateHeader = () => {
         if (searchVal == 1) {
-            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th></>);
+            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th><th></th></>);
         } else {
             return (<><th>Team Abbreviation</th><th>Team Name</th></>);
         }
@@ -40,11 +41,15 @@ export default function Search() {
                 return (<tr><td colSpan={4} align='center'>No players found.</td></tr>);
             } else {
                 return results.map((item) => (
-                    <tr style={{cursor:'pointer'}} onClick={event =>  window.location.href=`/playerstats/${item.pid}`} key={item.pid}>
-                        <td align='center'>{item.pid}</td>
-                        <td>{item.firstname}</td>
-                        <td>{item.lastname}</td>
+                    <tr style={{cursor:'pointer'}} key={item.pid}>
+                        <td align='center' onClick={() =>  window.location.href=`/playerstats/${item.pid}`}>{item.pid}</td>
+                        <td onClick={() =>  window.location.href=`/playerstats/${item.pid}`}>{item.firstname}</td>
+                        <td onClick={() =>  window.location.href=`/playerstats/${item.pid}`}>{item.lastname}</td>
+                        <td>
+                            <BookmarksBtn pid={Number(item.pid)} initialValue={bookmarks.includes(Number(item.pid))} />
+                        </td>
                     </tr>
+
                 ));
             }
         } else {
@@ -69,13 +74,11 @@ export default function Search() {
                 .then((res) => res.json())
                 .then((data) => setResults(data.data ?? []))
                 .catch(() => setResults([]));
-            /*
             getBookmarks()
                 .then((data) => {
                     let pids = data.data.map((marked: any) => marked["pid"])
                     setBookmarks(pids)
                 })
-            */
         } else {
             fetch(`${API}/teamsearch?id=${val}`)
                 .then((res) => res.json())

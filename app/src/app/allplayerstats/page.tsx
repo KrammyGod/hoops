@@ -7,15 +7,18 @@ import useSession from "@hooks/Auth";
 import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
 import styles from "../page.module.css";
 import React from "react";
+import Pagination from "../pagination";
 
 export default function AllPlayerStats() {    
     const [bookmarks, setBookmarks] = useState<number[]>([]);
     const [stats, setStats] = useState<{pid: number, name: string, asts: number, trbs: number, pts: number, games: number, seasons: number}[]>([]);
     const [error, setError] = useState(null);
     const { session } = useSession();
+    const [page, setPage] = useState<number>(1);
+    const [numPages, setNumPages] = useState<number>(1);
 
     useEffect(() => {
-        fetch(`${API}/allplayerstats`)
+        fetch(`${API}/allplayerstats?page=${page}`)
           .then(response => response.json())
           .then(data => setStats(data))
           .catch(err => setError(err));
@@ -26,7 +29,18 @@ export default function AllPlayerStats() {
                 setBookmarks(pids)
             });
     // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]);
+
+    useEffect(() => {
+        fetch(`${API}/pages?optn=plyr`)
+          .then(response => response.json())
+          .then(data => setNumPages(data.total))
+          .catch(err => setError(err))
     }, []);
+
+    const handlePageChange = (page: number) => {
+        setPage(page);
+    };
 
     return (
         <div>
@@ -64,6 +78,11 @@ export default function AllPlayerStats() {
                         ))}
                 </tbody>
             </table>
+            <Pagination 
+                page={page}
+                numPages={numPages}
+                onPageChange={handlePageChange}
+            />
         </div>
     )
 }

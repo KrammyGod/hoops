@@ -1,13 +1,14 @@
 'use client'
 
 import { API } from "@/types/ApiRoute";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Col, Container, Form, Row } from "react-bootstrap";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import styles from '../page.module.css';
 import Table from 'react-bootstrap/Table';
 import useSession from "@hooks/Auth";
+import Pagination from "../pagination";
 
 export default function Search() {
     const [radioValue, setRadioValue] = useState(1);
@@ -16,6 +17,34 @@ export default function Search() {
     const [searchVal, setSearchVal] = useState(1);
     const [bookmarks, setBookmarks] = useState<number[]>([]);
     const { session } = useSession();
+    const [ppage, setPPage] = useState<number>(1);
+    const [numPPages, setNumPPages] = useState<number>(1);
+    const [tpage, setTPage] = useState<number>(1);
+    const [numTPages, setNumTPages] = useState<number>(1);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetch(`${API}/playersearch?id=${val}&page=${ppage}`)
+          .then(response => response.json())
+          .then((data) => setResults(data.data ?? []))
+          .catch(err => setError(err));
+    }, [ppage]);
+
+    useEffect(() => {
+        fetch(`${API}/teamsearch?id=${val}&page=${tpage}`)
+          .then(response => response.json())
+          .then((data) => setResults(data.data ?? []))
+          .catch(err => setError(err));
+    }, [tpage]);
+
+
+    const handlePPageChange = (page: number) => {
+        setPPage(page);
+    };
+
+    const handleTPageChange = (page: number) => {
+        setTPage(page);
+    };
 
     const radios = [
         { name: 'Search for Player', value: 1 },
@@ -61,14 +90,40 @@ export default function Search() {
         }
     }
 
+    const generatePagination = () => {
+        if (searchVal == 1) {
+            return (
+                <Pagination 
+                    page={ppage}
+                    numPages={numPPages}
+                    onPageChange={handlePPageChange}
+                />
+            );
+        } else {
+            return (
+                <Pagination 
+                    page={tpage}
+                    numPages={numTPages}
+                    onPageChange={handleTPageChange}
+                />
+            )
+        }
+    }
+
     const handleSubmit = (event : any) => {
         event.preventDefault();
         setSearchVal(radioValue);
         if (radioValue == 1) {
+            setPPage(1)
             fetch(`${API}/playersearch?id=${val}`)
                 .then((res) => res.json())
                 .then((data) => setResults(data.data ?? []))
                 .catch(() => setResults([]));
+            
+            fetch(`${API}/pages?optn=srpl&name=${val}`)
+                .then(response => response.json())
+                .then(data => setNumPPages(data.total))
+                .catch(err => setError(err))
             /*
             getBookmarks()
                 .then((data) => {
@@ -77,10 +132,16 @@ export default function Search() {
                 })
             */
         } else {
+            setTPage(1)
             fetch(`${API}/teamsearch?id=${val}`)
                 .then((res) => res.json())
                 .then((data) => setResults(data.data ?? []))
                 .catch(() => setResults([]));
+            
+            fetch(`${API}/pages?optn=srtm&name=${val}`)
+                .then(response => response.json())
+                .then(data => setNumTPages(data.total))
+                .catch(err => setError(err))
         }
     }
     return (
@@ -125,6 +186,7 @@ export default function Search() {
                     </tbody>
                 </Table>
             </div>
+            {generatePagination()}
         </div>
     );
 }

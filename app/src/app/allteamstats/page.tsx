@@ -7,13 +7,17 @@ import React from "react";
 export default function AllTeamStats() {    
     const [stats, setStats] = useState<{abbrev: string, tname: string, wins: number, losses: number, seasons: number}[]>([]);
     const [error, setError] = useState(null);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(null);
 
     useEffect(() => {
-        fetch(`${API}/allteamstats`)
+        fetch(`${API}/allteamstats?page=1`)
           .then(response => response.json())
           .then(data => setStats(data))
           .catch(err => setError(err))
     }, []);
+
+    console.log(totalPages)
 
     return (
         <div>

@@ -14,28 +14,28 @@ export default function Pagination({page, numPages, onPageChange}: PaginationPro
     const handleChange = (event: any) => {
         const value = parseInt(event.target.value);
         if (value <= 0 || value > numPages) return;
-		setInput(value);
-	}
+	setInput(value);
+    }
 
     const handleKeyPress = (event: any) => {
         if (event.key === 'Enter') {
             onPageChange(input)
-        }
 	}
+    }
 
     const handlePrev = () => {
         const value = page - 1;
         if (value <= 0 || value > numPages) return;
         onPageChange(value);
         setInput(value);
-	}
+    }
 
     const handleNext = () => {
         const value = page + 1;
         if (value <= 0 || value > numPages) return;
-		onPageChange(value);
+	onPageChange(value);
         setInput(value);
-	}
+    }
 
     return (
         <div className="mx-auto d-flex align-items-center" style={{width: '200px'}}>

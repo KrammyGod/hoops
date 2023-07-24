@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { Pagination, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import BookmarkBtn, { getBookmarks } from "./BookmarkBtn";
 import { AiOutlineLink } from "react-icons/ai";
 import "./list.css";
+import Pagination from "../pagination";
 
 //
 // This component requires button to redirect to /bookmarks
@@ -11,12 +12,10 @@ import "./list.css";
 export default function BookmarkList() {
     const [bookmarks, setBookmarks] = useState([]);
     const [page, setPage] = useState(1);
+    const [numPages, setNumPages] = useState<number>(10);
 
-    const next = () => {
-        setPage((page) => ++page);
-    }
-    const prev = () => {
-        setPage((page) => --page);
+    const handlePageChange = (page: number) => {
+        setPage(page);
     }
 
     useEffect(() => {
@@ -67,11 +66,12 @@ export default function BookmarkList() {
                     </tbody>
                     
                 </Table>
-                <Pagination >
-                    <Pagination.Prev onClick={() => prev()} disabled={page === 1}/>
-                    <p style={{ margin: "0 10px" }}>{page}</p>
-                    <Pagination.Next onClick={() => next()} disabled={bookmarks.length < 10}/>
-                </Pagination>
+
+                <Pagination 
+                    page={page}
+                    numPages={numPages}
+                    onPageChange={handlePageChange}
+                />
             </div>
         </div>
     );

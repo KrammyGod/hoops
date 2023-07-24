@@ -17,37 +17,23 @@ export default function Search() {
     const [searchVal, setSearchVal] = useState(1);
     const [bookmarks, setBookmarks] = useState<number[]>([]);
     const { session } = useSession();
-    const [ppage, setPPage] = useState<number>(1);
-    const [numPPages, setNumPPages] = useState<number>(1);
-    const [tpage, setTPage] = useState<number>(1);
-    const [numTPages, setNumTPages] = useState<number>(1);
+    const [page, setPage] = useState<number>(1);
+    const [numPages, setNumPages] = useState<number>(1);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        if (val.length > 0) {
-            fetch(`${API}/playersearch?id=${val}&page=${ppage}`)
+        if (radioValue == 1 && val.length > 0) {
+            fetch(`${API}/playersearch?id=${val}&page=${page}`)
+                .then(response => response.json())
+                .then((data) => setResults(data.data ?? []))
+                .catch(err => setError(err));
+        } else if (radioValue == 2 && val.length > 0) {
+            fetch(`${API}/teamsearch?id=${val}&page=${page}`)
                 .then(response => response.json())
                 .then((data) => setResults(data.data ?? []))
                 .catch(err => setError(err));
         }
-    }, [ppage])
-
-    useEffect(() => {
-        if (val.length > 0) {
-            fetch(`${API}/teamsearch?id=${val}&page=${tpage}`)
-                .then(response => response.json())
-                .then((data) => setResults(data.data ?? []))
-                .catch(err => setError(err));
-        }
-    }, [tpage]);
-
-    const handlePPageChange = (page: number) => {
-        setPPage(page);
-    };
-
-    const handleTPageChange = (page: number) => {
-        setTPage(page);
-    };
+    }, [page])
 
     const radios = [
         { name: 'Search for Player', value: 1 },
@@ -93,31 +79,11 @@ export default function Search() {
         }
     }
 
-    const generatePagination = () => {
-        if (searchVal == 1) {
-            return (
-                <Pagination 
-                    page={ppage}
-                    numPages={numPPages}
-                    onPageChange={handlePPageChange}
-                />
-            );
-        } else {
-            return (
-                <Pagination 
-                    page={tpage}
-                    numPages={numTPages}
-                    onPageChange={handleTPageChange}
-                />
-            )
-        }
-    }
-
     const handleSubmit = (event : any) => {
         event.preventDefault();
         setSearchVal(radioValue);
         if (radioValue == 1 && val.length > 0) {
-            setPPage(1)
+            setPage(1)
             fetch(`${API}/playersearch?id=${val}`)
                 .then((res) => res.json())
                 .then((data) => setResults(data.data ?? []))
@@ -125,7 +91,7 @@ export default function Search() {
             
             fetch(`${API}/pages?optn=srpl&name=${val}`)
                 .then(response => response.json())
-                .then(data => setNumPPages(data.total))
+                .then(data => setNumPages(data.total))
                 .catch(err => setError(err))
             /*
             getBookmarks()
@@ -135,7 +101,7 @@ export default function Search() {
                 })
             */
         } else if (radioValue == 2 && val.length > 0) {
-            setTPage(1)
+            setPage(1)
             fetch(`${API}/teamsearch?id=${val}`)
                 .then((res) => res.json())
                 .then((data) => setResults(data.data ?? []))
@@ -143,10 +109,11 @@ export default function Search() {
             
             fetch(`${API}/pages?optn=srtm&name=${val}`)
                 .then(response => response.json())
-                .then(data => setNumTPages(data.total))
+                .then(data => setNumPages(data.total))
                 .catch(err => setError(err))
         }
     }
+
     return (
         <div className={styles.settingsOuterContainer}>
             <h1 className='text-center'>Search</h1>
@@ -189,7 +156,11 @@ export default function Search() {
                     </tbody>
                 </Table>
             </div>
-            {generatePagination()}
+            <Pagination 
+                page={page}
+                numPages={numPages}
+                onPageChange={(page) => setPage(page)}
+            />
         </div>
     );
 }

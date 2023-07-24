@@ -1,3 +1,4 @@
+import './styles.css';
 import { useState } from "react";
 import { BiChevronRight, BiChevronLeft } from 'react-icons/bi';
 
@@ -25,23 +26,23 @@ export default function Pagination({page, numPages, onPageChange}: PaginationPro
 
     const handlePrev = () => {
         const value = page - 1;
-        if (value <= 0 || value > numPages) return;
+        if (value <= 0) return;
         onPageChange(value);
         setInput(value);
     }
 
     const handleNext = () => {
         const value = page + 1;
-        if (value <= 0 || value > numPages) return;
+        if (value > numPages) return;
 	onPageChange(value);
         setInput(value);
     }
 
     return (
-        <div className="mx-auto d-flex align-items-center" style={{width: '200px'}}>
+        <div className="page-container">
             <button type="button" className="btn" onClick={handlePrev}><BiChevronLeft/></button>
             <span style={{margin:'10px'}}>
-                <input type="number" value={(input > numPages) ? 1 : input} onChange={handleChange} onKeyDown={handleKeyPress} style={{width:'40px', textAlign:'center', appearance:'textfield'}}></input> of {numPages}
+                <input className="input" type="number" value={(input > numPages) ? 1 : input} onChange={handleChange} onKeyDown={handleKeyPress}></input> of {numPages}
             </span>
             <button type="button" className="btn" onClick={handleNext}><BiChevronRight/></button>
         </div>

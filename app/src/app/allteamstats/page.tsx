@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { API } from "@/types/ApiRoute";
 import React from "react";
-import Pagination from "../pagination";
+import Pagination from "@components/pagination";
 
 export default function AllTeamStats() {    
     const [stats, setStats] = useState<{abbrev: string, tname: string, wins: number, losses: number, seasons: number}[]>([]);

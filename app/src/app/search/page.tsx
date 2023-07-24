@@ -8,7 +8,7 @@ import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import styles from '../page.module.css';
 import Table from 'react-bootstrap/Table';
 import useSession from "@hooks/Auth";
-import Pagination from "../pagination";
+import Pagination from "@components/pagination";
 
 export default function Search() {
     const [radioValue, setRadioValue] = useState(1);

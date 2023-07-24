@@ -7,7 +7,7 @@ import useSession from "@hooks/Auth";
 import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
 import styles from "../page.module.css";
 import React from "react";
-import Pagination from "../pagination";
+import Pagination from "@components/pagination";
 
 export default function AllPlayerStats() {    
     const [bookmarks, setBookmarks] = useState<number[]>([]);

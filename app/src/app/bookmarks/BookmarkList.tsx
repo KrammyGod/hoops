@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import BookmarkBtn, { getBookmarks } from "./BookmarkBtn";
 import { AiOutlineLink } from "react-icons/ai";
 import "./list.css";
-import Pagination from "../pagination";
+import Pagination from "@components/pagination";
 
 //
 // This component requires button to redirect to /bookmarks

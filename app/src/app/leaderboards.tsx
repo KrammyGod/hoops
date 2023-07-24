@@ -4,7 +4,7 @@ import { API } from "@/types/ApiRoute";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Table from 'react-bootstrap/Table';
-import Pagination from "./pagination";
+import Pagination from "@components/pagination";
 
 const LeaderboardTypes = {
     TOTAL_WINS_PER_TEAM: <><th>Team Abbreviation</th><th>Team</th><th>Lifetime Wins</th></>,

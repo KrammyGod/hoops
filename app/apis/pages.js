@@ -37,6 +37,15 @@ async function srpl(name) {
     return res.rows[0];
 }
 
+/* Pages for Bookmarks */
+async function bkmk(uid) {
+    const res = await query(`
+        SELECT CEIL(COUNT(*)::float / $1) AS total
+        FROM Bookmarks 
+        WHERE uid = $2;`, [size, uid]);
+    return res.rows[0];
+}
+
 export async function getPages(req, res) {
     let data = null;
     try {
@@ -48,7 +57,7 @@ export async function getPages(req, res) {
                 data = await plyr();
                 break;
             case "bkmk":
-                data = await bkmk(req.query.user);
+                data = await bkmk(req.query.uid);
                 break;
             case "srtm":
                 data = await srtm(req.query.name);

@@ -27,7 +27,8 @@ export default function Search() {
                 .then(response => response.json())
                 .then((data) => setResults(data.data ?? []))
                 .catch(err => setError(err));
-        } else if (radioValue == 2 && val.length > 0) {
+        } 
+        else if (radioValue == 2 && val.length > 0) {
             fetch(`${API}/teamsearch?id=${val}&page=${page}`)
                 .then(response => response.json())
                 .then((data) => setResults(data.data ?? []))

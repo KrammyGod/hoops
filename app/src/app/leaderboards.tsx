@@ -69,6 +69,7 @@ export default function Leaderboards() {
             .then((res) => res.json())
             .then((data) => setData(data.data ?? []))
             .catch(() => setData([]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [leaderboardAbbrev, page]);
 
     const radioChange = (val : number) => {
@@ -109,6 +110,7 @@ export default function Leaderboards() {
                 setNumPages(numTeamPages);
                 break;
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [leaderboardType]);
     
     return (

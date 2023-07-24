@@ -34,6 +34,7 @@ export default function Search() {
                 .then((data) => setResults(data.data ?? []))
                 .catch(err => setError(err));
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page])
 
     const radios = [

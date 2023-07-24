@@ -25,9 +25,9 @@ export default function AllPlayerStats() {
 
         getBookmarks()
             .then((data) => {
-                data.data.map((marked: any) => marked["pid"])
+                let pids = data.data.map((marked: any) => marked["pid"])
+                setBookmarks(pids)
             });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page]);
 
     useEffect(() => {

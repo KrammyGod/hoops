@@ -41,7 +41,7 @@ export default function Pagination({page, numPages, onPageChange}: PaginationPro
     return (
         <div className="page-container">
             <button type="button" className="btn" onClick={handlePrev}><BiChevronLeft/></button>
-            <span style={{margin:'10px'}}>
+            <span className="input-container">
                 <input className="input" type="number" value={(input > numPages) ? 1 : input} onChange={handleChange} onKeyDown={handleKeyPress}></input> of {numPages}
             </span>
             <button type="button" className="btn" onClick={handleNext}><BiChevronRight/></button>

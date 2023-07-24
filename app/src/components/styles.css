@@ -10,3 +10,7 @@
     text-align: center;
     appearance: textfield;
 }
+
+.input-container {
+    margin: 10px
+}

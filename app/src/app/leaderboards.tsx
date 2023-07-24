@@ -64,6 +64,7 @@ export default function Leaderboards() {
     }, []);
 
     useEffect(() => {
+        if (page > numPages) setPage(1);
         fetch(`${API}/leaderboards/${leaderboardAbbrev}?page=${page}`)
             .then((res) => res.json())
             .then((data) => setData(data.data ?? []))
@@ -104,7 +105,8 @@ export default function Leaderboards() {
                 break;
             case LeaderboardTypes.PERCENTAGE_WINS_PER_TEAM:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.PERCENTAGE_WINS_PER_TEAM);
-                setNumPages(numTeamPages); 
+                // eslint-disable-next-line react-hooks/exhaustive-deps
+                setNumPages(numTeamPages);
                 break;
         }
     }, [leaderboardType]);

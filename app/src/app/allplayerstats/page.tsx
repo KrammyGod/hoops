@@ -1,12 +1,12 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react";
-import { API } from "@/types/ApiRoute";
-import { AiOutlineLink } from "react-icons/ai";
-import useSession from "@hooks/Auth";
-import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
-import styles from "../page.module.css";
-import React from "react";
+import { useState, useEffect } from 'react';
+import { API } from '@/types/ApiRoute';
+import { AiOutlineLink } from 'react-icons/ai';
+import useSession from '@hooks/Auth';
+import BookmarksBtn, { getBookmarks } from '../bookmarks/BookmarkBtn';
+import styles from '../page.module.css';
+import React from 'react';
 
 export default function AllPlayerStats() {    
     const [bookmarks, setBookmarks] = useState<number[]>([]);
@@ -21,18 +21,14 @@ export default function AllPlayerStats() {
           .catch(err => setError(err));
 
         getBookmarks()
-            .then((data) => {
-                if (data.data) {
-                    let pids = data.data.map((marked: any) => marked["pid"])
-                    setBookmarks(pids)
-                }
-            });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+            .then((data) => 
+                setBookmarks(data.data?.map((marked: any) => marked['pid']) ?? [])
+            );
     }, []);
 
     return (
         <div>
-            <table className="table table-bordered table-sm m-4">
+            <table className='table table-bordered table-sm m-4'>
                 <thead>
                     <tr>
                         <th>PID</th>
@@ -49,12 +45,12 @@ export default function AllPlayerStats() {
                             <tr key={index}>
                                 <td>{stat.pid}</td>
                                 <td>
-                                    <div className={styles.rowContainer} style={{ justifyContent: "space-between" }}>
+                                    <div className={styles.rowContainer} style={{ justifyContent: 'space-between' }}>
                                         <div>
                                             <a href={`/playerstats/${stat.pid}`}>{stat.name}</a>
-                                            <AiOutlineLink color="blue" />
+                                            <AiOutlineLink color='blue' />
                                         </div>
-                                        {session ? <BookmarksBtn pid={stat.pid} initialValue={bookmarks.includes(stat.pid)} /> : ""}
+                                        {session ? <BookmarksBtn pid={stat.pid} initialValue={bookmarks.includes(stat.pid)} /> : ''}
                                     </div>
                                 </td>
                                 <td>{stat.asts}</td>

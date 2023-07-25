@@ -56,6 +56,11 @@ export default function CustomNavbar() {
                             <NavDropdown.Divider />
                             <NavDropdown.Item href="/allteamstats">All Teams</NavDropdown.Item>
                         </NavDropdown>
+                        <NavDropdown title="Filter by Players/Teams">
+                            <NavDropdown.Item href="/playerfilters">By Players</NavDropdown.Item>
+                            <NavDropdown.Divider />
+                            <NavDropdown.Item href="/teamfilters">By Teams</NavDropdown.Item>
+                        </NavDropdown>
                         {searchBtn}
                         {bookmarksBtn}
                         {settingsBtn}

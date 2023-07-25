@@ -8,6 +8,7 @@ import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
 import styles from "../page.module.css";
 import React from "react";
 import Pagination from "@components/pagination";
+import Table from 'react-bootstrap/Table';
 
 export default function AllPlayerStats() {    
     const [bookmarks, setBookmarks] = useState<number[]>([]);
@@ -42,15 +43,16 @@ export default function AllPlayerStats() {
     };
 
     return (
-        <div>
-            <table className="table table-bordered table-sm m-4">
+        <div className={styles.settingsOuterContainer}>
+            <div className={styles.settingsContainer}>
+            <Table className='text-center mt-4' striped bordered hover variant="light">
                 <thead>
                     <tr>
-                        <th>PID</th>
-                        <th>Name</th>
-                        <th>ASTs</th>
-                        <th>TRBs</th>
-                        <th>PTSs</th>
+                        <th>Player ID</th>
+                        <th>Player Name</th>
+                        <th>Assists</th>
+                        <th>Rebounds</th>
+                        <th>Points</th>
                         <th>Games</th>
                         <th>Seasons</th>
                     </tr>
@@ -76,12 +78,13 @@ export default function AllPlayerStats() {
                             </tr>
                         ))}
                 </tbody>
-            </table>
+            </Table>
             <Pagination 
                 page={page}
                 numPages={numPages}
                 onPageChange={handlePageChange}
             />
+            </div>
         </div>
     )
 }

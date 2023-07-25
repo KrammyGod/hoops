@@ -3,7 +3,9 @@
 import { useState, useEffect } from "react";
 import { API } from "@/types/ApiRoute";
 import React from "react";
+import styles from "../page.module.css";
 import Pagination from "@components/pagination";
+import Table from 'react-bootstrap/Table';
 
 export default function AllTeamStats() {    
     const [stats, setStats] = useState<{abbrev: string, tname: string, wins: number, losses: number, seasons: number}[]>([]);
@@ -30,12 +32,13 @@ export default function AllTeamStats() {
     };
 
     return (
-        <div>
-            <table className="table table-bordered table-sm m-4">
+        <div className={styles.settingsOuterContainer}>
+            <div className={styles.settingsContainer}>
+            <Table className='text-center mt-4' striped bordered hover variant="light">
                 <thead>
                     <tr>
-                        <th>ABBREV</th>
-                        <th>Name</th>
+                        <th>Abbrev</th>
+                        <th>Team Name</th>
                         <th>Wins</th>
                         <th>Losses</th>
                         <th>Seasons</th>
@@ -52,12 +55,13 @@ export default function AllTeamStats() {
                             </tr>
                         ))}
                 </tbody>
-            </table>
+            </Table>
             <Pagination 
                 page={page}
                 numPages={numPages}
                 onPageChange={handlePageChange}
             />
+        </div>
         </div>
     );
 }

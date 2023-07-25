@@ -70,6 +70,7 @@ export async function getPages(req, res, session) {
                 throw new Error("Invalid Page type");
         }
         if (data === null) throw new Error("No data found");
+        if (data.total == 0) data.total = 1;
         res.status(200).json({ data });
     } catch (err) {
         res.status(500).json({ messages: err.message });

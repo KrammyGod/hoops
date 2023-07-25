@@ -51,14 +51,14 @@ export default function Leaderboards() {
     useEffect(() => {
         fetch(`${API}/pages?optn=plyr`)
             .then(response => response.json())
-            .then(data => setNumPlyrPages(data.data.total ?? 1))
+            .then(data => setNumPlyrPages(data.data?.total ?? 1))
             .catch(err => setData(err));
         
         fetch(`${API}/pages?optn=team`)
             .then(response => response.json())
             .then(data => {
-                setNumTeamPages(data.data.total ?? 1);
-                setNumPages(data.data.total ?? 1);
+                setNumTeamPages(data.data?.total ?? 1);
+                setNumPages(data.data?.total ?? 1);
             })
             .catch(err => setData(err));
     }, []);
@@ -106,7 +106,6 @@ export default function Leaderboards() {
                 break;
             case LeaderboardTypes.PERCENTAGE_WINS_PER_TEAM:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.PERCENTAGE_WINS_PER_TEAM);
-                // eslint-disable-next-line react-hooks/exhaustive-deps
                 setNumPages(numTeamPages);
                 break;
         }

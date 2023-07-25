@@ -19,20 +19,19 @@ export default function BookmarkList() {
     useEffect(() => {
         fetch(`${API}/pages?optn=bkmk`)
           .then(response => response.json())
-          .then(data => setNumPages(data.data.total ?? 1))
+          .then(data => setNumPages(data.data?.total ?? 1))
           .catch(err => console.log(err))
     }, [bookmarks])
 
     useEffect(() => { 
         getBookmarks(page)
-            .then((data) => setBookmarks(data.data))
+            .then((data) => setBookmarks(data.data ?? []))
             .catch((err) => console.log(err))
     }, [page])
 
     const removeBookmark = (pid: number) => {
-        bookmarks.filter((i) => i["pid"] !== pid);
         getBookmarks(page)
-            .then((data) => setBookmarks(data.data))
+            .then((data) => setBookmarks(data.data ?? []))
             .catch((err) => console.log(err))
     }
 

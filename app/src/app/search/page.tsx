@@ -93,7 +93,7 @@ export default function Search() {
             
             fetch(`${API}/pages?optn=srpl&name=${val}`)
                 .then(response => response.json())
-                .then(data => setNumPages(data.data.total ?? 1))
+                .then(data => setNumPages(data.data?.total ?? 1))
                 .catch(err => setError(err))
             /*
             getBookmarks()
@@ -111,7 +111,7 @@ export default function Search() {
             
             fetch(`${API}/pages?optn=srtm&name=${val}`)
                 .then(response => response.json())
-                .then(data => setNumPages(data.data.total ?? 1))
+                .then(data => setNumPages(data.data?.total ?? 1))
                 .catch(err => setError(err))
         }
     }

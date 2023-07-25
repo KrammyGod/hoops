@@ -21,7 +21,7 @@ export default function AllTeamStats() {
     useEffect(() => {
         fetch(`${API}/pages?optn=team`)
           .then(response => response.json())
-          .then(data => setNumPages(data.data.total ?? 1))
+          .then(data => setNumPages(data.data?.total ?? 1))
           .catch(err => setError(err))
     }, []);
 

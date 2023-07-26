@@ -20,11 +20,13 @@ export default function AllPlayerStats() {
           .then(data => setStats(data))
           .catch(err => setError(err));
 
-        getBookmarks()
-            .then((data) => {
-                let pids = data.data.map((marked: any) => marked["pid"])
-                setBookmarks(pids)
-            });
+        if (session) {
+            getBookmarks()
+                .then((data) => {
+                    let pids = data.data.map((marked: any) => marked["pid"])
+                    setBookmarks(pids)
+                });
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 

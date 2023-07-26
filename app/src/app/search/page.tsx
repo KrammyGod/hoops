@@ -29,7 +29,7 @@ export default function Search() {
 
     const generateHeader = () => {
         if (searchVal == 1) {
-            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th><th></th></>);
+            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th>{session ? <th></th> : ""}</>);
         } else {
             return (<><th>Team Abbreviation</th><th>Team Name</th></>);
         }
@@ -45,9 +45,9 @@ export default function Search() {
                         <td align='center' onClick={() =>  window.location.href=`/playerstats/${item.pid}`}>{item.pid}</td>
                         <td onClick={() =>  window.location.href=`/playerstats/${item.pid}`}>{item.firstname}</td>
                         <td onClick={() =>  window.location.href=`/playerstats/${item.pid}`}>{item.lastname}</td>
-                        <td>
+                        {session ? <td>
                             <BookmarksBtn pid={Number(item.pid)} initialValue={bookmarks.includes(Number(item.pid))} />
-                        </td>
+                        </td> : ""}
                     </tr>
 
                 ));
@@ -74,11 +74,13 @@ export default function Search() {
                 .then((res) => res.json())
                 .then((data) => setResults(data.data ?? []))
                 .catch(() => setResults([]));
-            getBookmarks()
-                .then((data) => {
-                    let pids = data.data.map((marked: any) => marked["pid"])
-                    setBookmarks(pids)
-                })
+            if (session) {
+                getBookmarks()
+                    .then((data) => {
+                        let pids = data.data.map((marked: any) => marked["pid"])
+                        setBookmarks(pids)
+                    })
+            }
         } else {
             fetch(`${API}/teamsearch?id=${val}`)
                 .then((res) => res.json())

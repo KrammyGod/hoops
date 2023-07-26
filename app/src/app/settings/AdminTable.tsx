@@ -13,7 +13,7 @@ type Data = {
 
 type DynamicTableProps = {
     data: Data[];
-    onSubmit: (id: string, value: string) => void;
+    onSubmit: (uid: number, id: string, value: string) => void;
     onIconClick: (row: Data) => void;
 };
 
@@ -22,24 +22,25 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
         return <span>{value}</span>
     };
 
-    const keyDownWrapper = (e: any, id: string) => {
+    const keyDownWrapper = (e: any, id: string, uid: number) => {
+        console.log("cliuck")
         if (e.key === 'Enter') {
-            onSubmit(id, e.target.value);
+            onSubmit(uid, id, e.target.value);
         }
     };
 
-    const UsernameCell = ({ value, column }: any) => {
+    const UsernameCell = ({ value, column, row }: any) => {
         return (
             <input
                 defaultValue={value}
-                onKeyDown={e => keyDownWrapper(e, column.id)}
+                onKeyDown={e => keyDownWrapper(e, column.id, row.original.uid)}
             />
         );
     };
 
-    const RoleCell = ({ column }: any) => {
+    const RoleCell = ({ column, row }: any) => {
         return (
-            <select name='Role' id='urole' onChange={e => onSubmit(column.id, e.target.value)}>
+            <select name='Role' id='urole' onChange={e => onSubmit(column.id, e.target.value, row.original.uid)}>
                 <option value='user'>user</option>
                 <option value='admin'>admin</option>
             </select>
@@ -97,9 +98,9 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
     return (
         <Table {...getTableProps()}>
             <thead>
-                {headerGroups.map((headerGroup, index) => (
+                {headerGroups.map((headerGroup: any, index: any) => (
                     <tr {...headerGroup.getHeaderGroupProps()} key={index}>
-                        {headerGroup.headers.map((column) => (
+                        {headerGroup.headers.map((column: any) => (
                             <th {...column.getHeaderProps()} key={column.id}>
                                 {column.render('Header')}
                             </th>
@@ -108,11 +109,11 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
                 ))}
             </thead>
             <tbody {...getTableBodyProps()}>
-                {rows.map((row, index) => {
+                {rows.map((row: any, index: any) => {
                     prepareRow(row);
                     return (
                         <tr {...row.getRowProps()} key={index}>
-                            {row.cells.map((cell) => (
+                            {row.cells.map((cell: any) => (
                                 <td {...cell.getCellProps()} key={cell.column.id}>
                                     {cell.render('Cell')}
                                 </td>

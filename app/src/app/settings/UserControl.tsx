@@ -53,31 +53,31 @@ const Control = () => {
                 'Content-Type': 'application/json'
             }
         })
-            .then((res) => res.json())
-            .then((data) => setUsers(data.data.filter((user: any) => user.uid !== session?.user.id)))
-            .catch((err) => console.log(err));
+        .then((res) => res.json())
+        .then((data) => setUsers(data.data.filter((user: any) => user.uid !== session?.user.id)))
+        .catch((err) => console.log(err));
     }, [session]);
 
     // ALL COMMENTED CODE WILL HAVE TO BE REDONE
 
-    // const deleteUser = (uid: number, username: string) => {
-    //     fetch(`${API}/users/delete`, {
-    //         method: 'DELETE',
-    //         headers: {
-    //             'Content-Type': 'application/json'
-    //         },
-    //         body: JSON.stringify({ uid })
-    //     })
-    //     .then((res) => res.json())
-    //     .then((data) => {
-    //         setUsers(users.filter((it: any) => it.uid !== uid))
-    //         addToast({ id: uid, success: true, message: `Successfully deleted ${username}`, Component: NotifToast })
-    //     })
-    //     .catch((err) => {
-    //         console.log(err)
-    //         addToast({ id: uid, success: false, message: `Failed to delete ${username}`, Component: NotifToast })
-    //     });
-    // }
+    const deleteUser = (uid: number, username: string) => {
+         fetch(`${API}/users/delete`, {
+             method: 'DELETE',
+             headers: {
+                 'Content-Type': 'application/json'
+             },
+             body: JSON.stringify({ uid })
+         })
+         .then((res) => res.json())
+         .then((data) => {
+             setUsers(users.filter((it: any) => it.uid !== uid))
+             addToast({ id: uid, success: true, message: `Successfully deleted ${username}`, Component: NotifToast })
+         })
+         .catch((err) => {
+             console.log(err)
+             addToast({ id: uid, success: false, message: `Failed to delete ${username}`, Component: NotifToast })
+         });
+    }
 
     // const columns = [{
     //     dataField: 'email',
@@ -139,34 +139,39 @@ const Control = () => {
     //     )
     // }];
 
-    // // @ts-ignore
-    // const handleTableChange = (type, { data, cellEdit: { rowId, dataField, newValue } }) => {
-    //     const result = data.map((row: any) => {
-    //         if (row.uid === rowId) {
-    //             fetch(`${API}/users/adminUpdate`, {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Content-Type': 'application/json'
-    //                 },
-    //                 body: dataField == 'urole' ? 
-    //                     JSON.stringify({ uid: row.uid, username: row.uname, role: newValue }) :
-    //                     JSON.stringify({ uid: row.uid, username: newValue, role: row.urole }) 
-    //             })
-    //             .then((res) => res.json())
-    //             .then((data) => {
-    //                 addToast({ id: data.data.uid, success: true, message: `Successfully changed ${dataField} of ${row.email} to ${newValue}`, Component: NotifToast })
-    //             })
-    //             .catch((err: any) => {
-    //                 addToast({ id: row.uid, success: false, message: `Failed to modify ${dataField} of ${row.email}`, Component: NotifToast })
-    //             });
-    //             const newRow = {...row}
-    //             newRow[dataField] = newValue
-    //             return newRow
-    //         }
-    //         return row
-    //     });
-    //     setUsers(result)
-    // }
+    // @ts-ignore
+    const handleTableChange = (id, val, uid) => {
+        console.log(id, val, uid)
+        console.log(users)
+        /*
+         const result = users.map((row: any) => {
+             if (row.uid === uid) {
+                fetch(`${API}/users/adminUpdate`, {
+                 method: 'POST',
+                     headers: {
+                         'Content-Type': 'application/json'
+                     },
+                     body: id == 'urole' ? 
+                         JSON.stringify({ uid: row.uid, username: row.uname, role: val }) :
+                         JSON.stringify({ uid: row.uid, username: val, role: row.urole }) 
+                 })
+                 .then((res) => res.json())
+                .then((data) => {
+                     addToast({ id: data.data.uid, success: true, message: `Successfully changed ${id} of ${row.email} to ${val}`, Component: NotifToast })
+                 })
+                 .catch((err: any) => {
+                 addToast({ id: row.uid, success: false, message: `Failed to modify ${id} of ${row.email}`, Component: NotifToast })
+             });
+                 const newRow = {...row}
+             newRow[id] = val
+             return newRow
+            }
+             return row
+         });
+         console.log(result)
+        setUsers(result)
+        */
+     }
     return (
         <>
             <ToastContainer position='top-end'>
@@ -177,8 +182,8 @@ const Control = () => {
             <div className={styles.settingsContainer}>
                 <AdminTable
                     data={users}
-                    onSubmit={(id, val) => { console.log(id, val) }}
-                    onIconClick={(uid) => { console.log(uid);/*call delete user here*/ }}
+                    onSubmit={(uid, id, val) => handleTableChange(id, val, uid)}
+                    onIconClick={() => {/*call delete user here*/ }}
                 />
             </div>
         </>

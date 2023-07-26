@@ -64,7 +64,6 @@ export default function Leaderboards() {
     }, []);
 
     useEffect(() => {
-        if (page > numPages) setPage(1);
         fetch(`${API}/leaderboards/${leaderboardAbbrev}?page=${page}`)
             .then((res) => res.json())
             .then((data) => setData(data.data ?? []))
@@ -94,19 +93,23 @@ export default function Leaderboards() {
         switch (leaderboardType) {
             case LeaderboardTypes.TOTAL_WINS_PER_TEAM:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.TOTAL_WINS_PER_TEAM);
-                setNumPages(numTeamPages); 
+                setNumPages(numTeamPages);
+                setPage(1)
                 break;
             case LeaderboardTypes.AVERAGE_POINTS_PER_PLAYER:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.AVERAGE_POINTS_PER_PLAYER);
-                setNumPages(numPlyrPages); 
+                setNumPages(numPlyrPages);
+                setPage(1)
                 break;
             case LeaderboardTypes.MOST_BOOKMARKED_PLAYERS:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.MOST_BOOKMARKED_PLAYERS);
-                setNumPages(numPlyrPages); 
+                setNumPages(numPlyrPages);
+                setPage(1) 
                 break;
             case LeaderboardTypes.PERCENTAGE_WINS_PER_TEAM:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.PERCENTAGE_WINS_PER_TEAM);
                 setNumPages(numTeamPages);
+                setPage(1)
                 break;
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps

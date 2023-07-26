@@ -46,7 +46,7 @@ export default function AllTeamStats() {
                 </thead>
                 <tbody>
                     {stats.map((stat, index) => (
-                            <tr key={index}>
+                            <tr key={index} onClick={event =>  window.location.href=`/teamstats/${stat.abbrev}`}>
                                 <td>{stat.abbrev}</td>
                                 <td>{stat.tname}</td>
                                 <td>{stat.wins}</td>

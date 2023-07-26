@@ -59,7 +59,7 @@ export default function AllPlayerStats() {
                 </thead>
                 <tbody>
                     {stats.map((stat, index) => (
-                            <tr key={index}>
+                            <tr key={index} onClick={event =>  window.location.href=`/playerstats/${stat.pid}`}>
                                 <td>{stat.pid}</td>
                                 <td>
                                     <div className={styles.rowContainer} style={{ justifyContent: "space-between" }}>

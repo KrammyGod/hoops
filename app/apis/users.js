@@ -14,8 +14,15 @@ async function addUser(email, password, name) {
     return insertUser(email, password, name, 'user');
 }
 
-async function addAdmin(email, password, name) {
-    return insertUser(email, password, name, 'admin');
+async function updateAdmin(uid, name, role) {
+    const res = await query(`
+        UPDATE HUser
+        SET uName = $1, uRole = $2
+        WHERE uid = $3
+        RETURNING *
+    `, [name, role, uid])
+
+    return res.rows[0];
 }
 
 async function getUser(uid) {
@@ -23,6 +30,10 @@ async function getUser(uid) {
         SELECT uid, email, uName, uRole FROM HUser
         WHERE uid = $1
     `, [uid]).then(res => res.rows[0]);
+}
+
+async function getAllUsers() {
+    return query(`SELECT * FROM HUser`).then(res => res.rows);
 }
 
 async function updateUser(uid, email, old_password, name, new_password) {
@@ -37,13 +48,13 @@ async function updateUser(uid, email, old_password, name, new_password) {
     return res.rows[0];
 }
 
-async function deleteUser(uid, hash) {
+async function deleteUser(uid) {
     // No return value required
     const res = await query(`
         DELETE FROM HUser 
-        WHERE uid = $1 AND hash = $2
+        WHERE uid = $1
         RETURNING uid
-    `, [uid, hash]);
+    `, [uid]);
     return res.rows.length != 0;
 }
 
@@ -52,14 +63,14 @@ export const usersHandler = async (req, res, session) => {
     // If none provided, then assume user is doing on own behalf
     const uid = req.body.uid ?? session?.user.id;
     switch (req.query.type) {
-        case 'addadmin':
+        case 'adminUpdate':
             try {
                 if (!session || session.user.role != 'admin') {
                     // If user is not admin, shouldn't be able to create new admins
                     return res.status(401).json({ messages: 'unauthorized' });
                 }
 
-                const data = await addAdmin(req.body.email, req.body.password, req.body.username);
+                const data = await updateAdmin(req.body.uid, req.body.username, req.body.role);
                 res.status(200).json({ data });
             } catch (err) {
                 res.status(500).json({ messages: err.message });
@@ -92,6 +103,18 @@ export const usersHandler = async (req, res, session) => {
                 res.status(500).json({ messages: err.message });
             }
             break;
+        case 'getAll':
+            try {
+                if (!session || session.user.role != 'admin') {
+                    return res.status(401).json({ messages: "unauthorized" })
+                }
+
+                const data = await getAllUsers();
+                res.status(200).json({ data });
+            } catch (err) {
+                res.status(500).json({ messages: err.message });
+            }
+            break;
         case 'delete':
             try {
                 // Only admins or the user are allowed to delete users
@@ -99,7 +122,7 @@ export const usersHandler = async (req, res, session) => {
                     return res.status(401).json({ messages: 'unauthorized' });
                 }
 
-                const success = await deleteUser(uid, req.body.password);
+                const success = await deleteUser(uid);
                 if (success) {
                     res.status(200).json({ success: true });
                 } else {

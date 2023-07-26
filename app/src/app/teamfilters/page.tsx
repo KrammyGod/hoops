@@ -20,7 +20,6 @@ export default function TeamFilter() {
     }, [wins, losses, season]);
 
     const handleKeyDown = (event: any) => {
-        console.log(results)
         const name = event.target.name
         const value = event.target.value.length == 0 ? -1 : event.target.value
         if (event.key === 'Enter') {
@@ -58,10 +57,18 @@ export default function TeamFilter() {
     return (
         <div className={styles.settingsOuterContainer}>
             <div className={styles.settingsContainer}>
-                <div className="d-flex justify-content-center">
-                    <input type="number" name="wins" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Wins"></input>
-                    <input type="number" name="losses" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Losses"></input>
-                    <input type="number" name="season"  className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Season"></input>
+                <div className="d-flex justify-content-center mb-1">
+                    <input type="number" min="0" name="wins" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Wins"></input>
+                    <input type="number" min="0" name="losses" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Losses"></input>
+                    <input type="number" min="0" name="season"  className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Season"></input>
+                </div>
+
+                <div className="card">
+                    <div className="card-body">
+                        <div>Fetches all teams corresponding to values more than or equal to inputs</div>
+                        <div> 1. Please enter a natural number for wins and losses</div>
+                        <div> 2. Please enter an exact year for season</div>
+                    </div>
                 </div>
 
                 <Table className='text-center mt-4' striped bordered hover variant="dark">

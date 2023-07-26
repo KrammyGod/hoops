@@ -23,7 +23,6 @@ export default function PlayerFilter() {
     }, [rebounds, assists, points, season]);
 
     const handleKeyDown = (event: any) => {
-        console.log(results)
         const name = event.target.name
         const value = event.target.value.length == 0 ? -1 : event.target.value
         if (event.key === 'Enter') {
@@ -69,12 +68,20 @@ export default function PlayerFilter() {
     return (
         <div className={styles.settingsOuterContainer}>
             <div className={styles.settingsContainer}>
-                <div className="d-flex justify-content-center">
-                    <input type="number" name="rebounds" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Rebounds"></input>
-                    <input type="number" name="assists" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Assists"></input>
-                    <input type="number" name="points" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Points"></input>
-                    <input type="number" name="games" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Games"></input>
-                    <input type="number" name="season" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Season"></input>
+                <div className="d-flex justify-content-center mb-1">
+                    <input type="number" min="0" name="rebounds" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Rebounds"></input>
+                    <input type="number" min="0" name="assists" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Assists"></input>
+                    <input type="number" min="0" name="points" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Points"></input>
+                    <input type="number" min="0" name="games" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Games"></input>
+                    <input type="number" min="0" name="season" className="form-control m-3" style={{ width: "120px"}} onKeyDown={handleKeyDown} placeholder="Season"></input>
+                </div>
+
+                <div className="card">
+                    <div className="card-body">
+                        <div>Fetches all players corresponding to values more than or equal to inputs</div>
+                        <div> 1. Please enter a natural number for rebounds, assists, points and games</div>
+                        <div> 2. Please enter an exact year for season</div>
+                    </div>
                 </div>
 
                 <Table className='text-center mt-4' striped bordered hover variant="dark">

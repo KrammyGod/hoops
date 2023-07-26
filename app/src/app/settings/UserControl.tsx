@@ -80,7 +80,7 @@ const Control = () => {
             addToast({ id: uid, success: false, message: `Failed to delete ${username}`, Component: NotifToast });
         });
     }
-    
+
     const handleTableChange = (uid: number, id: string, val: string) => {
         setUsers(oldUsers => {
             const oldUser = oldUsers.find(user => user.uid === uid);

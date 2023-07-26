@@ -34,6 +34,7 @@ export default function TeamFilter() {
         const name = event.target.name
         const value = event.target.value.length == 0 ? -1 : event.target.value
         if (event.key === 'Enter') {
+            setPage(1)
             switch (name) {
                 case "wins":
                     setWins(value)
@@ -46,7 +47,6 @@ export default function TeamFilter() {
                     break
             }
         }
-        setPage(1)
 	}
 
     const generateCols = () => {

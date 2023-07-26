@@ -20,7 +20,7 @@ export default function PlayerFilter() {
           .then(response => response.json())
           .then(data => setResults(data.data ?? []))
           .catch(error => setResults([]))
-    }, [rebounds, assists, points, season]);
+    }, [rebounds, assists, points, games, season]);
 
     const handleKeyDown = (event: any) => {
         const name = event.target.name

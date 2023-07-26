@@ -27,7 +27,8 @@ export default function protect(handler) {
         req.body = undefined;
         const session = await getSession({ req });
         req.body = body;
-        if (session && new Date() > new Date(session.expires)) {
+        // Either session has an error (user details changed), or session expired
+        if (session && (session.error || new Date() > new Date(session.expires))) {
             return res.status(440).json({ messages: 'session expired' });
         }
         return handler(req, res, session);

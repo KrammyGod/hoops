@@ -33,7 +33,10 @@ async function getUser(uid) {
 }
 
 async function getAllUsers() {
-    return query(`SELECT * FROM HUser`).then(res => res.rows);
+    return query(
+        `SELECT uid, email, uName, uRole
+            FROM HUser`
+    ).then(res => res.rows);
 }
 
 async function updateUser(uid, email, old_password, name, new_password) {

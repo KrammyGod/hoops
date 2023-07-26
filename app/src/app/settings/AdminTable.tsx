@@ -1,10 +1,11 @@
 import './styles.css'
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FcCancel } from "react-icons/fc";
 import { OverlayTrigger, Table, Tooltip } from "react-bootstrap";
-import { useTable, useSortBy, useFilters, usePagination, Column } from 'react-table';
+import { useTable, Column } from 'react-table';
 
 type Data = {
+    uid: number;
     email: string;
     uname: string;
     urole: string;
@@ -14,7 +15,7 @@ type Data = {
 type DynamicTableProps = {
     data: Data[];
     onSubmit: (uid: number, id: string, value: string) => void;
-    onIconClick: (row: Data) => void;
+    onIconClick: (uid: number, username: string) => void;
 };
 
 const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick }) => {
@@ -23,24 +24,31 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
     };
 
     const keyDownWrapper = (e: any, id: string, uid: number) => {
-        console.log("cliuck")
         if (e.key === 'Enter') {
             onSubmit(uid, id, e.target.value);
+            e.target.blur();
         }
     };
 
     const UsernameCell = ({ value, column, row }: any) => {
+        const [inputValue, setInputValue] = useState(row.original.uname);
+        useEffect(() => {
+            setInputValue(value);
+        }, [value]);
         return (
             <input
-                defaultValue={value}
+                type='text'
+                value={inputValue}
+                onBlur={e => e.target.value=inputValue}
                 onKeyDown={e => keyDownWrapper(e, column.id, row.original.uid)}
+                onChange={e => setInputValue(e.target.value)}
             />
         );
     };
 
     const RoleCell = ({ column, row }: any) => {
         return (
-            <select name='Role' id='urole' onChange={e => onSubmit(column.id, e.target.value, row.original.uid)}>
+            <select name='Role' onChange={e => onSubmit(row.original.uid, column.id, e.target.value)}>
                 <option value='user'>user</option>
                 <option value='admin'>admin</option>
             </select>
@@ -53,8 +61,8 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
                 placement="bottom"
                 overlay={<Tooltip id="delete">This will permanently delete this user.</Tooltip>}
             >
-                <p style={{ margin: 0, fontSize: "24px", textAlign: "center", cursor: "pointer" }}>
-                    <FcCancel onClick={() => onIconClick(row.original.uid)} />
+                <p>
+                <FcCancel onClick={() => onIconClick(row.original.uid, row.original.uname)} />
                 </p>
             </OverlayTrigger>
         );
@@ -93,7 +101,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
         headerGroups,
         rows,
         prepareRow,
-    } = useTable<Data>({ columns, data }, useFilters, useSortBy, usePagination);
+    } = useTable<Data>({ columns, data });
 
     return (
         <Table {...getTableProps()}>
@@ -113,7 +121,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
                     prepareRow(row);
                     return (
                         <tr {...row.getRowProps()} key={index}>
-                            {row.cells.map((cell: any) => (
+                            {row.cells.map((cell: any, idx : number) => (
                                 <td {...cell.getCellProps()} key={cell.column.id}>
                                     {cell.render('Cell')}
                                 </td>

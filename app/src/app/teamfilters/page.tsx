@@ -16,7 +16,6 @@ export default function TeamFilter() {
     const [numPages, setNumPages] = useState(1)
 
     useEffect(() => {
-        setPage(1)
         fetch(`${API}/pages?optn=fltm&wins=${wins}&losses=${losses}&season=${season}`)
           .then(response => response.json())
           .then(data => setNumPages(data.data?.total ?? 1))
@@ -47,7 +46,7 @@ export default function TeamFilter() {
                     break
             }
         }
-	}
+    }
 
     const generateCols = () => {
         if (results.length === 0) return (<tr><td colSpan={5} align='center'>No data found.</td></tr>)

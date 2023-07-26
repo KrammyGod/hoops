@@ -17,7 +17,7 @@ type DynamicTableProps = {
     onIconClick: (row: Data) => void;
 };
 
-const AdminTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick }) => {
+const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick }) => {
     const EmailCell = ({ value }: any) => {
         return <span>{value}</span>
     };
@@ -37,12 +37,12 @@ const AdminTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick }
         );
     };
 
-    const RoleCell = ({ value, column }: any) => {
+    const RoleCell = ({ column }: any) => {
         return (
-            <input
-                defaultValue={value}
-                onKeyDown={e => keyDownWrapper(e, column.id)}
-            />
+            <select name='Role' id='urole' onChange={e => onSubmit(column.id, e.target.value)}>
+                <option value='user'>user</option>
+                <option value='admin'>admin</option>
+            </select>
         );
     };
 
@@ -53,7 +53,7 @@ const AdminTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick }
                 overlay={<Tooltip id="delete">This will permanently delete this user.</Tooltip>}
             >
                 <p style={{ margin: 0, fontSize: "24px", textAlign: "center", cursor: "pointer" }}>
-                    <FcCancel onClick={() => onIconClick(row.original)} />
+                    <FcCancel onClick={() => onIconClick(row.original.uid)} />
                 </p>
             </OverlayTrigger>
         );
@@ -125,4 +125,4 @@ const AdminTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick }
     );
 };
 
-export default AdminTable;
+export default DynamicTable;

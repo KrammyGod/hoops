@@ -1,6 +1,19 @@
-td input {
+/* Remove background of input and select */
+td input, td select {
     width: 100%;
     padding: 8px;
-    border: 1px solid transparent; /* Set the border to transparent */
-    background-color: transparent; /* Set the background to transparent */
+    border: none;
+    background-color: transparent;
+}
+
+/* Remove the default arrow */
+td select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Remove outline when selected */
+td input:focus, td select:focus {
+    outline: none;
 }

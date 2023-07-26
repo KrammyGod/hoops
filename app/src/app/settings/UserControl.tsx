@@ -178,7 +178,7 @@ const Control = () => {
                 <AdminTable
                     data={users}
                     onSubmit={(id, val) => { console.log(id, val) }}
-                    onIconClick={() => {/*call delete user here*/ }}
+                    onIconClick={(uid) => { console.log(uid);/*call delete user here*/ }}
                 />
             </div>
         </>

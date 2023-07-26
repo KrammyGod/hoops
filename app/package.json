@@ -13,6 +13,7 @@
     "@types/node": "^20.4.4",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
+    "@types/react-table": "^7.7.14",
     "bootstrap": "^5.3.0",
     "dotenv": "^16.3.1",
     "eslint": "^8.45.0",
@@ -22,14 +23,10 @@
     "pg": "^8.11.1",
     "react": "^18.2.0",
     "react-bootstrap": "^2.8.0",
-    "react-bootstrap-table-next": "^4.0.3",
-    "react-bootstrap-table2-editor": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
+    "react-table": "^7.8.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.1.6"
-  },
-  "devDependencies": {
-    "@types/react-bootstrap-table-next": "^4.0.19"
   }
 }

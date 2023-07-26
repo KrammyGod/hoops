@@ -1,0 +1,6 @@
+td input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid transparent; /* Set the border to transparent */
+    background-color: transparent; /* Set the background to transparent */
+}

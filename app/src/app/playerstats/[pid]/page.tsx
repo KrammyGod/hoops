@@ -6,6 +6,7 @@ import React from "react";
 import BookmarkBtn from "@/app/bookmarks/BookmarkBtn";
 import useSession from "@hooks/Auth";
 import styles from "../../page.module.css";
+import Table from 'react-bootstrap/Table';
 
 export default function PlayerStats({ params }: {
     params: { pid: string } 
@@ -41,7 +42,7 @@ export default function PlayerStats({ params }: {
                 <h3>{params.pid} {firstName} {lastName}</h3>
                 {session ? <BookmarkBtn pid={Number(params.pid)} /> : <></>}
             </div>
-            <table className={`table table-bordered table-sm m-4 ${styles.settingsContainer}`}>
+            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered variant="light">
                 <thead>
                     <tr>
                         <th>Assists</th>
@@ -64,7 +65,7 @@ export default function PlayerStats({ params }: {
                             </tr>
                         ))}
                 </tbody>
-            </table>
+            </Table>
         </div>
     );
 }

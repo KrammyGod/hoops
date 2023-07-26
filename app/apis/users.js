@@ -51,13 +51,13 @@ async function updateUser(uid, email, old_password, name, new_password) {
     return res.rows[0];
 }
 
-async function deleteUser(uid) {
+async function deleteUser(uid, hash) {
     // No return value required
     const res = await query(`
         DELETE FROM HUser 
-        WHERE uid = $1
+        WHERE uid = $1 AND hash = $2
         RETURNING uid
-    `, [uid]);
+    `, [uid, hash]);
     return res.rows.length != 0;
 }
 
@@ -125,7 +125,7 @@ export const usersHandler = async (req, res, session) => {
                     return res.status(401).json({ messages: 'unauthorized' });
                 }
 
-                const success = await deleteUser(uid);
+                const success = await deleteUser(uid, req.body.password);
                 if (success) {
                     res.status(200).json({ success: true });
                 } else {

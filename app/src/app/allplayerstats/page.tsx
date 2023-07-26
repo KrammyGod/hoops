@@ -26,10 +26,15 @@ export default function AllPlayerStats() {
 
         getBookmarks()
             .then((data) => {
-                let pids = data.data.map((marked: any) => marked["pid"])
-                setBookmarks(pids)
+                setBookmarks(data.data?.map((marked: any) => marked["pid"]) ?? [])
             });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]);
+
+    useEffect(() => {
+        fetch(`${API}/pages?optn=plyr`)
+          .then(response => response.json())
+          .then(data => setNumPages(data.data?.total ?? 1))
+          .catch(err => setError(err))
     }, []);
 
     const handlePageChange = (page: number) => {

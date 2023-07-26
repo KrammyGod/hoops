@@ -57,6 +57,7 @@ function Settings() {
             <div className={styles.settingsContainer}>
                 <Card className={styles.card}>
                     <Card.Title>Change User Settings</Card.Title>
+                    <Card.Text>Must enter old password**</Card.Text>
                     <Card.Body>
                         {!validated ? <Alert variant='danger'>Incorrect password</Alert> : <></>}
                         <ModifyForm

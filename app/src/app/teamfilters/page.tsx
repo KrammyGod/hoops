@@ -28,7 +28,7 @@ export default function TeamFilter() {
           .then(response => response.json())
           .then(data => setResults(data.data ?? []))
           .catch(error => setResults([]))
-    }, [page]);
+    }, [wins, losses, season, page]);
 
     const handleKeyDown = (event: any) => {
         const name = event.target.name
@@ -46,6 +46,7 @@ export default function TeamFilter() {
                     break
             }
         }
+        setPage(1)
 	}
 
     const generateCols = () => {

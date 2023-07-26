@@ -19,7 +19,6 @@ export default function PlayerFilter() {
     const [numPages, setNumPages] = useState(1)
 
     useEffect(() => {
-        setPage(1)
         fetch(`${API}/pages?optn=flpl&rebounds=${rebounds}&assists=${assists}&points=${points}&games=${games}&season=${season}`)
           .then(response => response.json())
           .then(data => setNumPages(data.data?.total ?? 1))
@@ -31,7 +30,7 @@ export default function PlayerFilter() {
           .then(response => response.json())
           .then(data => setResults(data.data ?? []))
           .catch(error => setResults([]))
-    }, [page]);
+    }, [rebounds, assists, points, games, season, page]);
 
     const handleKeyDown = (event: any) => {
         const name = event.target.name
@@ -55,6 +54,7 @@ export default function PlayerFilter() {
                     break
             }
         }
+        setPage(1)
 	}
 
     const generateCols = () => {

@@ -1,7 +1,7 @@
 'use client'
 
 import { API } from "@/types/ApiRoute";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Container, Form, Row } from "react-bootstrap";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
@@ -34,6 +34,16 @@ export default function Search() {
             return (<><th>Team Abbreviation</th><th>Team Name</th></>);
         }
     }
+
+    useEffect(() => {
+        if (session) {
+            getBookmarks()
+                .then((data) => {
+                    let pids = data.data.map((marked: any) => marked["pid"])
+                    setBookmarks(pids)
+                })
+        }
+    }, [session])
 
     const generateCols = () => {
         if (searchVal == 1) {
@@ -74,13 +84,7 @@ export default function Search() {
                 .then((res) => res.json())
                 .then((data) => setResults(data.data ?? []))
                 .catch(() => setResults([]));
-            if (session) {
-                getBookmarks()
-                    .then((data) => {
-                        let pids = data.data.map((marked: any) => marked["pid"])
-                        setBookmarks(pids)
-                    })
-            }
+
         } else {
             fetch(`${API}/teamsearch?id=${val}`)
                 .then((res) => res.json())

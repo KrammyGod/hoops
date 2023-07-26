@@ -68,6 +68,7 @@ export default function TeamFilter() {
                         <div>Fetches all teams corresponding to values more than or equal to inputs</div>
                         <div> 1. Please enter a natural number for wins and losses</div>
                         <div> 2. Please enter an exact year for season</div>
+                        <div> 3. Hit Enter after inputing number for each field</div>
                     </div>
                 </div>
 

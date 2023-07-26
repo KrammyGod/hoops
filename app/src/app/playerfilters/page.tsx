@@ -81,6 +81,7 @@ export default function PlayerFilter() {
                         <div>Fetches all players corresponding to values more than or equal to inputs</div>
                         <div> 1. Please enter a natural number for rebounds, assists, points and games</div>
                         <div> 2. Please enter an exact year for season</div>
+                        <div> 3. Hit Enter after inputing number for each field</div>
                     </div>
                 </div>
 

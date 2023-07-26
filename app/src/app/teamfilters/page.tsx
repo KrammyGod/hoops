@@ -16,7 +16,7 @@ export default function TeamFilter() {
     const [numPages, setNumPages] = useState(1)
 
     useEffect(() => {
-        console.log(page)
+        setPage(1)
         fetch(`${API}/pages?optn=fltm&wins=${wins}&losses=${losses}&season=${season}`)
           .then(response => response.json())
           .then(data => setNumPages(data.data?.total ?? 1))
@@ -24,12 +24,11 @@ export default function TeamFilter() {
     }, [wins, losses, season]);
 
     useEffect(() => {
-        console.log(page)
         fetch(`${API}/teamfilter?wins=${wins}&losses=${losses}&season=${season}&page=${page}`)
           .then(response => response.json())
           .then(data => setResults(data.data ?? []))
           .catch(error => setResults([]))
-    }, [wins, losses, season, page]);
+    }, [page]);
 
     const handleKeyDown = (event: any) => {
         const name = event.target.name

@@ -16,7 +16,8 @@ async function filterPlayers(rebounds, assists, points, games, season) {
             (games >= $4 OR $4 IS NULL) AND
             (season = $5 OR $5 IS NULL)
         ORDER BY name ASC, season DESC
-        LIMIT 10;
+        LIMIT 10
+        OFFSET 0 * 10;
     `, [rebounds, assists, points, games, season]);
     return res.rows;
 }
@@ -35,7 +36,8 @@ async function filterTeams(wins, losses, season) {
             (losses >= $2 OR $2 IS NULL) AND
             (season = $3 OR $3 IS NULL)
         ORDER BY name ASC, season DESC
-        LIMIT 10;
+        LIMIT 10
+        OFFSET 0 * 10;
     `, [wins, losses, season]);
     return res.rows;
 }

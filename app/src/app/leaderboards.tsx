@@ -4,6 +4,7 @@ import { API } from "@/types/ApiRoute";
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Table from 'react-bootstrap/Table';
+import Pagination from "@components/pagination";
 
 const LeaderboardTypes = {
     TOTAL_WINS_PER_TEAM: <><th>Team Abbreviation</th><th>Team</th><th>Lifetime Wins</th></>,
@@ -35,6 +36,10 @@ export default function Leaderboards() {
     const [leaderboardType, setLeaderboardType] = useState<JSX.Element>(LeaderboardTypes.TOTAL_WINS_PER_TEAM);
     const [leaderboardAbbrev, setLeaderboardAbbrev] = useState<string>(LeaderboardAbbrevs.TOTAL_WINS_PER_TEAM);
     const [radioValue, setRadioValue] = useState(1);
+    const [page, setPage] = useState<number>(1);
+    const [numPages, setNumPages] = useState<number>(1);
+    const [numTeamPages, setNumTeamPages] = useState<number>(1);
+    const [numPlyrPages, setNumPlyrPages] = useState<number>(1);
 
     const radios = [
         { name: 'Total Wins Per Team', value: 1 },
@@ -42,6 +47,29 @@ export default function Leaderboards() {
         { name: 'Most Bookmarked Players', value: 3 },
         { name: 'Percentage Wins Per Team', value: 4 },
     ];
+
+    useEffect(() => {
+        fetch(`${API}/pages?optn=plyr`)
+            .then(response => response.json())
+            .then(data => setNumPlyrPages(data.data?.total ?? 1))
+            .catch(err => setData(err));
+        
+        fetch(`${API}/pages?optn=team`)
+            .then(response => response.json())
+            .then(data => {
+                setNumTeamPages(data.data?.total ?? 1);
+                setNumPages(data.data?.total ?? 1);
+            })
+            .catch(err => setData(err));
+    }, []);
+
+    useEffect(() => {
+        fetch(`${API}/leaderboards/${leaderboardAbbrev}?page=${page}`)
+            .then((res) => res.json())
+            .then((data) => setData(data.data ?? []))
+            .catch(() => setData([]));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [leaderboardAbbrev, page]);
 
     const radioChange = (val : number) => {
         setRadioValue(val);
@@ -65,25 +93,27 @@ export default function Leaderboards() {
         switch (leaderboardType) {
             case LeaderboardTypes.TOTAL_WINS_PER_TEAM:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.TOTAL_WINS_PER_TEAM);
+                setNumPages(numTeamPages);
+                setPage(1)
                 break;
             case LeaderboardTypes.AVERAGE_POINTS_PER_PLAYER:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.AVERAGE_POINTS_PER_PLAYER);
+                setNumPages(numPlyrPages);
+                setPage(1)
                 break;
             case LeaderboardTypes.MOST_BOOKMARKED_PLAYERS:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.MOST_BOOKMARKED_PLAYERS);
+                setNumPages(numPlyrPages);
+                setPage(1) 
                 break;
             case LeaderboardTypes.PERCENTAGE_WINS_PER_TEAM:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.PERCENTAGE_WINS_PER_TEAM);
+                setNumPages(numTeamPages);
+                setPage(1)
                 break;
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [leaderboardType]);
-
-    useEffect(() => {
-        fetch(`${API}/leaderboards/${leaderboardAbbrev}`)
-            .then((res) => res.json())
-            .then((data) => setData(data.data ?? []))
-            .catch(() => setData([]));
-    }, [leaderboardAbbrev]);
     
     return (
         <div>
@@ -110,6 +140,10 @@ export default function Leaderboards() {
                 {generateCols(data)}
             </tbody>
         </Table>
+        <Pagination 
+            page={page} 
+            numPages={numPages} 
+            onPageChange={(page) => setPage(page)}/>
         </div>
     );
 }

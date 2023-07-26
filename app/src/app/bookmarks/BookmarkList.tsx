@@ -1,39 +1,39 @@
 import { useState, useEffect } from "react";
-import { Pagination, Table } from "react-bootstrap";
+import { Table } from "react-bootstrap";
 import BookmarkBtn, { getBookmarks } from "./BookmarkBtn";
 import { AiOutlineLink } from "react-icons/ai";
 import "./list.css";
+import Pagination from "@components/pagination";
+import { API } from "@/types/ApiRoute";
 
 //
 // This component requires button to redirect to /bookmarks
 // NOTE: See BookmarkListOffCanvas for advanced development
 //
+
 export default function BookmarkList() {
     const [bookmarks, setBookmarks] = useState([]);
     const [page, setPage] = useState(1);
-
-    const next = () => {
-        setPage((page) => ++page);
-    }
-    const prev = () => {
-        setPage((page) => --page);
-    }
+    const [numPages, setNumPages] = useState<number>(1);
 
     useEffect(() => {
-        // We should display error toast if it fails.
-        // page should never be negative,
-        // but if it happens, this will throw
+        fetch(`${API}/pages?optn=bkmk`)
+          .then(response => response.json())
+          .then(data => setNumPages(data.data?.total ?? 1))
+          .catch(err => console.log(err))
+    }, [bookmarks])
+
+    useEffect(() => { 
         getBookmarks(page)
-            .then((data) => setBookmarks(data.data))
-            .catch((err) => {
-                console.log(err);
-            });
-    }, [page]);
+            .then((data) => setBookmarks(data.data ?? []))
+            .catch((err) => console.log(err))
+    }, [page])
 
     const removeBookmark = (pid: number) => {
-        const newBookmarks = bookmarks.filter((i) => i["pid"] !== pid);
-        setBookmarks(newBookmarks);
-    };
+        getBookmarks(page)
+            .then((data) => setBookmarks(data.data ?? []))
+            .catch((err) => console.log(err))
+    }
 
     return (
         <div className="listContainer">
@@ -67,11 +67,12 @@ export default function BookmarkList() {
                     </tbody>
                     
                 </Table>
-                <Pagination >
-                    <Pagination.Prev onClick={() => prev()} disabled={page === 1}/>
-                    <p style={{ margin: "0 10px" }}>{page}</p>
-                    <Pagination.Next onClick={() => next()} disabled={bookmarks.length < 10}/>
-                </Pagination>
+
+                <Pagination 
+                    page={page}
+                    numPages={numPages}
+                    onPageChange={(page) => setPage(page)}
+                />
             </div>
         </div>
     );

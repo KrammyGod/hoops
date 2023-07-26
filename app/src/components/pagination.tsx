@@ -1,5 +1,5 @@
 import './styles.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { BiChevronRight, BiChevronLeft } from 'react-icons/bi';
 
 interface PaginationProps {
@@ -11,7 +11,15 @@ interface PaginationProps {
 export default function Pagination({page, numPages, onPageChange}: PaginationProps) {
 
     const [input, setInput] = useState<number>(1);
-    
+
+    useEffect(() => {
+        setInput(page)
+    }, [page]);
+
+    const handleBlur = () => {
+        setInput(page)
+    }
+
     const handleChange = (event: any) => {
         const value = parseInt(event.target.value);
         if (value <= 0 || value > numPages) return;
@@ -42,7 +50,7 @@ export default function Pagination({page, numPages, onPageChange}: PaginationPro
         <div className="page-container">
             <button type="button" className="btn" onClick={handlePrev}><BiChevronLeft/></button>
             <span className="input-container">
-                <input className="input" type="number" value={(input > numPages || input > page) ? 1 : input} onChange={handleChange} onKeyDown={handleKeyPress}></input> of {numPages}
+                <input className="input" type="number" value={(input > numPages) ? 1 : input} onBlur={handleBlur} onChange={handleChange} onKeyDown={handleKeyPress}></input> of {numPages}
             </span>
             <button type="button" className="btn" onClick={handleNext}><BiChevronRight/></button>
         </div>

@@ -6,6 +6,7 @@ import React from "react";
 import styles from '../page.module.css';
 import Table from 'react-bootstrap/Table';
 import { generateKey } from "crypto";
+import Pagination from "@/components/pagination";
 
 export default function PlayerFilter() {
     const [results, setResults] = useState<{ id: number, name: string, rebounds: number, assists: number, points: number, games: number, season: number }[]>([]);
@@ -14,13 +15,23 @@ export default function PlayerFilter() {
     const [points, setPoints] = useState(-1)
     const [games, setGames] = useState(-1)
     const [season, setSeason] = useState(-1)
+    const [page, setPage] = useState(1)
+    const [numPages, setNumPages] = useState(1)
 
     useEffect(() => {
-        fetch(`${API}/playerfilter?rebounds=${rebounds}&assists=${assists}&points=${points}&games=${games}&season=${season}`)
+        console.log(page)
+        fetch(`${API}/pages?optn=flpl&rebounds=${rebounds}&assists=${assists}&points=${points}&games=${games}&season=${season}`)
+          .then(response => response.json())
+          .then(data => setNumPages(data.data?.total ?? 1))
+          .catch(error => setNumPages(1))
+    }, [rebounds, assists, points, games, season]);
+
+    useEffect(() => {
+        fetch(`${API}/playerfilter?rebounds=${rebounds}&assists=${assists}&points=${points}&games=${games}&season=${season}&page=${page}`)
           .then(response => response.json())
           .then(data => setResults(data.data ?? []))
           .catch(error => setResults([]))
-    }, [rebounds, assists, points, games, season]);
+    }, [rebounds, assists, points, games, season, page]);
 
     const handleKeyDown = (event: any) => {
         const name = event.target.name
@@ -101,6 +112,12 @@ export default function PlayerFilter() {
                         {generateCols()}
                     </tbody>
                 </Table>
+
+                <Pagination 
+                page={page}
+                numPages={numPages}
+                onPageChange={(page) => setPage(page)}
+                />
             </div>
         </div>
     )

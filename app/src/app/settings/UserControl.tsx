@@ -39,7 +39,7 @@ const NotifToast = ({ handleRemove, success, message }) => {
     );
   };
 
-export default () => {
+const Control = () => {
     const { session } = useSession();
     const [users, setUsers] = useState<any[]>([]);
     const [toasts, setToasts] = useState<any[]>([]);
@@ -56,7 +56,7 @@ export default () => {
         .then((res) => res.json())
         .then((data) => setUsers(data.data.filter((user: any) => user.uid !== session?.user.id)))
         .catch((err) => console.log(err));
-    }, [])
+    }, [session])
 
     const deleteUser = (uid: number, username: string) => {
         fetch(`${API}/users/delete`, {
@@ -189,3 +189,5 @@ export default () => {
         </>
     )
 }
+
+export default Control;

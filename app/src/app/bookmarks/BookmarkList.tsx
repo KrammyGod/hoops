@@ -39,7 +39,7 @@ export default function BookmarkList() {
         <div className="listContainer">
             <h1 className="title">Bookmarks</h1>
             <div className="tableContainer">
-                <Table>
+                <Table responsive>
                     <thead>
                         <tr>
                             <th>Player Name</th>

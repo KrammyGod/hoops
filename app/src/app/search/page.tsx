@@ -149,7 +149,7 @@ export default function Search() {
                         </Col>
                     </Row>
                 </Container>
-                <Table className='text-center mt-5' striped bordered hover variant='light'>
+                <Table className='text-center mt-5' striped bordered hover responsive variant='light'>
                     <thead>
                     <tr>
                         {generateHeader()}

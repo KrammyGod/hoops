@@ -117,7 +117,7 @@ export default function PlayerFilter() {
                     </div>
                 </div>
 
-                <Table className='text-center mt-4' striped bordered hover variant='light'>
+                <Table className='text-center mt-4' striped bordered hover responsive variant='light'>
                     <thead>
                         <tr>
                             <th>Player ID</th>

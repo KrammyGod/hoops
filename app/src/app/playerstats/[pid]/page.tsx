@@ -42,7 +42,7 @@ export default function PlayerStats({ params }: {
                 <h3>{params.pid} {firstName} {lastName}</h3>
                 {session ? <BookmarkBtn pid={Number(params.pid)} /> : <></>}
             </div>
-            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered variant="light">
+            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered responsive variant="light">
                 <thead>
                     <tr>
                         <th>Assists</th>

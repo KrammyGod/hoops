@@ -139,7 +139,7 @@ export default function Leaderboards() {
                 </ToggleButton>
             ))}
         </ToggleButtonGroup>
-        <Table striped bordered hover variant="light">
+        <Table striped bordered hover responsive variant="light">
             <thead className='text-center'>
             <tr className='text-center'>
                 {leaderboardType}

@@ -104,7 +104,7 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
     } = useTable<Data>({ columns, data });
 
     return (
-        <Table {...getTableProps()}>
+        <Table responsive {...getTableProps()}>
             <thead>
                 {headerGroups.map((headerGroup: any, index: any) => (
                     <tr {...headerGroup.getHeaderGroupProps()} key={index}>

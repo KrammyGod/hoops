@@ -1,10 +1,12 @@
 'use client'
 import { useEffect, useState } from 'react';
 import { API } from "@/types/ApiRoute";
+import { useRouter } from 'next/navigation';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import Table from 'react-bootstrap/Table';
 import Pagination from "@components/pagination";
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 
 const LeaderboardTypes = {
     TOTAL_WINS_PER_TEAM: <><th>Team Abbreviation</th><th>Team</th><th>Lifetime Wins</th></>,
@@ -20,18 +22,25 @@ enum LeaderboardAbbrevs {
     PERCENTAGE_WINS_PER_TEAM = 'pgpt'
 };
 
-function generateCols(data : { id : string, name : string, value : string }[]) {
+function generateCols(data : { id : string, name : string, value : string }[], leaderboardAbbrev : string, router: AppRouterInstance) {
     if (data.length === 0) return (<tr><td colSpan={3} align='center'>No data found.</td></tr>);
+    const teams = leaderboardAbbrev === LeaderboardAbbrevs.TOTAL_WINS_PER_TEAM ||
+        leaderboardAbbrev === LeaderboardAbbrevs.PERCENTAGE_WINS_PER_TEAM;
+    const onClickHandler = (item : { id : string }) => {
+        if (teams) router.push(`/teamstats/${item.id}`);
+        else router.push(`/playerstats/${item.id}`);
+    }
     return data.map((item) => (
-        <tr key={item.id}>
-        <td align='center'>{item.id}</td>
-        <td>{item.name}</td>
-        <td>{item.value}</td>
+        <tr style={{ cursor: 'pointer' }} key={item.id} onClick={() => onClickHandler(item)}>
+            <td align='center'>{item.id}</td>
+            <td>{item.name}</td>
+            <td>{item.value}</td>
         </tr>
     ));
 }
 
 export default function Leaderboards() {
+    const router = useRouter();
     const [data, setData] = useState<{ id : string, name : string, value : string }[]>([]);
     const [leaderboardType, setLeaderboardType] = useState<JSX.Element>(LeaderboardTypes.TOTAL_WINS_PER_TEAM);
     const [leaderboardAbbrev, setLeaderboardAbbrev] = useState<string>(LeaderboardAbbrevs.TOTAL_WINS_PER_TEAM);
@@ -124,20 +133,20 @@ export default function Leaderboards() {
                     key={idx}
                     id={`radio-${idx}`}
                     value={radio.value}
-                    variant="secondary"
+                    variant="outline-secondary"
                 >
                     {radio.name}
                 </ToggleButton>
             ))}
         </ToggleButtonGroup>
-        <Table striped bordered hover variant="dark">
+        <Table striped bordered hover responsive variant="light">
             <thead className='text-center'>
             <tr className='text-center'>
                 {leaderboardType}
             </tr>
             </thead>
             <tbody>
-                {generateCols(data)}
+                {generateCols(data, leaderboardAbbrev, router)}
             </tbody>
         </Table>
         <Pagination 

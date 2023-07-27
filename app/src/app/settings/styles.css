@@ -1,0 +1,32 @@
+/* Remove background of input and select */
+/* Add left padding for select, make consistent with all other cells */
+td span, td input, td select {
+    padding-left: 4px;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+}
+
+/* Remove the default arrow */
+td select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+/* Remove outline when selected */
+td input:focus, td select:focus {
+    outline: none;
+}
+
+/* Delete button paragraph wrapper */
+td p {
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Actual delete button size */
+td p svg {
+    width: 24px;
+    height: 24px;
+}

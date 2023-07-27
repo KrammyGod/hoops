@@ -1,13 +1,16 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react";
-import { API } from "@/types/ApiRoute";
-import React from "react";
-import styles from "../page.module.css";
-import Pagination from "@components/pagination";
+import './styles.css';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { API } from '@/types/ApiRoute';
+import React from 'react';
+import styles from '../page.module.css';
+import Pagination from '@components/pagination';
 import Table from 'react-bootstrap/Table';
 
-export default function AllTeamStats() {    
+export default function AllTeamStats() {
+    const router = useRouter();
     const [stats, setStats] = useState<{abbrev: string, tname: string, wins: number, losses: number, seasons: number}[]>([]);
     const [error, setError] = useState(null);
     const [page, setPage] = useState<number>(1);
@@ -34,7 +37,7 @@ export default function AllTeamStats() {
     return (
         <div className={styles.settingsOuterContainer}>
             <div className={styles.settingsContainer}>
-            <Table className='text-center mt-4' striped bordered hover variant="light">
+            <Table className='text-center mt-4' striped bordered hover responsive variant='light'>
                 <thead>
                     <tr>
                         <th>Abbrev</th>
@@ -46,7 +49,7 @@ export default function AllTeamStats() {
                 </thead>
                 <tbody>
                     {stats.map((stat, index) => (
-                            <tr key={index} onClick={event =>  window.location.href=`/teamstats/${stat.abbrev}`}>
+                            <tr key={index} onClick={() => router.push(`/teamstats/${stat.abbrev}`)}>
                                 <td>{stat.abbrev}</td>
                                 <td>{stat.tname}</td>
                                 <td>{stat.wins}</td>

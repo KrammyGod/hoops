@@ -40,9 +40,9 @@ export default function PlayerStats({ params }: {
         <div className={styles.settingsOuterContainer}>
             <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: "space-between" }}>
                 <h3>{params.pid} {firstName} {lastName}</h3>
-                <BookmarkBtn pid={Number(params.pid)} />
+                {session ? <BookmarkBtn pid={Number(params.pid)} /> : <></>}
             </div>
-            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered variant="light">
+            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered responsive variant="light">
                 <thead>
                     <tr>
                         <th>Assists</th>

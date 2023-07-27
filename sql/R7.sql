@@ -2,7 +2,7 @@
 /* GET PLAYER STATS */
 SELECT * FROM Player WHERE pid = 120;
 
-SELECT assists, points, games, season, abbrev, tname 
+SELECT assists, points, rebounds, games, season, abbrev, tname 
 FROM PlayerStats NATURAL JOIN Team
 WHERE pid = 120
 ORDER BY season DESC, pid;

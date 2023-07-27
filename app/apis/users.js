@@ -10,40 +10,6 @@ async function insertUser(email, password, name, role) {
     return res.rows[0];
 }
 
-async function addUser(email, password, name) {
-    return insertUser(email, password, name, 'user');
-}
-
-async function updateAdmin(uid, name, role) {
-    const res = await query(`
-        UPDATE HUser
-        SET uName = $1, uRole = $2
-        WHERE uid = $3
-        RETURNING *
-    `, [name, role, uid])
-
-    return res.rows[0];
-}
-
-async function getUser(uid) {
-    return query(`
-        SELECT uid, email, uName, uRole FROM HUser
-        WHERE uid = $1
-    `, [uid]).then(res => res.rows[0]);
-}
-
-async function getAllUsers(uid, page) {
-    return query(`
-        SELECT uid, email, uName, uRole
-        FROM HUser
-        WHERE uid <> $1
-        ORDER BY uid
-        LIMIT 10
-        OFFSET $2 * 10`,
-        [uid, page]
-    ).then(res => res.rows);
-}
-
 async function updateUser(uid, email, old_password, name, new_password) {
     if (!new_password) new_password = old_password;
     // Returns the user that was updated to ensure successful update
@@ -66,6 +32,10 @@ async function deleteUser(uid, hash) {
     return res.rows.length != 0;
 }
 
+async function addUser(email, password, name) {
+    return insertUser(email, password, name, 'user');
+}
+
 async function deleteUserAdmin(uid) {
     // No return value required
     const res = await query(`
@@ -74,6 +44,36 @@ async function deleteUserAdmin(uid) {
         RETURNING uid
     `, [uid]);
     return res.rows.length != 0;
+}
+
+async function updateAdmin(uid, name, role) {
+    const res = await query(`
+        UPDATE HUser
+        SET uName = $1, uRole = $2
+        WHERE uid = $3
+        RETURNING *
+    `, [name, role, uid])
+
+    return res.rows[0];
+}
+
+async function getAllUsers(uid, page) {
+    return query(`
+        SELECT uid, email, uName, uRole
+        FROM HUser
+        WHERE uid <> $1
+        ORDER BY uid
+        LIMIT 10
+        OFFSET $2 * 10`,
+        [uid, page]
+    ).then(res => res.rows);
+}
+
+async function getUser(uid) {
+    return query(`
+        SELECT uid, email, uName, uRole FROM HUser
+        WHERE uid = $1
+    `, [uid]).then(res => res.rows[0]);
 }
 
 export const usersHandler = async (req, res, session) => {

@@ -5,24 +5,35 @@ import { API } from "@/types/ApiRoute";
 import React from "react";
 import styles from '../page.module.css';
 import Table from 'react-bootstrap/Table';
+import Pagination from "@/components/pagination";
 
 export default function TeamFilter() {
     const [results, setResults] = useState<{ id: string, name: string, wins: number, losses: number, season: number}[]>([]);
     const [wins, setWins] = useState(-1)
     const [losses, setLosses] = useState(-1)
     const [season, setSeason] = useState(-1)
+    const [page, setPage] = useState(1)
+    const [numPages, setNumPages] = useState(1)
 
     useEffect(() => {
-        fetch(`${API}/teamfilter?wins=${wins}&losses=${losses}&season=${season}`)
+        fetch(`${API}/pages?optn=fltm&wins=${wins}&losses=${losses}&season=${season}`)
+          .then(response => response.json())
+          .then(data => setNumPages(data.data?.total ?? 1))
+          .catch(error => setNumPages(1))
+    }, [wins, losses, season]);
+
+    useEffect(() => {
+        fetch(`${API}/teamfilter?wins=${wins}&losses=${losses}&season=${season}&page=${page}`)
           .then(response => response.json())
           .then(data => setResults(data.data ?? []))
           .catch(error => setResults([]))
-    }, [wins, losses, season]);
+    }, [wins, losses, season, page]);
 
     const handleKeyDown = (event: any) => {
         const name = event.target.name
         const value = event.target.value.length == 0 ? -1 : event.target.value
         if (event.key === 'Enter') {
+            setPage(1)
             switch (name) {
                 case "wins":
                     setWins(value)
@@ -35,8 +46,8 @@ export default function TeamFilter() {
                     break
             }
         }
-	}
-    
+    }
+
     const generateCols = () => {
         if (results.length === 0) return (<tr><td colSpan={5} align='center'>No data found.</td></tr>)
         return (
@@ -86,6 +97,12 @@ export default function TeamFilter() {
                         {generateCols()}
                     </tbody>
                 </Table>
+
+                <Pagination 
+                page={page}
+                numPages={numPages}
+                onPageChange={(page) => setPage(page)}
+                />
             </div>
         </div>
     )

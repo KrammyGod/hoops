@@ -57,8 +57,19 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
     };
 
     const RoleCell = ({ column, row }: any) => {
+        const [selectValue, setSelectValue] = useState(row.original.urole);
+
+        useEffect(() => {
+            setSelectValue(row.original.urole);
+        }, [row.original.urole]);
+
+        const changeValue = (e: any) => {
+            setSelectValue(e.target.value);
+            onSubmit(row.original.uid, column.id, e.target.value)
+        };
+
         return (
-            <select name='Role' onChange={e => onSubmit(row.original.uid, column.id, e.target.value)}>
+            <select value={selectValue} name='Role' onChange={changeValue}>
                 <option value='user'>user</option>
                 <option value='admin'>admin</option>
             </select>

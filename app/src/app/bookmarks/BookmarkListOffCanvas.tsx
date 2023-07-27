@@ -41,7 +41,7 @@ const BookmarkListOffCanvas = ({uid}: {uid: number}) => {
                 <Offcanvas.Title>Bookmarks</Offcanvas.Title>
             </Offcanvas.Header>
             <Offcanvas.Body>
-                <Table>
+                <Table responsive>
                     <thead>
                         <tr>
                             <th>Player Name</th>

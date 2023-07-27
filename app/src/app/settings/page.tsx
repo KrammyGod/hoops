@@ -9,6 +9,7 @@ import ModifyForm from './ModifyForm';
 import DeleteUser from './DeleteUser';
 import useSession from '@hooks/Auth';
 import useProtect from '@hooks/Protected';
+import UserControl from './UserControl';
 
 function Settings() {
     const { session } = useSession();
@@ -48,6 +49,11 @@ function Settings() {
 
     return (
         <div className={styles.settingsOuterContainer}>
+            {session?.user.role == "admin" ? 
+                <>
+                    <UserControl />
+                </> 
+            : <></>}
             <div className={styles.settingsContainer}>
                 <Card className={styles.card}>
                     <Card.Title>Change User Settings</Card.Title>

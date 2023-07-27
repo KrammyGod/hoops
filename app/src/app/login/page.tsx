@@ -1,19 +1,19 @@
 'use client'
 
-import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Spinner, Alert } from 'react-bootstrap';
+import { ReadonlyURLSearchParams, useRouter, useSearchParams } from 'next/navigation';
 import useSession from '@hooks/Auth';
 import LoginForm from './LoginForm';
 
-function generateAlert(searchParams : any) {
-    if (searchParams?.signup === 'true') {
+function generateAlert(params : ReadonlyURLSearchParams | null) {
+    if (params?.get('signup') === 'true') {
         return (
             <Alert dismissible variant='info' style={{ width: '100%', textAlign: 'center' }}>
                 Login to your new account!
             </Alert>
         );
-    } else if (searchParams?.update === 'true') {
+    } else if (params?.get('update') === 'true') {
         return (
             <Alert dismissible variant='info' style={{ width: '100%', textAlign: 'center' }}>
                 Please login again to continue.
@@ -22,7 +22,8 @@ function generateAlert(searchParams : any) {
     }
 }
 
-export default function Login({ searchParams } : { searchParams: any }) {
+export default function Login() {
+    const params = useSearchParams();
     const router = useRouter();
     const [node, setNode] = useState<React.ReactNode>(null);
     const { session, loading } = useSession();
@@ -34,8 +35,8 @@ export default function Login({ searchParams } : { searchParams: any }) {
         // Force users back to homepage if they are already logged in
         else if (session) router.push('/');
         else setNode(
-            <LoginForm params={searchParams}>
-                {generateAlert(searchParams)}
+            <LoginForm params={params}>
+                {generateAlert(params)}
             </LoginForm>
         );
     // eslint-disable-next-line react-hooks/exhaustive-deps

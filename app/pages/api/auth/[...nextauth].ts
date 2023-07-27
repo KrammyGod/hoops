@@ -49,6 +49,19 @@ const authOptions : NextAuthOptions = {
         async session({ session, token } : { session: Session, token: TokenSet }) {
             const customSession = session as type.CustomSession;
             const customToken = token as type.CustomToken;
+            customSession.error = false;
+            // Check if the session is still valid
+            const user = await query(
+                `SELECT uid, email, uName, uRole FROM HUser
+                    WHERE uid = $1 AND email = $2 AND uName = $3 AND uRole = $4`, 
+                [customToken.id, customToken.email, customToken.name, customToken.role]
+            ).then(res => res.rows[0]) as type.DatabaseUser;
+            // Invalid session now, user was changed
+            // Mark as force sign out for frontend.
+            if (!user) {
+                customSession.error = true;
+                return customSession;
+            }
             // Sets session to pass into frontend
             // This is all frontend has access to.
             if (customSession?.user) {

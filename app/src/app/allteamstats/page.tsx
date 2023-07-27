@@ -37,7 +37,7 @@ export default function AllTeamStats() {
     return (
         <div className={styles.settingsOuterContainer}>
             <div className={styles.settingsContainer}>
-            <Table className='text-center mt-4' striped bordered hover variant='light'>
+            <Table className='text-center mt-4' striped bordered hover responsive variant='light'>
                 <thead>
                     <tr>
                         <th>Abbrev</th>

@@ -14,8 +14,15 @@ async function addUser(email, password, name) {
     return insertUser(email, password, name, 'user');
 }
 
-async function addAdmin(email, password, name) {
-    return insertUser(email, password, name, 'admin');
+async function updateAdmin(uid, name, role) {
+    const res = await query(`
+        UPDATE HUser
+        SET uName = $1, uRole = $2
+        WHERE uid = $3
+        RETURNING *
+    `, [name, role, uid])
+
+    return res.rows[0];
 }
 
 async function getUser(uid) {
@@ -23,6 +30,18 @@ async function getUser(uid) {
         SELECT uid, email, uName, uRole FROM HUser
         WHERE uid = $1
     `, [uid]).then(res => res.rows[0]);
+}
+
+async function getAllUsers(uid, page) {
+    return query(`
+        SELECT uid, email, uName, uRole
+        FROM HUser
+        WHERE uid <> $1
+        ORDER BY uid
+        LIMIT 10
+        OFFSET $2 * 10`,
+        [uid, page]
+    ).then(res => res.rows);
 }
 
 async function updateUser(uid, email, old_password, name, new_password) {
@@ -47,19 +66,29 @@ async function deleteUser(uid, hash) {
     return res.rows.length != 0;
 }
 
+async function deleteUserAdmin(uid) {
+    // No return value required
+    const res = await query(`
+        DELETE FROM HUser 
+        WHERE uid = $1
+        RETURNING uid
+    `, [uid]);
+    return res.rows.length != 0;
+}
+
 export const usersHandler = async (req, res, session) => {
     // Prioritize uid in body
     // If none provided, then assume user is doing on own behalf
     const uid = req.body.uid ?? session?.user.id;
     switch (req.query.type) {
-        case 'addadmin':
+        case 'adminUpdate':
             try {
                 if (!session || session.user.role != 'admin') {
                     // If user is not admin, shouldn't be able to create new admins
                     return res.status(401).json({ messages: 'unauthorized' });
                 }
 
-                const data = await addAdmin(req.body.email, req.body.password, req.body.username);
+                const data = await updateAdmin(req.body.uid, req.body.username, req.body.role);
                 res.status(200).json({ data });
             } catch (err) {
                 res.status(500).json({ messages: err.message });
@@ -92,14 +121,46 @@ export const usersHandler = async (req, res, session) => {
                 res.status(500).json({ messages: err.message });
             }
             break;
-        case 'delete':
+        case 'getAll':
+            // This gets all users that are not the current user
             try {
-                // Only admins or the user are allowed to delete users
-                if (!session || (session.user.role !== 'admin' && session.user.id != uid)) {
+                if (!session || session.user.role != 'admin') {
+                    return res.status(401).json({ messages: "unauthorized" });
+                }
+                
+                const page = (req.query.page ?? 1) - 1;
+                if (page < 0) return res.status(400).json({ messages: "Invalid page number" });
+                const data = await getAllUsers(session.user.id, page);
+                res.status(200).json({ data });
+            } catch (err) {
+                res.status(500).json({ messages: err.message });
+            }
+            break;
+        case 'deleteAdmin':
+            try {
+                // Only admins are allowed to delete users
+                if (!session || session.user.role !== 'admin') {
                     return res.status(401).json({ messages: 'unauthorized' });
                 }
 
-                const success = await deleteUser(uid, req.body.password);
+                const success = await deleteUserAdmin(uid);
+                if (success) {
+                    res.status(200).json({ success: true });
+                } else {
+                    res.status(401).json({ messages: 'invalid user id' });
+                }
+            } catch (err) {
+                res.status(500).json({ messages: err.message });
+            }
+            break;
+        case 'delete':
+            try {
+                if (!session) {
+                    return res.status(401).json({ messages: 'unauthorized' });
+                }
+                
+                // User is only allowed to delete themself
+                const success = await deleteUser(session.user.id, req.body.password);
                 if (success) {
                     res.status(200).json({ success: true });
                 } else {

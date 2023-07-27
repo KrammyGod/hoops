@@ -26,4 +26,5 @@ export interface CustomUser {
 /** Interface for a single session */
 export interface CustomSession extends Session {
     user: CustomUser;
+    error: boolean;
 };

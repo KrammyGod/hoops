@@ -13,7 +13,7 @@ export default function PlayerStats({ params }: {
 }) {    
     const [firstName, setFirstName] = useState([]);
     const [lastName, setLastName] = useState([]);
-    const [playerStats, setPlayerStats] = useState<{assists: number, points: number, games: number, season: number, abbrev: string, tname: string}[]>([]);
+    const [playerStats, setPlayerStats] = useState<{assists: number, points: number, rebounds: number, games: number, season: number, abbrev: string, tname: string}[]>([]);
     const [error, setError] = useState(null);
     const { session } = useSession();
 
@@ -47,6 +47,7 @@ export default function PlayerStats({ params }: {
                     <tr>
                         <th>Assists</th>
                         <th>Points</th>
+                        <th>Rebounds</th>
                         <th>Games</th>
                         <th>Season</th>
                         <th>Abbrev</th>
@@ -58,6 +59,7 @@ export default function PlayerStats({ params }: {
                             <tr key={index}>
                                 <td>{stat.assists}</td>
                                 <td>{stat.points}</td>
+                                <td>{stat.rebounds}</td>
                                 <td>{stat.games}</td>
                                 <td>{stat.season}</td>
                                 <td>{stat.abbrev}</td>

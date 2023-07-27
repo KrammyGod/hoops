@@ -1,4 +1,4 @@
-import { getPlayerStats } from "@apis/stats";
+import { getPlayerStats } from '@apis/stats';
 
 export default async function playerstats(req, res) {
     try {

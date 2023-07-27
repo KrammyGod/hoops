@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react"
-import { Button, Table, Offcanvas } from "react-bootstrap"
-import BookmarkBtn from "./BookmarkBtn";
-import { API } from "@/types/ApiRoute";
+import { useState, useEffect } from 'react'
+import { Button, Table, Offcanvas } from 'react-bootstrap'
+import BookmarkBtn from './BookmarkBtn';
+import { API } from '@/types/ApiRoute';
 
 //
 // This component is temporarily disabled until further development
@@ -15,10 +15,10 @@ const BookmarkListOffCanvas = ({uid}: {uid: number}) => {
     const toggleShow = () => open((s) => !s);
 
     useEffect(() => {
-        fetch(API + "/bookmarks/show", {
-            method: "POST",
+        fetch(API + '/bookmarks/show', {
+            method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                'Content-Type': 'application/json'
             },
             body: JSON.stringify({uid})
         })
@@ -33,7 +33,7 @@ const BookmarkListOffCanvas = ({uid}: {uid: number}) => {
 
     return (
         <>
-            <Button variant="primary" onClick={toggleShow}>
+            <Button variant='primary' onClick={toggleShow}>
                 Bookmarks
             </Button>
             <Offcanvas show={isOpen} onHide={handleClose} scroll={true} backdrop={false}>
@@ -50,10 +50,10 @@ const BookmarkListOffCanvas = ({uid}: {uid: number}) => {
                     </thead>
                     <tbody>
                         {Array.isArray(bookmarks) ? bookmarks.map((bookmark) => (
-                            <tr key={`${bookmark["firstname"]} ${bookmark["lastname"]}`}>
-                                <td>{`${bookmark["firstname"]} ${bookmark["lastname"]}`}</td>
-                                <td align="right">
-                                    <BookmarkBtn pid={bookmark["pid"]} fromBookmarksList={true}/>
+                            <tr key={`${bookmark['firstname']} ${bookmark['lastname']}`}>
+                                <td>{`${bookmark['firstname']} ${bookmark['lastname']}`}</td>
+                                <td align='right'>
+                                    <BookmarkBtn pid={bookmark['pid']} fromBookmarksList={true}/>
                                 </td>
                             </tr>
                         )) : <></>}

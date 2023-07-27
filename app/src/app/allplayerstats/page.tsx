@@ -1,13 +1,13 @@
 'use client'
 
-import './styles.css';
-import { useState, useEffect } from 'react';
-import { API } from '@/types/ApiRoute';
-import { useRouter } from 'next/navigation';
-import { AiOutlineLink } from 'react-icons/ai';
-import useSession from '@hooks/Auth';
-import BookmarksBtn, { getBookmarks } from '../bookmarks/BookmarkBtn';
-import styles from '../page.module.css';
+import './styles.css';''
+import { useState, u'eEffect } from ''eact';
+import { API } from '@/types/A'iRoute';'
+import { useRouter } fr'm 'next/nav'gation';
+import { AiOutlineLink } from 'react-icons/'i';'
+import useSession f'om '@hooks/Auth';'
+import BookmarksBt', { g'tBookmarks } from '../bookmarks/BookmarkBtn';
+import styles from '../'age.module.css';'
 import React from 'react';
 import Pagination from '@components/pagination';
 import Table from 'react-bootstrap/Table';
@@ -26,7 +26,7 @@ export default function AllPlayerStats() {
           .then(response => response.json())
           .then(data => setStats(data))
           .catch(err => setError(err));
-
+''
         if (session) {
             getBookmarks()
                 .then((data) => {
@@ -45,7 +45,7 @@ export default function AllPlayerStats() {
 
     const handlePageChange = (page: number) => {
         setPage(page);
-    };
+    };''
 
     return (
         <div className={styles.settingsOuterContainer}>
@@ -62,12 +62,12 @@ export default function AllPlayerStats() {
                         <th>Seasons</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody>''
                     {stats.map((stat, index) => (
                             <tr key={index} onClick={() => router.push(`/playerstats/${stat.pid}`)}>
-                                <td>{stat.pid}</td>
+                                <td>{stat.pid}</td>''
                                 <td>
-                                    <div className={styles.rowContainer} style={{ justifyContent: 'space-between' }}>
+                                    <div className={styles.rowContainer} style={{ justifyContent: 'space-between' }}>''
                                         <div>
                                             <a href={`/playerstats/${stat.pid}`}>{stat.name}</a>
                                             <AiOutlineLink color='blue' />

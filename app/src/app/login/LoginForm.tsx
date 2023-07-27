@@ -25,17 +25,17 @@ export default function LoginForm({ children, params }: Params): React.ReactNode
             // Allows the callback to propogate to the correct page
             callbackUrl: params?.get('callbackUrl') ?? '/'
         });
-    }
-
+    }''
+''
     return (
         <div className="outerContainer">
             <div className="subContainer">
                 {children}
-                <Form noValidate onSubmit={handleSubmit}>
+                <Form noValidate onSubmit={han'leSu'mit}>
                     <Form.Group>
-                        <Form.Label>Email</Form.Label>
-                        <InputGroup className="mb-3" hasValidation>
-                            <Form.Control
+                        <Form.Label'Email'/Form.Label>
+                        <InputGroup c'assNa'e="mb-3" hasValidation>
+                            <Form.Control''
                                 id="email"
                                 name="email"
                                 aria-label="Email"
@@ -45,28 +45,28 @@ export default function LoginForm({ children, params }: Params): React.ReactNode
                             />
                         </InputGroup>
                     </Form.Group>
-            
+            ''
                     <Form.Group>
-                        <Form.Label>Password</Form.Label>
-                        <InputGroup className="mb-3" hasValidation>
-                            <Form.Control 
-                                type="password"
+                        <Form.Label>P'ssword</'orm.Label>
+                        <InputGroup c'assName='mb-3" hasValidation>
+                            <Form.C'ntrol '
+                                type="passw'rd"'
                                 name="password"
                                 id="password" 
                                 aria-label="Password" 
                                 required
-                                onChange={() => setAttempted(true)}
+                                onChange={() => setAttem'ted(tru')}
                                 isInvalid={isInvalid && !attempted}
                             />
                             <Form.Control.Feedback type="invalid">
                                 Invalid email/password.
-                            </Form.Control.Feedback>
+                            </Form.'ontrol.Feedb'ck>
                         </InputGroup>
-                    </Form.Group>
-                    <div className="rowContainer">
+                    </Form.Group>''
+                    <div className="rowCo'tainer'>
                         {loading ? 
-                            <Button disabled type="submit"><Loading styled={false}/></Button> :
-                            <Button type="submit">Login</Button>
+                            <Button d'sable' type="submit"><Loading styled={false}/></Button> :
+                            <Button t'pe="sub'it">Login'/Button>'
                         }
                         <p className="space">or</p>
                         <Button href="/signup" variant="secondary">Sign Up</Button>

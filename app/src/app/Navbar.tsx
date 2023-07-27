@@ -14,14 +14,14 @@ export default function CustomNavbar() {
     const { session, loading } = useSession();
     const path = usePathname() ?? '/';
 
-    const loginBtn = <Button variant="outline-primary" onClick={() => signIn(undefined, { callbackUrl: path })}>Login/Signup</Button>;
-    const logoutBtn = <Button variant="outline-danger" onClick={() => signOut({ callbackUrl: path })}>Logout</Button>;
+    const loginBtn = <Button variant='outline-primary' onClick={() => signIn(undefined, { callbackUrl: path })}>Login/Signup</Button>;
+    const logoutBtn = <Button variant='outline-danger' onClick={() => signOut({ callbackUrl: path })}>Logout</Button>;
     // Bookmarks and settings are protected. Navigating to them will automatically
     // redirect to login if they are not logged in.
-    const bookmarksBtn = <Button href='/bookmarks' variant="info">Bookmarks</Button>;
+    const bookmarksBtn = <Button href='/bookmarks' variant='info'>Bookmarks</Button>;
     const settingsBtn =
         <Button href='/settings' variant='secondary'>
-            <h3 style={{ margin: 0, fontSize: "1.3rem" }}><LuSettings /></h3>
+            <h3 style={{ margin: 0, fontSize: '1.3rem' }}><LuSettings /></h3>
         </Button>;
 
     useEffect(() => {
@@ -37,29 +37,29 @@ export default function CustomNavbar() {
     }, [session, loading]);
 
     const searchBtn =
-        <Button href="/search" variant='secondary' style={{ color: "coral" }}>
+        <Button href='/search' variant='secondary' style={{ color: 'coral' }}>
             <div className={styles.rowContainer}>
                 Search
-                <h3 style={{ margin: "0 0 0 8px", fontSize: "1.3rem" }}><BiSearchAlt /></h3>
+                <h3 style={{ margin: '0 0 0 8px', fontSize: '1.3rem' }}><BiSearchAlt /></h3>
             </div>
         </Button>;
 
     return (
-        <Navbar bg="light" collapseOnSelect expand="sm">
+        <Navbar bg='light' collapseOnSelect expand='sm'>
             <Container>
-                <Navbar.Brand href="/">Hoops</Navbar.Brand>
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse aria-controls="responsive-navbar-nav" className="justify-content-end">
+                <Navbar.Brand href='/'>Hoops</Navbar.Brand>
+                <Navbar.Toggle aria-controls='responsive-navbar-nav' />
+                <Navbar.Collapse aria-controls='responsive-navbar-nav' className='justify-content-end'>
                     <Nav className={styles.sideStack}>
-                        <NavDropdown title="All Players/Teams">
-                            <NavDropdown.Item href="/allplayerstats">All Players</NavDropdown.Item>
+                        <NavDropdown title='All Players/Teams'>
+                            <NavDropdown.Item href='/allplayerstats'>All Players</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="/allteamstats">All Teams</NavDropdown.Item>
+                            <NavDropdown.Item href='/allteamstats'>All Teams</NavDropdown.Item>
                         </NavDropdown>
-                        <NavDropdown title="Filter by Players/Teams">
-                            <NavDropdown.Item href="/playerfilters">By Players</NavDropdown.Item>
+                        <NavDropdown title='Filter by Players/Teams'>
+                            <NavDropdown.Item href='/playerfilters'>By Players</NavDropdown.Item>
                             <NavDropdown.Divider />
-                            <NavDropdown.Item href="/teamfilters">By Teams</NavDropdown.Item>
+                            <NavDropdown.Item href='/teamfilters'>By Teams</NavDropdown.Item>
                         </NavDropdown>
                         {searchBtn}
                         {bookmarksBtn}

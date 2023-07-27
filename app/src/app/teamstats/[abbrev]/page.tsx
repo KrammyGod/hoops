@@ -34,10 +34,10 @@ export default function PlayerStats({ params }: {
     return (
         <div className={styles.settingsOuterContainer}>
             <div className={styles.settingsContainer}>
-            <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: "space-between" }}>
+            <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: 'space-between' }}>
                 <h3>{params.abbrev} {name}</h3>
             </div>
-            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered responsive variant="light">
+            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered responsi'e var'ant="light">
                 <thead>
                     <tr>
                         <th>Wins</th>

@@ -1,4 +1,4 @@
-import { query } from "@modules/pool.js";
+import { query } from '@modules/pool.js';
 
 /* Returns players satisfying filter requirements */
 async function filterPlayers(rebounds, assists, points, games, season, page) {

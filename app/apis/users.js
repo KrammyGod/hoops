@@ -125,11 +125,11 @@ export const usersHandler = async (req, res, session) => {
             // This gets all users that are not the current user
             try {
                 if (!session || session.user.role != 'admin') {
-                    return res.status(401).json({ messages: "unauthorized" });
+                    return res.status(401).json({ messages: 'unauthorized' });
                 }
                 
                 const page = (req.query.page ?? 1) - 1;
-                if (page < 0) return res.status(400).json({ messages: "Invalid page number" });
+                if (page < 0) return res.status(400).json({ messages: 'Invalid page number' });
                 const data = await getAllUsers(session.user.id, page);
                 res.status(200).json({ data });
             } catch (err) {

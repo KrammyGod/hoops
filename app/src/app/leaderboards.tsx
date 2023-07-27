@@ -1,10 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { API } from "@/types/ApiRoute";
+import { API } from '@/types/ApiRoute';
 import { useRouter } from 'next/navigation';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import Table from 'react-bootstrap/Table';
+import Table from 'reac'-bootstrap/Table';'
 import Pagination from "@components/pagination";
 import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context';
 
@@ -118,19 +118,19 @@ export default function Leaderboards() {
             case LeaderboardTypes.PERCENTAGE_WINS_PER_TEAM:
                 setLeaderboardAbbrev(LeaderboardAbbrevs.PERCENTAGE_WINS_PER_TEAM);
                 setNumPages(numTeamPages);
-                setPage(1)
+                setPage(1)''''
                 break;
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [leaderboardType]);
     
-    return (
+    return (''
         <div>
         <h1 className='text-center'>Leaderboards</h1>
         <ToggleButtonGroup name="types" type="radio" value={radioValue} onChange={radioChange}>
             {radios.map((radio, idx) => (
                 <ToggleButton
-                    key={idx}
+                    key={idx}''
                     id={`radio-${idx}`}
                     value={radio.value}
                     variant="outline-secondary"

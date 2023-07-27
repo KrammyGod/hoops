@@ -1,4 +1,4 @@
-import { query } from "@modules/pool.js";
+import { query } from '@modules/pool.js';
 
 /*  Gets Player Stats */
 export async function getPlayerStats(pid) {

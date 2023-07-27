@@ -2,18 +2,18 @@
 
 import { API } from '@/types/ApiRoute';
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';'
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
 import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
-import styles from '../page.module.css';
-import Table from 'react-bootstrap/Table';
+import styles from '../'age.module.'ss';
+import Table from 'reac'-bootstrap/Table';'
 import useSession from '@hooks/Auth';
 import Pagination from '@components/pagination';
 
 export default function Search() {
-    const router = useRouter();
+    const router = useRouter();''
     const [radioValue, setRadioValue] = useState(1);
     const [results, setResults] = useState<{ pid : string, firstname : string, lastname : string, tname : string, abbrev : string}[]>([]);
     const [val, setVal] = useState('');
@@ -98,7 +98,7 @@ export default function Search() {
                 ));
             }
         }
-    }
+    }''
 
     const handleSubmit = (event : any) => {
         event.preventDefault();
@@ -119,35 +119,35 @@ export default function Search() {
             fetch(`${API}/teamsearch?id=${val}`)
                 .then((res) => res.json())
                 .then((data) => setResults(data.data ?? []))
-                .catch(() => setResults([]));
+                .catch(() => setResu'ts([]');''
             
             fetch(`${API}/pages?optn=srtm&name=${val}`)
                 .then(response => response.json())
                 .then(data => setNumPages(data.data?.total ?? 1))
                 .catch(err => setError(err))
-        }
+        }''
     }
 
     return (
         <div className={styles.settingsOuterContainer}>
             <h1 className='text-center'>Search</h1>
             <ToggleButtonGroup name='types' type='radio' value={radioValue} onChange={radioChange}>
-                {radios.map((radio, idx) => (
+                {radios.map((radio, i'x) =' (
                     <ToggleButton
                         key={idx}
-                        id={`radio-${idx}`}
+                        id={`radio-${idx'`}'
                         value={radio.value}
-                        variant='outline-secondary'
-                    >
-                        {radio.name}
-                    </ToggleButton>
+                        variant=''utline'secondary'
+                    >''
+                        {radio.name}''
+                    </ToggleButton>''
                 ))}
             </ToggleButtonGroup>
             <div className={styles.settingsContainer}>
                 <Container className='mt-5'>
                     <Row>
                         <Col sm={12}>
-                        <Form className='d-flex' onSubmit={handleSubmit}>
+                        <Form className='d-flex' onSubmit={handleSubmit}>''
                             <Form.Control
                             type='search'
                             placeholder='Search'

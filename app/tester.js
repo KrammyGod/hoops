@@ -6,18 +6,17 @@ const npm = win ? 'npm.cmd' : 'npm'
 
 // Spawn our backend for testing
 const api = spawn(npm, ['run', 'dev'], { detached: false });
-api.stdout.pipe(process.stdout);
-api.stderr.pipe(process.stderr);
 
 // Exit code of our tester will be the exit code of this process
 let exitCode = 0;
 function killMe() {
     console.log('My job is done, I think I will die now...');
-    process.kill(exitCode);
+    process.exit(exitCode);
 }
 
 const kill = (child, callback) => {
     if (win) {
+        // Windows needs to do this to kill the task.
         return exec(`taskkill /pid ${child.pid} /T /F`, callback);
     }
     child.once('close', callback)

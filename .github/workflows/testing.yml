@@ -24,5 +24,14 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies and lint
-        run: cd app && npm ci && npm run test 
+      - name: Install dependencies
+        run: cd app && npm ci
+        
+      - name: Run tests
+        env:
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          PGDATABASE: ${{ secrets.PGDATABASE }}
+          PGHOST: ${{ secrets.PGHOST }}
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
+          PGUSER: ${{ secrets.PGUSER }}
+        run: cd app && npm test

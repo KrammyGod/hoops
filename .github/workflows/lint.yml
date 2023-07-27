@@ -9,7 +9,7 @@ on:
   pull_request:
     branches:
       - main
-
+      
 jobs:
   run-linters:
     name: Run linters
@@ -24,5 +24,8 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies and lint
-        run: cd app && npm ci && npm run lint
+      - name: Install dependencies
+        run: cd app && npm ci
+
+      - name: Run linters
+        run: cd app && npm run lint

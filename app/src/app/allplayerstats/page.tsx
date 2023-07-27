@@ -27,10 +27,13 @@ export default function AllPlayerStats() {
           .then(data => setStats(data))
           .catch(err => setError(err));
 
-        getBookmarks()
-            .then((data) => {
-                setBookmarks(data.data?.map((marked: any) => marked['pid']) ?? [])
-            });
+        if (session) {
+            getBookmarks()
+                .then((data) => {
+                    setBookmarks(data.data?.map((marked: any) => marked['pid']) ?? [])
+                });
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [page]);
 
     useEffect(() => {
@@ -88,5 +91,5 @@ export default function AllPlayerStats() {
             />
             </div>
         </div>
-    )
+    );
 }

@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
+import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
 import styles from '../page.module.css';
 import Table from 'react-bootstrap/Table';
 import useSession from '@hooks/Auth';
@@ -50,11 +51,20 @@ export default function Search() {
 
     const generateHeader = () => {
         if (searchVal == 1) {
-            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th></>);
+            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th>{session ? <th></th> : ""}</>);
         } else {
             return (<><th>Team Abbreviation</th><th>Team Name</th></>);
         }
     }
+
+    useEffect(() => {
+        if (session) {
+            getBookmarks()
+                .then((data) => {
+                    setBookmarks(data.data?.map((marked: any) => marked['pid']) ?? [])
+                })
+        }
+    }, [session])
 
     const generateCols = () => {
         if (searchVal == 1) {
@@ -66,7 +76,11 @@ export default function Search() {
                         <td align='center'>{item.pid}</td>
                         <td>{item.firstname}</td>
                         <td>{item.lastname}</td>
+                        {session ? <td>
+                            <BookmarksBtn pid={Number(item.pid)} initialValue={bookmarks.includes(Number(item.pid))} />
+                        </td> : <></>}
                     </tr>
+
                 ));
             }
         } else {
@@ -75,8 +89,11 @@ export default function Search() {
             } else {
                 return results.map((item) => (
                     <tr style={{ cursor:'pointer' }} onClick={() => router.push(`/teamstats/${item.abbrev}`)} key={item.abbrev}>
-                    <td align='center'>{item.abbrev}</td>
-                    <td>{item.tname}</td>
+                        <td align='center'>{item.abbrev}</td>
+                        <td>{item.tname}</td>
+                        {session ? <td>
+                            <BookmarksBtn pid={Number(item.pid)} initialValue={bookmarks.includes(Number(item.pid))} />
+                        </td> : <></>}
                     </tr>
                 ));
             }
@@ -97,13 +114,6 @@ export default function Search() {
                 .then(response => response.json())
                 .then(data => setNumPages(data.data?.total ?? 1))
                 .catch(err => setError(err))
-            /*
-            getBookmarks()
-                .then((data) => {
-                    let pids = data.data.map((marked: any) => marked["pid"])
-                    setBookmarks(pids)
-                })
-            */
         } else if (radioValue == 2 && val.length > 0) {
             setPage(1)
             fetch(`${API}/teamsearch?id=${val}`)

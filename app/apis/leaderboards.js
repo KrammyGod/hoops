@@ -1,4 +1,4 @@
-import { query } from "@modules/pool.js";
+import { query } from '@modules/pool.js';
 
 // All values are renamed to make switching tables seamless.
 
@@ -74,27 +74,27 @@ async function mbp(page) {
 
 export async function getLeaderboards(req, res) {
     const page = (req.query.page ?? 1) - 1;
-    if (page < 0) return res.status(400).json({ messages: "Invalid page number" });
+    if (page < 0) return res.status(400).json({ messages: 'Invalid page number' });
     try {
         let data = null;
         switch (req.query.type) {
-            case "twpt":
+            case 'twpt':
                 data = await twpt(page);
                 break;
-            case "appp":
+            case 'appp':
                 data = await appp(page);
                 break;
-            case "pgpt":
+            case 'pgpt':
                 data = await pgpt(page);
                 break;
-            case "mbp":
+            case 'mbp':
                 data = await mbp(page);
                 break;
             default:
-                throw new Error("Invalid leaderboard type");
+                throw new Error('Invalid leaderboard type');
         }
         // Somehow reached null data
-        if (data === null) throw new Error("No data found");
+        if (data === null) throw new Error('No data found');
         res.status(200).json({ data });
     } catch (err) {
         res.status(500).json({ messages: err.message });

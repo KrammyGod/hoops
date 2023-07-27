@@ -1,11 +1,11 @@
 'use client'
 
-import { useState, useEffect } from "react";
-import { API } from "@/types/ApiRoute";
-import React from "react";
-import BookmarkBtn from "@/app/bookmarks/BookmarkBtn";
-import useSession from "@hooks/Auth";
-import styles from "../../page.module.css";
+import { useState, useEffect } from 'react';
+import { API } from '@/types/ApiRoute';
+import React from 'react';
+import BookmarkBtn from '@/app/bookmarks/BookmarkBtn';
+import useSession from '@hooks/Auth';
+import styles from '../../page.module.css';
 import Table from 'react-bootstrap/Table';
 
 export default function PlayerStats({ params }: {
@@ -38,11 +38,11 @@ export default function PlayerStats({ params }: {
 
     return (
         <div className={styles.settingsOuterContainer}>
-            <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: "space-between" }}>
+            <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: 'space-between' }}>
                 <h3>{params.pid} {firstName} {lastName}</h3>
                 {session ? <BookmarkBtn pid={Number(params.pid)} /> : <></>}
             </div>
-            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered responsive variant="light">
+            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered responsive variant='light'>
                 <thead>
                     <tr>
                         <th>Assists</th>

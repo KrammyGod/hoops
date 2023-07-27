@@ -14,8 +14,8 @@ const authOptions : NextAuthOptions = {
         CredentialsProvider({
             name: 'Credentials',
             credentials: {
-                email: { label: "Email", type: "text" },
-                password: { label: "Password", type: "password" }
+                email: { label: 'Email', type: 'text' },
+                password: { label: 'Password', type: 'password' }
             },
             async authorize(credentials, req) {
                 // Performing the query without using users.js as dependency

@@ -1,4 +1,4 @@
-import { getAllPlayerStats } from "@apis/stats.js";
+import { getAllPlayerStats } from '@apis/stats.js';
 
 export default async function allplayerstats(req, res) {
     try {

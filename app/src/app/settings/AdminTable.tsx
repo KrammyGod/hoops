@@ -1,7 +1,7 @@
 import './styles.css'
 import React, { useEffect, useState } from 'react';
-import { FcCancel } from "react-icons/fc";
-import { OverlayTrigger, Table, Tooltip } from "react-bootstrap";
+import { FcCancel } from 'react-icons/fc';
+import { OverlayTrigger, Table, Tooltip } from 'react-bootstrap';
 import { useTable, Column } from 'react-table';
 
 type Data = {
@@ -68,8 +68,8 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
     const IconCell = ({ row }: any) => {
         return (
             <OverlayTrigger
-                placement="bottom"
-                overlay={<Tooltip id="delete">This will permanently delete this user.</Tooltip>}
+                placement='bottom'
+                overlay={<Tooltip id='delete'>This will permanently delete this user.</Tooltip>}
             >
                 <p>
                 <FcCancel onClick={() => onIconClick(row.original.uid, row.original.uname)} />

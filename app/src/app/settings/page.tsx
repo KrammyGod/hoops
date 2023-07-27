@@ -49,7 +49,7 @@ function Settings() {
 
     return (
         <div className={styles.settingsOuterContainer}>
-            {session?.user.role == "admin" ? 
+            {session?.user.role == 'admin' ? 
                 <>
                     <UserControl />
                 </> 

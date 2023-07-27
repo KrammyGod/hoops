@@ -1,10 +1,10 @@
-import { useState, useEffect } from "react";
-import { Table } from "react-bootstrap";
-import BookmarkBtn, { getBookmarks } from "./BookmarkBtn";
-import { AiOutlineLink } from "react-icons/ai";
-import "./list.css";
-import Pagination from "@components/pagination";
-import { API } from "@/types/ApiRoute";
+import { useState, useEffect } from 'react';
+import { Table } from 'react-bootstrap';
+import BookmarkBtn, { getBookmarks } from './BookmarkBtn';
+import { AiOutlineLink } from 'react-icons/ai';
+import './list.css';
+import Pagination from '@components/pagination';
+import { API } from '@/types/ApiRoute';
 
 //
 // This component requires button to redirect to /bookmarks
@@ -36,9 +36,9 @@ export default function BookmarkList() {
     }
 
     return (
-        <div className="listContainer">
-            <h1 className="title">Bookmarks</h1>
-            <div className="tableContainer">
+        <div className='listContainer'>
+            <h1 className='title'>Bookmarks</h1>
+            <div className='tableContainer'>
                 <Table responsive>
                     <thead>
                         <tr>
@@ -48,18 +48,18 @@ export default function BookmarkList() {
                     </thead>
                     <tbody>
                         {bookmarks.map((bookmark) => (
-                            <tr key={`${bookmark["firstname"]} ${bookmark["lastname"]}`}>
-                                <td valign="middle">
-                                    <a href={`/playerstats/${bookmark["pid"]}`}>
-                                        {`${bookmark["firstname"]} ${bookmark["lastname"]}`}
-                                        <AiOutlineLink color="blue" />
+                            <tr key={`${bookmark['firstname']} ${bookmark['lastname']}`}>
+                                <td valign='middle'>
+                                    <a href={`/playerstats/${bookmark['pid']}`}>
+                                        {`${bookmark['firstname']} ${bookmark['lastname']}`}
+                                        <AiOutlineLink color='blue' />
                                     </a>
                                 </td>
-                                <td align="right" valign="middle">
+                                <td align='right' valign='middle'>
                                     <BookmarkBtn 
-                                        pid={bookmark["pid"]}
+                                        pid={bookmark['pid']}
                                         fromBookmarksList={true}
-                                        removeBookmarksList={()=>removeBookmark(bookmark["pid"])}
+                                        removeBookmarksList={()=>removeBookmark(bookmark['pid'])}
                                     />
                                 </td>
                             </tr>

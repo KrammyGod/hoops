@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import { Col, Container, Form, Row } from 'react-bootstrap';
 import ToggleButton from 'react-bootstrap/ToggleButton';
 import ToggleButtonGroup from 'react-bootstrap/ToggleButtonGroup';
-import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
+import BookmarksBtn, { getBookmarks } from '../bookmarks/BookmarkBtn';
 import styles from '../page.module.css';
 import Table from 'react-bootstrap/Table';
 import useSession from '@hooks/Auth';
@@ -51,7 +51,7 @@ export default function Search() {
 
     const generateHeader = () => {
         if (searchVal == 1) {
-            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th>{session ? <th></th> : ""}</>);
+            return (<><th>Player ID</th><th>First Name</th><th>Last Name</th>{session ? <th></th> : ''}</>);
         } else {
             return (<><th>Team Abbreviation</th><th>Team Name</th></>);
         }

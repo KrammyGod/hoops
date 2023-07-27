@@ -166,11 +166,6 @@
     }
 }
 
-/* For Tablet View 
-@media screen and (min-device-width: 768px)
-  and (max-device-width: 1024px) {
-}*/
-
 /* END */
 
 .center {
@@ -286,16 +281,6 @@
 @media (min-width: 701px) and (max-width: 1120px) {
     .grid {
         grid-template-columns: repeat(2, 50%);
-    }
-}
-
-@media (prefers-color-scheme: dark) {
-    .vercelLogo {
-        filter: invert(1);
-    }
-
-    .logo {
-        filter: invert(1) drop-shadow(0 0 0.3rem #ffffff70);
     }
 }
 

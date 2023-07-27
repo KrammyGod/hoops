@@ -32,10 +32,13 @@ async function getUser(uid) {
     `, [uid]).then(res => res.rows[0]);
 }
 
-async function getAllUsers() {
-    return query(
-        `SELECT uid, email, uName, uRole
-            FROM HUser`
+async function getAllUsers(page = 0) {
+    return query(`
+        SELECT uid, email, uName, uRole
+        FROM HUser
+        LIMIT 10
+        OFFSET $1 * 10;`,
+        [page]
     ).then(res => res.rows);
 }
 
@@ -111,8 +114,8 @@ export const usersHandler = async (req, res, session) => {
                 if (!session || session.user.role != 'admin') {
                     return res.status(401).json({ messages: "unauthorized" })
                 }
-
-                const data = await getAllUsers();
+                
+                const data = await getAllUsers(req.query.page);
                 res.status(200).json({ data });
             } catch (err) {
                 res.status(500).json({ messages: err.message });

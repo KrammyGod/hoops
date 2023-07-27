@@ -59,6 +59,16 @@ async function fltm(wins, losses, season) {
     return res.rows[0];
 }
 
+/* Pages for Users*/
+async function users() {
+    return query(`
+        SELECT CEIL(COUNT(*)::float / $1) AS total
+        FROM HUser`, 
+        [size]
+    )
+    .then(res => res.rows);
+}
+
 /* Pages for Filters Pages */
 async function flpl(rebounds, assists, points, games, season) {
     const res = await query(`
@@ -85,6 +95,9 @@ export async function getPages(req, res, session) {
                 break;
             case "plyr":
                 data = await plyr();
+                break;
+            case "users":
+                data = await users();
                 break;
             case "bkmk":
                 data = await bkmk(uid);

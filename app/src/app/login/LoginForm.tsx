@@ -1,11 +1,14 @@
 import './styles.css';
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
+import { ReadonlyURLSearchParams } from 'next/navigation';
 import { InputGroup, Form, Button } from 'react-bootstrap';
 import Loading from '../loading';
 
-export default function LoginForm({ children, params }: { children?: React.ReactNode, params : any }): React.ReactNode {
-    const isInvalid = !!params?.error;
+type Params = { children?: React.ReactNode, params : ReadonlyURLSearchParams | null };
+
+export default function LoginForm({ children, params }: Params): React.ReactNode {
+    const isInvalid = !!params?.get('error');
     const [attempted, setAttempted] = useState(false);
     const [loading, setLoading] = useState(false);
 
@@ -20,7 +23,7 @@ export default function LoginForm({ children, params }: { children?: React.React
             email: form[0].value,
             password: form[1].value,
             // Allows the callback to propogate to the correct page
-            callbackUrl: params?.callbackUrl ?? '/'
+            callbackUrl: params?.get('callbackUrl') ?? '/'
         });
     }
 
@@ -37,7 +40,7 @@ export default function LoginForm({ children, params }: { children?: React.React
                                 name="email"
                                 aria-label="Email"
                                 required
-                                onChange={(e) => setAttempted(true)}
+                                onChange={() => setAttempted(true)}
                                 isInvalid={isInvalid && !attempted}
                             />
                         </InputGroup>
@@ -52,7 +55,7 @@ export default function LoginForm({ children, params }: { children?: React.React
                                 id="password" 
                                 aria-label="Password" 
                                 required
-                                onChange={(e) => setAttempted(true)}
+                                onChange={() => setAttempted(true)}
                                 isInvalid={isInvalid && !attempted}
                             />
                             <Form.Control.Feedback type="invalid">

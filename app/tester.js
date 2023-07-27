@@ -5,7 +5,7 @@ const win = /^win/.test(process.platform);
 const npm = win ? 'npm.cmd' : 'npm'
 
 // Spawn our backend for testing
-const api = spawn(npm, ['run', 'dev'], { detached: false });
+const api = spawn(npm, ['run', 'dev']);
 
 // Exit code of our tester will be the exit code of this process
 let exitCode = 0;

@@ -52,9 +52,7 @@ const Control = () => {
                 'Content-Type': 'application/json'
             }
         }).then((res) => res.json())
-            .then((data) => {
-                setUsers(data.data?.filter((user: any) => user.uid !== session?.user.id) ?? [])
-            })
+            .then((data) => setUsers(data.data ?? []))
             .catch((err) => console.log(err));
     }, [session, loading]);
 

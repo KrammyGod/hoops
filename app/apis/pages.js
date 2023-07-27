@@ -1,4 +1,4 @@
-import { query } from "@modules/pool.js";
+import { query } from '@modules/pool.js';
 
 const size = 10
 
@@ -60,11 +60,11 @@ async function fltm(wins, losses, season) {
 }
 
 /* Pages for Users*/
-async function users() {
+async function users(uid) {
     return query(`
-        SELECT CEIL(COUNT(*)::float / $1) AS total
-        FROM HUser`, 
-        [size]
+        SELECT CEIL(COUNT(*)::float / $2) AS total
+        FROM HUser WHERE uid <> $1`, 
+        [uid, size]
     )
     .then(res => res.rows);
 }
@@ -90,31 +90,37 @@ export async function getPages(req, res, session) {
     const uid = req.body.uid ?? session?.user.id;
     try {
         switch (req.query.optn) {
-            case "team":
+            case 'team':
                 data = await team();
                 break;
-            case "plyr":
+            case 'plyr':
                 data = await plyr();
                 break;
-            case "users":
-                data = await users();
+            case 'users':
+                if (!session || session.user.role !== 'admin') {
+                    return res.status(401).json({ messages: 'Unauthorized' });
+                }
+                data = await users(session?.user.id);
                 break;
-            case "bkmk":
+            case 'bkmk':
+                if (!session || (uid !== session.user.id && session.user.role !== 'admin')) {
+                    return res.status(401).json({ messages: 'Unauthorized' });
+                }
                 data = await bkmk(uid);
                 break;
-            case "srtm":
+            case 'srtm':
                 data = await srtm(req.query.name);
                 break;
-            case "srpl":
+            case 'srpl':
                 data = await srpl(req.query.name);
                 break;
-            case "fltm":
+            case 'fltm':
                 if (q.wins == -1) q.wins = null
                 if (q.losses == -1) q.losses = null
                 if (q.season == -1) q.season = null
                 data = await fltm(q.wins, q.losses, q.season);
                 break;
-            case "flpl":
+            case 'flpl':
                 if (q.rebounds == -1) q.rebounds = null
                 if (q.assists == -1) q.assists = null
                 if (q.points == -1) q.points = null
@@ -123,9 +129,9 @@ export async function getPages(req, res, session) {
                 data = await flpl(q.rebounds, q.assists, q.points, q.games, q.season);
                 break;
             default:
-                throw new Error("Invalid Page type");
+                throw new Error('Invalid Page type');
         }
-        if (data === null) throw new Error("No data found");
+        if (data === null) throw new Error('No data found');
         if (data.total == 0) data.total = 1;
         res.status(200).json({ data });
     } catch (err) {

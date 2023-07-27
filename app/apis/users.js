@@ -32,13 +32,15 @@ async function getUser(uid) {
     `, [uid]).then(res => res.rows[0]);
 }
 
-async function getAllUsers(page = 0) {
+async function getAllUsers(uid, page = 0) {
     return query(`
         SELECT uid, email, uName, uRole
         FROM HUser
+        WHERE uid <> $1
+        ORDER BY uid
         LIMIT 10
-        OFFSET $1 * 10;`,
-        [page]
+        OFFSET $2 * 10`,
+        [uid, page]
     ).then(res => res.rows);
 }
 
@@ -110,12 +112,13 @@ export const usersHandler = async (req, res, session) => {
             }
             break;
         case 'getAll':
+            // This gets all users that are not the current user
             try {
                 if (!session || session.user.role != 'admin') {
-                    return res.status(401).json({ messages: "unauthorized" })
+                    return res.status(401).json({ messages: "unauthorized" });
                 }
                 
-                const data = await getAllUsers(req.query.page);
+                const data = await getAllUsers(session.user.id, req.query.page);
                 res.status(200).json({ data });
             } catch (err) {
                 res.status(500).json({ messages: err.message });

@@ -104,7 +104,7 @@ test('player stats of player with pid 1', async () => {
     const response = await retry(playerStats, maxRetries, retryDelay);
 
     // Assertion: Check if the response data is correct
-    expect(response).toEqual({"player": {"firstname": "Al", "lastname": "Brightman", "pid": 1}, "stats": [{"abbrev": "BOS", "assists": 60, "games": 58, "points": 567, "season": 1947, "tname": "Boston Celtics"}]});
+    expect(response).toEqual({"player": {"firstname": "Al", "lastname": "Brightman", "pid": 1}, "stats": [{"abbrev": "BOS", "assists": 60, "games": 58, "rebounds": null, points: 567, "season": 1947, "tname": "Boston Celtics"}]});
 }, 15000);
 
 test('player search with invalid page value', async () => {

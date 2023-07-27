@@ -26,22 +26,32 @@ const DynamicTable: React.FC<DynamicTableProps> = ({ data, onSubmit, onIconClick
     const keyDownWrapper = (e: any, id: string, uid: number) => {
         if (e.key === 'Enter') {
             onSubmit(uid, id, e.target.value);
-            e.target.blur();
         }
     };
 
-    const UsernameCell = ({ value, column, row }: any) => {
+    const UsernameCell = ({ column, row }: any) => {
         const [inputValue, setInputValue] = useState(row.original.uname);
+
         useEffect(() => {
-            setInputValue(value);
-        }, [value]);
+            setInputValue(row.original.uname);
+        }, [row.original.uname]);
+
+        const safeSetInputValue = (text: string) => {
+            // This function makes sure that admin is abiding to username rules
+            // Specifically, we will limit to 28 characters
+            if (text.length > 28) {
+                text = text.substring(0, 28);
+            }
+            setInputValue(text);
+        }
+
         return (
             <input
                 type='text'
                 value={inputValue}
-                onBlur={e => e.target.value=inputValue}
+                onBlur={() => setInputValue(row.original.uname)}
                 onKeyDown={e => keyDownWrapper(e, column.id, row.original.uid)}
-                onChange={e => setInputValue(e.target.value)}
+                onChange={e => safeSetInputValue(e.target.value)}
             />
         );
     };

@@ -9,6 +9,7 @@ import { Toast, ToastContainer } from 'react-bootstrap';
 import useSession from '@hooks/Auth';
 import styles from '../page.module.css';
 import AdminTable from './AdminTable';
+import Pagination from '@components/pagination';
 
 type NotifToastParams = {
     handleRemove: () => void;
@@ -39,25 +40,30 @@ const NotifToast = ({ handleRemove, success, message }: NotifToastParams) => {
 
 const Control = () => {
     const { session, loading } = useSession();
+    const [page, setPage] = useState<number>(1);
+    const [numPages, setNumPages] = useState<number>(1);
     const [users, setUsers] = useState<any[]>([]);
     const [toasts, setToasts] = useState<any[]>([]);
     const addToast = (newToast: any) => setToasts((toasts) => [...toasts, newToast]);
     const removeToast = (id: any) => setToasts((toasts) => toasts.filter((e) => e.id !== id));
 
     useEffect(() => {
+        fetch(`${API}/pages?optn=users`, { method: 'GET' })
+            .then(res => res.json())
+            .then(data => setNumPages(data.data?.total ?? 1))
+            .catch(() => setNumPages(1));
+    }, []);
+
+    useEffect(() => {
         if (loading) return;
-        fetch(`${API}/users/getAll`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then((res) => res.json())
+        fetch(`${API}/users/getAll?page=${page}`, { method: 'GET' })
+            .then((res) => res.json())
             .then((data) => setUsers(data.data ?? []))
             .catch((err) => console.log(err));
-    }, [session, loading]);
+    }, [session, loading, page]);
 
     const deleteUser = (uid: number, username: string) => {
-        fetch(`${API}/users/delete`, {
+        fetch(`${API}/users/deleteAdmin`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
@@ -114,6 +120,11 @@ const Control = () => {
                     data={users}
                     onSubmit={handleTableChange}
                     onIconClick={deleteUser}
+                />
+                <Pagination
+                    page={page}
+                    numPages={numPages}
+                    onPageChange={page => setPage(page)}
                 />
             </div>
         </>

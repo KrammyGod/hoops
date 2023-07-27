@@ -69,7 +69,7 @@ export default function AllPlayerStats() {
                                 <td>
                                     <div className={styles.rowContainer} style={{ justifyContent: 'space-between' }}>
                                         <div>
-                                            <a href={`/playerstats/${stat.pid}`}>{stat.name}</a>
+                                            {stat.name}
                                             <AiOutlineLink color='blue' />
                                         </div>
                                         {session ? <BookmarksBtn pid={stat.pid} initialValue={bookmarks.includes(stat.pid)} /> : ''}

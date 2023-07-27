@@ -5,6 +5,7 @@ Mark
 - Reviewed and tested all features in SQL and NodeJS
 - Completed work regarding R4 & R11 (queries, frontend, backend, writeup)
 - Maintained and coordinated codebase, server host, and backend database
+- Completed work regarding R13 and provided support for other features.
 
 Sahij
 - Had major role in creation of ER diagram
@@ -12,6 +13,7 @@ Sahij
 - Helped design the database
 - Helped create queries
 - Implemented feature 6 and completed R6
+- Completed unit testing and github actions integration.
 
 Brandon
 - Created template for Milestone 1
@@ -21,6 +23,8 @@ Brandon
 - Completed work on R8 and R9 (queries, frontend, backend, and writeup)
 - Worked on integrating all features into the frontend through the navbar and useAuth hooks
 - Initialised codebase and setup baseline configuration for development
+- Completed work with R14
+- Addressed TA feedback on milestone 2 from R9 Bookmarks
 
 Saboor
 - Helped test database permissions
@@ -28,6 +32,7 @@ Saboor
 - Implemented feature 8 and completed R8a and R8b
 - Attended weekly meetings
 - Completed work regarding R8 & R10 (queries, writeup)
+- Completed work regarding R10 filtering feature (frontend, backend, and writeup)
 
 Sahl
 - Participated in writeup for Milestone 1
@@ -35,3 +40,5 @@ Sahl
 - Implemented feature 7 and completed R7ab
 - Organized and attended weekly meetings
 - Completed work regarding R7 (queries, frontend, backend, writeup)
+- Completed work regarding R15 pagination feature
+- Helped test and review pull requests

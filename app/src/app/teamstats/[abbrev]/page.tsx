@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { API } from '@/types/ApiRoute';
 import React from 'react';
 import styles from '../../page.module.css';
+import Table from 'react-bootstrap/Table';
 
 export default function PlayerStats({ params }: {
     params: { abbrev: string }
@@ -31,12 +32,13 @@ export default function PlayerStats({ params }: {
     }
 
     return (
-        <div>
-            <table className='table table-bordered table-sm m-4'>
+        <div className={styles.settingsOuterContainer}>
+            <div className={styles.settingsContainer}>
+            <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: "space-between" }}>
+                <h3>{params.abbrev} {name}</h3>
+            </div>
+            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered variant="light">
                 <thead>
-                    <tr>
-                        <th colSpan={3}>{params.abbrev} {name}</th>
-                    </tr>
                     <tr>
                         <th>Wins</th>
                         <th>Losses</th>
@@ -52,7 +54,8 @@ export default function PlayerStats({ params }: {
                             </tr>
                     ))}
                 </tbody>
-            </table>
+            </Table>
+            </div>
         </div>
     )
 }

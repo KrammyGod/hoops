@@ -1,4 +1,4 @@
-name: Lint
+name: Unit Tests
 
 on:
   # Trigger the workflow on push or pull request,
@@ -11,8 +11,8 @@ on:
       - main
 
 jobs:
-  run-linters:
-    name: Run linters
+  run-tests:
+    name: Run Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +26,12 @@ jobs:
 
       - name: Install dependencies
         run: cd app && npm ci
-
-      - name: Run linters
-        run: cd app && npm run lint
+        
+      - name: Run tests
+        env:
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}
+          PGDATABASE: ${{ secrets.PGDATABASE }}
+          PGHOST: ${{ secrets.PGHOST }}
+          PGPASSWORD: ${{ secrets.PGPASSWORD }}
+          PGUSER: ${{ secrets.PGUSER }}
+        run: cd app && npm test

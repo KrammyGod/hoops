@@ -4,7 +4,7 @@ import { query } from '@modules/pool.js';
 export async function getPlayerStats(pid) {
     const res1 = await query('SELECT * FROM Player WHERE pid = $1', [pid]);
     const res2 = await query(`
-        SELECT assists, points, games, season, abbrev, tname 
+        SELECT assists, points, rebounds, games, season, abbrev, tname 
         FROM PlayerStats
         NATURAL JOIN Team
         WHERE pid = $1

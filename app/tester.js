@@ -26,9 +26,7 @@ const kill = (child, callback) => {
 
 api.once('spawn', () => {
     // API is now ready, spawn our tests & get output
-    const child = spawn(npm, ['run', 'jest']);
-    // Jest only outputs to error
-    child.stderr.pipe(process.stderr);
+    const child = spawn(npm, ['run', 'jest'], { stdio: 'inherit' });
 
     // Test is completed
     child.once('close', (code) => {

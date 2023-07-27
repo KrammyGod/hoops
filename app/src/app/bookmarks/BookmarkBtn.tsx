@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, MouseEventHandler } from 'react';
 import { BsBookmarkFill, BsBookmark } from 'react-icons/bs';
 import { API } from '@/types/ApiRoute';
 
@@ -46,7 +46,11 @@ const BookmarksBtn = ({
         }
     }, [pid, fromBookmarksList, initialValue]);
     
-    const toggleMark = () => {
+    const toggleMark: MouseEventHandler<SVGElement> = (e) => {
+        // Prevent anything in the bg from triggering
+        e.stopPropagation();
+        e.preventDefault();
+
         // do this first for the client
         mark((s) => !s);
 

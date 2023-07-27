@@ -99,8 +99,39 @@ const Control = () => {
             }).then(res => {
                 if (res.status === 200) {
                     // Successfully completed, update oldUsers
+                    if (id === 'urole') {
+                        addToast({
+                            id: uid,
+                            success: true,
+                            message: `Successfully updated ${oldUser.uname}'s role to ${val}`,
+                            Component: NotifToast
+                        });
+                    } else {
+                        addToast({
+                            id: uid,
+                            success: true,
+                            message: `Successfully updated ${oldUser.uname}'s name to ${val}`,
+                            Component: NotifToast
+                        });
+                    }
                     oldUser[id] = val;
                 } else {
+                    // Failed update
+                    if (id === 'urole') {
+                        addToast({
+                            id: uid,
+                            success: true,
+                            message: `Failed to update ${oldUser.uname}'s role`,
+                            Component: NotifToast
+                        });
+                    } else {
+                        addToast({
+                            id: uid,
+                            success: true,
+                            message: `Failed to update ${oldUser.uname}'s name`,
+                            Component: NotifToast
+                        });
+                    }
                     res.json().then(res => console.error(res.message));
                 }
             }).catch(console.error);

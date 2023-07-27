@@ -1,16 +1,19 @@
-"use client"
+'use client'
 
-import { useState, useEffect } from "react";
-import { API } from "@/types/ApiRoute";
-import { AiOutlineLink } from "react-icons/ai";
-import useSession from "@hooks/Auth";
-import BookmarksBtn, { getBookmarks } from "../bookmarks/BookmarkBtn";
-import styles from "../page.module.css";
-import React from "react";
-import Pagination from "@components/pagination";
+import './styles.css';
+import { useState, useEffect } from 'react';
+import { API } from '@/types/ApiRoute';
+import { useRouter } from 'next/navigation';
+import { AiOutlineLink } from 'react-icons/ai';
+import useSession from '@hooks/Auth';
+import BookmarksBtn, { getBookmarks } from '../bookmarks/BookmarkBtn';
+import styles from '../page.module.css';
+import React from 'react';
+import Pagination from '@components/pagination';
 import Table from 'react-bootstrap/Table';
 
-export default function AllPlayerStats() {    
+export default function AllPlayerStats() {
+    const router = useRouter();
     const [bookmarks, setBookmarks] = useState<number[]>([]);
     const [stats, setStats] = useState<{pid: number, name: string, asts: number, trbs: number, pts: number, games: number, seasons: number}[]>([]);
     const [error, setError] = useState(null);
@@ -26,7 +29,7 @@ export default function AllPlayerStats() {
 
         getBookmarks()
             .then((data) => {
-                let pids = data.data.map((marked: any) => marked["pid"])
+                let pids = data.data.map((marked: any) => marked['pid'])
                 setBookmarks(pids)
             });
     }, [page]);
@@ -45,7 +48,7 @@ export default function AllPlayerStats() {
     return (
         <div className={styles.settingsOuterContainer}>
             <div className={styles.settingsContainer}>
-            <Table className='text-center mt-4' striped bordered hover variant="light">
+            <Table className='text-center mt-4' striped bordered hover variant='light'>
                 <thead>
                     <tr>
                         <th>Player ID</th>
@@ -59,15 +62,15 @@ export default function AllPlayerStats() {
                 </thead>
                 <tbody>
                     {stats.map((stat, index) => (
-                            <tr key={index} onClick={event =>  window.location.href=`/playerstats/${stat.pid}`}>
+                            <tr key={index} onClick={() => router.push(`/playerstats/${stat.pid}`)}>
                                 <td>{stat.pid}</td>
                                 <td>
-                                    <div className={styles.rowContainer} style={{ justifyContent: "space-between" }}>
+                                    <div className={styles.rowContainer} style={{ justifyContent: 'space-between' }}>
                                         <div>
                                             <a href={`/playerstats/${stat.pid}`}>{stat.name}</a>
-                                            <AiOutlineLink color="blue" />
+                                            <AiOutlineLink color='blue' />
                                         </div>
-                                        {session ? <BookmarksBtn pid={stat.pid} initialValue={bookmarks.includes(stat.pid)} /> : ""}
+                                        {session ? <BookmarksBtn pid={stat.pid} initialValue={bookmarks.includes(stat.pid)} /> : ''}
                                     </div>
                                 </td>
                                 <td>{stat.asts}</td>

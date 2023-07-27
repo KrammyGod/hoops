@@ -61,8 +61,7 @@ export default function Search() {
         if (session) {
             getBookmarks()
                 .then((data) => {
-                    let pids = data.data.map((marked: any) => marked["pid"])
-                    setBookmarks(pids)
+                    setBookmarks(data.data?.map((marked: any) => marked['pid']) ?? [])
                 })
         }
     }, [session])
@@ -79,7 +78,7 @@ export default function Search() {
                         <td>{item.lastname}</td>
                         {session ? <td>
                             <BookmarksBtn pid={Number(item.pid)} initialValue={bookmarks.includes(Number(item.pid))} />
-                        </td> : ""}
+                        </td> : <></>}
                     </tr>
 
                 ));

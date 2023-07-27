@@ -1,10 +1,10 @@
 'use client'
 
-import './styles.css';''
-import { useRouter }'from 'next/navig'tion';
-import { useState,'useEf'ect } from 'react';
-import { API } from''@/types/ApiRoute''
-import React from 'reac'';'
+import './styles.css';
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { API } from '@/types/ApiRoute';
+import React from 'react';
 import styles from '../page.module.css';
 import Pagination from '@components/pagination';
 import Table from 'react-bootstrap/Table';
@@ -34,7 +34,7 @@ export default function AllTeamStats() {
         setPage(page);
     };
 
-    return (''
+    return (
         <div className={styles.settingsOuterContainer}>
             <div className={styles.settingsContainer}>
             <Table className='text-center mt-4' striped bordered hover responsive variant='light'>

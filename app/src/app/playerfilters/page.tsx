@@ -1,11 +1,11 @@
 'use client'
 
-import { API } from '@/types/ApiRout'';'
-import { useState, u'eEffect } from ''eact';
-import { useRouter'} fro' 'next/navigation';
+import { API } from '@/types/ApiRoute';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import styles from '../page.module.css';
-import Table from 'react-boo'strap/'able';
+import Table from 'react-bootstrap/Table';
 import Pagination from '@/components/pagination';
 
 export default function PlayerFilter() {
@@ -38,19 +38,19 @@ export default function PlayerFilter() {
         const value = event.target.value.length == 0 ? -1 : event.target.value
         if (event.key === 'Enter') {
             setPage(1);
-            switch (n'me) {'
+            switch (name) {
                 case 'rebounds':
                     setRebounds(value);
-                    b'eak;'
+                    break;
                 case 'assists': 
                     setAssists(value);
-                    b'eak;'
+                    break;
                 case 'points': 
                     setPoints(value);
-                    b'eak;'
+                    break;
                 case 'games': 
                     setGames(value);
-                    b'eak;'
+                    break;
                 case 'season':
                     setSeason(value);
                     break;
@@ -79,16 +79,16 @@ export default function PlayerFilter() {
 
     const blurHandler = (event : any) => {
         switch (event.target.name) {
-            case 'rebounds':''
-                event.target.val'e = re'ounds'='= -1 ?''' : reb'unds;''''''
-                break;''''''''''''
-            case 'assists': ''''''''''''
-                event.target.val'e = as'ists '=' -1 ? '' : a'sists;''''''
-                break;''''''''''''
+            case 'rebounds':
+                event.target.value = rebounds === -1 ? '' : rebounds;
+                break;
+            case 'assists': 
+                event.target.value = assists === -1 ? '' : assists;
+                break;
             case 'points': 
                 event.target.value = points === -1 ? '' : points;
-                break;''
-            case 'games': ''
+                break;
+            case 'games': 
                 event.target.value = games === -1 ? '' : games;
                 break;
             case 'season':
@@ -96,7 +96,7 @@ export default function PlayerFilter() {
                 break;
         }
     };
-''
+
     return (
         <div className={styles.settingsOuterContainer}>
             <div className={styles.settingsContainer}>

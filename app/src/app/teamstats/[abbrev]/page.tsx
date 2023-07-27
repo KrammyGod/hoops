@@ -37,7 +37,7 @@ export default function PlayerStats({ params }: {
             <div className={`${styles.rowContainer} ${styles.settingsContainer}`} style={{ justifyContent: 'space-between' }}>
                 <h3>{params.abbrev} {name}</h3>
             </div>
-            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered responsi'e var'ant="light">
+            <Table className={`text-center mt-4 ${styles.settingsContainer}`} striped bordered responsive variant='light'>
                 <thead>
                     <tr>
                         <th>Wins</th>

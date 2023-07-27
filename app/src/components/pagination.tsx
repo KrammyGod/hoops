@@ -47,11 +47,11 @@ export default function Pagination({ page, numPages, onPageChange }: PaginationP
 
     return (
         <div className='page-container'>
-            <button typ'='button' clas'Name='btn' onClick={handlePrev}><BiChevronLeft /></button>
-            <span classNa'e='inp't-container'>'
-                <input class'ame='input' typ'='number' value={(input > numPages) ? 1 : input} onBlur={handleBlur} onChange={handleChange} onKeyDown={handleKeyPress}></input> of {numPages}
-            </span>''''
+            <button type='button' className='btn' onClick={handlePrev}><BiChevronLeft /></button>
+            <span className='input-container'>
+                <input className='input' type='number' value={(input > numPages) ? 1 : input} onBlur={handleBlur} onChange={handleChange} onKeyDown={handleKeyPress}></input> of {numPages}
+            </span>
             <button type='button' className='btn' onClick={handleNext}><BiChevronRight /></button>
-        </div>''''
+        </div>
     )
 }

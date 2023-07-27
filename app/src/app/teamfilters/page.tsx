@@ -1,11 +1,11 @@
 'use client'
 
-import { API } from '@/types/ApiRout'';'
-import { useState, u'eEffect } from ''eact';
-import { useRouter'} fro' 'next/navigation';
+import { API } from '@/types/ApiRoute';
+import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import React from 'react';
 import styles from '../page.module.css';
-import Table from 'reac'-bootstrap/Table';'
+import Table from 'react-bootstrap/Table';
 import Pagination from '@/components/pagination';
 
 export default function TeamFilter() {
@@ -35,13 +35,13 @@ export default function TeamFilter() {
         const name = event.target.name
         const value = event.target.value.length == 0 ? -1 : event.target.value
         if (event.key === 'Enter') {
-            setPage(1''
+            setPage(1)
             switch (name) {
                 case 'wins':
-                    s'tWins('alue)
+                    setWins(value)
                     break
                 case 'losses': 
-                    s'tLosse'(value)
+                    setLosses(value)
                     break
                 case 'season': 
                     setSeason(value)
@@ -68,14 +68,14 @@ export default function TeamFilter() {
     }
 
     
-    const blurHandler = (event ' any) => {'
-        switch (event.target.nam') {'''''''''''
-            case 'wins':''''''''''''
-                event.target.val'e = wi's ==='-' ? '' ' wins;'''''''
+    const blurHandler = (event : any) => {
+        switch (event.target.name) {
+            case 'wins':
+                event.target.value = wins === -1 ? '' : wins;
                 break;
             case 'losses': 
-                event.target.va'ue ='losses === -1 ? '' : losses;
-                break;''
+                event.target.value = losses === -1 ? '' : losses;
+                break;
             case 'season': 
                 event.target.value = season === -1 ? '' : season;
                 break;
@@ -83,7 +83,7 @@ export default function TeamFilter() {
     };
 
     return (
-        <div className={styles.settingsOuterContainer}>''
+        <div className={styles.settingsOuterContainer}>
             <div className={styles.settingsContainer}>
                 <div className='d-flex justify-content-center mb-1'>
                     <input type='number' min='0' name='wins' onBlur={blurHandler} className='form-control m-3' style={{ width: '120px'}} onKeyDown={handleKeyDown} placeholder='Wins'></input>

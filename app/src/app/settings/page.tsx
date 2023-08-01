@@ -1,14 +1,14 @@
 'use client'
 
-import { useState } from 'react';
-import { signOut } from 'next-auth/react';
-import { Card, Alert } from 'react-bootstrap';
 import { API } from '@/types/ApiRoute';
+import { signOut } from 'next-auth/react';
+import { useState } from 'react';
+import { useSession } from '@/hooks/SessionProvider';
+import { Card, Alert } from 'react-bootstrap';
 import styles from '../page.module.css';
+import Protect from '@hooks/Protected';
 import ModifyForm from './ModifyForm';
 import DeleteUser from './DeleteUser';
-import useSession from '@hooks/Auth';
-import useProtect from '@hooks/Protected';
 import UserControl from './UserControl';
 
 function Settings() {
@@ -34,26 +34,26 @@ function Settings() {
                 new_password: form.get('new_password')
             })
         })
-        .then((res) => {
-            if (res.status !== 200) {
-                // Wrong password
-                setValidated(false);
-            } else {
-                signOut({ callbackUrl: '/login?update=true' });
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        });
+            .then((res) => {
+                if (res.status !== 200) {
+                    // Wrong password
+                    setValidated(false);
+                } else {
+                    signOut({ callbackUrl: '/login?update=true' });
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
     }
 
     return (
         <div className={styles.settingsOuterContainer}>
-            {session?.user.role == 'admin' ? 
+            {session?.user.role == 'admin' ?
                 <>
                     <UserControl />
-                </> 
-            : <></>}
+                </>
+                : <></>}
             <div className={styles.settingsContainer}>
                 <Card className={styles.card}>
                     <Card.Title>Change User Settings</Card.Title>
@@ -71,8 +71,8 @@ function Settings() {
                 </Card>
             </div>
             <div className={styles.settingsContainer}>
-                <Card 
-                    className={`${styles.card} ${styles.rowContainer}`} 
+                <Card
+                    className={`${styles.card} ${styles.rowContainer}`}
                     style={{ justifyContent: 'space-between' }}
                 >
                     <div>
@@ -88,5 +88,5 @@ function Settings() {
 
 // Wrap inside our protect hook
 export default function SettingsProtected() {
-    return useProtect(<Settings />);
+    return Protect(<Settings />);
 }

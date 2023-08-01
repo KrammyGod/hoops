@@ -1,11 +1,11 @@
 'use client'
 
 import './styles.css';
-import { useState, useEffect } from 'react';
 import { API } from '@/types/ApiRoute';
 import { useRouter } from 'next/navigation';
+import { useSession } from '@/hooks/SessionProvider';
 import { AiOutlineLink } from 'react-icons/ai';
-import useSession from '@hooks/Auth';
+import { useState, useEffect } from 'react';
 import BookmarksBtn, { getBookmarks } from '../bookmarks/BookmarkBtn';
 import styles from '../page.module.css';
 import React from 'react';
@@ -14,10 +14,10 @@ import Table from 'react-bootstrap/Table';
 
 export default function AllPlayerStats() {
     const router = useRouter();
+    const { session } = useSession();
     const [bookmarks, setBookmarks] = useState<number[]>([]);
     const [stats, setStats] = useState<{pid: number, name: string, asts: number, trbs: number, pts: number, games: number, seasons: number}[]>([]);
     const [error, setError] = useState(null);
-    const { session } = useSession();
     const [page, setPage] = useState<number>(1);
     const [numPages, setNumPages] = useState<number>(1);
 

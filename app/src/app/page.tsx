@@ -1,9 +1,9 @@
 'use client'
 
+import { useSession } from '@/hooks/SessionProvider';
+import { useEffect, useState } from 'react';
 import styles from './page.module.css';
 import Leaderboards from './leaderboards';
-import useSession from '@hooks/Auth';
-import { useEffect, useState } from 'react';
 
 export default function Home() {
     const { session } = useSession();

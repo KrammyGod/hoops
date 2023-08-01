@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect } from 'react';
 import { API } from '@/types/ApiRoute';
+import { useSession } from '@/hooks/SessionProvider';
+import { useState, useEffect } from 'react';
 import React from 'react';
-import BookmarkBtn from '@/app/bookmarks/BookmarkBtn';
-import useSession from '@hooks/Auth';
-import styles from '../../page.module.css';
 import Table from 'react-bootstrap/Table';
+import styles from '../../page.module.css';
+import BookmarkBtn from '@/app/bookmarks/BookmarkBtn';
 
 export default function PlayerStats({ params }: {
     params: { pid: string } 

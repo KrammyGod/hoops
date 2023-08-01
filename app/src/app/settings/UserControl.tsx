@@ -2,11 +2,11 @@
 
 import '../bookmarks/list.css';
 import { API } from '@/types/ApiRoute';
+import { useSession } from '@/hooks/SessionProvider';
 import { MdOutlineError } from 'react-icons/md';
 import { useEffect, useState } from 'react';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { Toast, ToastContainer } from 'react-bootstrap';
-import useSession from '@hooks/Auth';
 import styles from '../page.module.css';
 import AdminTable from './AdminTable';
 import Pagination from '@components/pagination';
@@ -38,7 +38,7 @@ const NotifToast = ({ handleRemove, success, message }: NotifToastParams) => {
     );
 };
 
-const Control = () => {
+export default function Control() {
     const { session, loading } = useSession();
     const [page, setPage] = useState<number>(1);
     const [numPages, setNumPages] = useState<number>(1);
@@ -161,5 +161,3 @@ const Control = () => {
         </>
     )
 }
-
-export default Control;

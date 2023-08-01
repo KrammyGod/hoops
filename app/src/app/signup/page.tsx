@@ -1,15 +1,18 @@
 'use client'
 
 import { API } from '@/types/ApiRoute';
-import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
+import { useSession } from '@/hooks/SessionProvider';
 import { Button, Spinner } from 'react-bootstrap';
-import useSession from '@hooks/Auth';
+import { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import SignUpForm from './SignUpForm';
 import styles from '../page.module.css';
+import { signIn } from 'next-auth/react';
 
 export default function SignUp() {
     const router = useRouter();
+    const params = useSearchParams();
+    const callbackUrl = params?.get('callbackUrl') ?? '/';
     const { session, loading } = useSession();
     const [node, setNode] = useState<React.ReactNode>(null);
 
@@ -32,10 +35,14 @@ export default function SignUp() {
             })
         })
         .then((res) => res.json())
-        .then(() => router.push('/login?signup=true')) // Redirect user only after successful signup
+        .then(() => router.push(`/login?signup=true&callbackUrl=${callbackUrl}`)) // Redirect user only after successful signup
         .catch((err) => {
             console.log(err)
         });
+    }
+
+    const handleClick = () => {
+        signIn(undefined, { callbackUrl });
     }
 
     useEffect(() => {
@@ -50,7 +57,7 @@ export default function SignUp() {
                             <div className={styles.rowContainer}>
                                 <Button type='submit'>Sign Up</Button>
                                 <p className={styles.space}>or</p>
-                                <Button href='/login' variant='secondary'>Login</Button>
+                                <Button variant='secondary' onClick={handleClick}>Login</Button>
                             </div>
                         }
                         submit={handleSubmit}

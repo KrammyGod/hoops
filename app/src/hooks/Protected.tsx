@@ -1,15 +1,16 @@
 'use client'
+
 import './styles.css';
+import { signIn } from 'next-auth/react';
+import { Spinner } from 'react-bootstrap';
+import { useSession } from '@/hooks/SessionProvider';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { Spinner } from 'react-bootstrap';
-import { signIn } from 'next-auth/react';
-import useSession from '@hooks/Auth';
 
 // Pass in the component that should be rendered
 // on authorization success. Otherwise will default
 // to bringing user into sign in page
-export default function useProtect(successNode : React.ReactNode): React.ReactNode {
+export default function Protect(successNode : React.ReactNode): React.ReactNode {
     // This allows us to redirect the user back here
     // after returning from login page.
     const path = usePathname() ?? '/';

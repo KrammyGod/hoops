@@ -11,6 +11,7 @@ export default function LoginForm({ children, params }: Params): React.ReactNode
     const isInvalid = !!params?.get('error');
     const [attempted, setAttempted] = useState(false);
     const [loading, setLoading] = useState(false);
+    const callbackUrl = params?.get('callbackUrl') ?? '/';
 
     const handleSubmit = (event: any) => {
         setLoading(true);
@@ -23,7 +24,7 @@ export default function LoginForm({ children, params }: Params): React.ReactNode
             email: form[0].value,
             password: form[1].value,
             // Allows the callback to propogate to the correct page
-            callbackUrl: params?.get('callbackUrl') ?? '/'
+            callbackUrl
         });
     }
 
@@ -69,7 +70,7 @@ export default function LoginForm({ children, params }: Params): React.ReactNode
                             <Button type='submit'>Login</Button>
                         }
                         <p className='space'>or</p>
-                        <Button href='/signup' variant='secondary'>Sign Up</Button>
+                        <Button href={`/signup?callbackUrl=${callbackUrl}`} variant='secondary'>Sign Up</Button>
                     </div>
                 </Form>
             </div>

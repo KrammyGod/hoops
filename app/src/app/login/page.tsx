@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useSession } from '@/hooks/SessionProvider';
 import { Spinner, Alert } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 import { ReadonlyURLSearchParams, useRouter, useSearchParams } from 'next/navigation';
-import useSession from '@hooks/Auth';
 import LoginForm from './LoginForm';
 
 function generateAlert(params : ReadonlyURLSearchParams | null) {
@@ -23,8 +23,8 @@ function generateAlert(params : ReadonlyURLSearchParams | null) {
 }
 
 export default function Login() {
-    const params = useSearchParams();
     const router = useRouter();
+    const params = useSearchParams();
     const [node, setNode] = useState<React.ReactNode>(null);
     const { session, loading } = useSession();
 
